@@ -6,14 +6,14 @@ import '../../../../../core/utils/app_button.dart';
 import '../../../../../core/utils/app_input.dart';
 import '../../../../../core/utils/app_validator.dart';
 
-class ClientLoginScreen extends StatefulWidget {
-  const ClientLoginScreen({super.key});
+class ClientLoginView extends StatefulWidget {
+  const ClientLoginView({super.key});
 
   @override
-  State<ClientLoginScreen> createState() => _ClientLoginScreenState();
+  State<ClientLoginView> createState() => _ClientLoginViewState();
 }
 
-class _ClientLoginScreenState extends State<ClientLoginScreen> {
+class _ClientLoginViewState extends State<ClientLoginView> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -28,9 +28,7 @@ class _ClientLoginScreenState extends State<ClientLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('تسجيل دخول العميل'),
-      ),
+      appBar: AppBar(title: const Text('تسجيل دخول العميل')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -40,10 +38,7 @@ class _ClientLoginScreenState extends State<ClientLoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 16.h),
-                Text(
-                  'مرحباً بك مجدداً',
-                  style: AppStyles.font20BoldBlack,
-                ),
+                Text('مرحباً بك مجدداً', style: AppStyles.font20BoldBlack),
                 SizedBox(height: 6.h),
                 Text(
                   'سجل دخولك لتصفح وشراء المنتجات الطازجة',
@@ -55,7 +50,10 @@ class _ClientLoginScreenState extends State<ClientLoginScreen> {
                   labelText: 'رقم الجوال',
                   hintText: '05xxxxxxxx',
                   keyboardType: TextInputType.phone,
-                  prefixIcon: const Icon(Icons.phone_android_outlined, color: AppColors.primary),
+                  prefixIcon: const Icon(
+                    Icons.phone_android_outlined,
+                    color: AppColors.primary,
+                  ),
                   validator: AppValidator.validatePhone,
                 ),
                 SizedBox(height: 16.h),
@@ -64,7 +62,10 @@ class _ClientLoginScreenState extends State<ClientLoginScreen> {
                   labelText: 'كلمة المرور',
                   hintText: '••••••••',
                   isPassword: true,
-                  prefixIcon: const Icon(Icons.lock_outline, color: AppColors.primary),
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: AppColors.primary,
+                  ),
                   validator: AppValidator.validatePassword,
                 ),
                 SizedBox(height: 32.h),

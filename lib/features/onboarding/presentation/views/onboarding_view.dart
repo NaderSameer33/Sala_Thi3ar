@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_font_weights.dart';
@@ -9,14 +10,14 @@ import '../../../../core/utils/app_button.dart';
 
 enum SelectedRole { client, driver }
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+class OnboardingView extends StatefulWidget {
+  const OnboardingView({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingViewState extends State<OnboardingView> {
   SelectedRole _selectedRole = SelectedRole.client;
 
   void _onContinue() {
@@ -38,19 +39,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               SizedBox(height: 20.h),
               Center(
-                child: Container(
-                  width: 80.r,
-                  height: 80.r,
-                  decoration: BoxDecoration(
-                    color: AppColors.cardBackground,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.primary, width: 2),
-                  ),
-                  child: Icon(
-                    Icons.eco_rounded,
-                    color: AppColors.primary,
-                    size: 44.r,
-                  ),
+                child: Image.asset(
+                  AppAssets.appLogo,
+                  width: 120.w,
+                  height: 120.h,
+                  fit: BoxFit.contain,
                 ),
               ),
               SizedBox(height: 16.h),
@@ -69,21 +62,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               _buildRoleCard(
                 role: SelectedRole.client,
                 title: 'حساب عميل',
-                subtitle: 'تصفح واطلب خضروات وفواكه طازجة بأفضل الأسعار إلى باب منزلك',
+                subtitle:
+                    'تصفح واطلب خضروات وفواكه طازجة بأفضل الأسعار إلى باب منزلك',
                 icon: Icons.shopping_bag_outlined,
               ),
               SizedBox(height: 16.h),
               _buildRoleCard(
                 role: SelectedRole.driver,
                 title: 'حساب مندوب توصيل',
-                subtitle: 'انضم لأسطول التوصيل واستقبل الطلبات وحقق دخلاً مرناً',
+                subtitle:
+                    'انضم لأسطول التوصيل واستقبل الطلبات وحقق دخلاً مرناً',
                 icon: Icons.delivery_dining_outlined,
               ),
               const Spacer(),
-              AppButton(
-                title: 'المتابعة',
-                onPressed: _onContinue,
-              ),
+              AppButton(title: 'المتابعة', onPressed: _onContinue),
               SizedBox(height: 16.h),
             ],
           ),
@@ -148,10 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   SizedBox(height: 4.h),
-                  Text(
-                    subtitle,
-                    style: AppStyles.font12RegularGray,
-                  ),
+                  Text(subtitle, style: AppStyles.font12RegularGray),
                 ],
               ),
             ),

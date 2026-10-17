@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/client/auth/presentation/screens/client_login_screen.dart';
-import '../../features/driver/auth/presentation/screens/driver_login_screen.dart';
-import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/client/auth/presentation/view/client_login_view.dart';
+import '../../features/driver/auth/presentation/view/driver_login_view.dart';
+import '../../features/onboarding/presentation/views/onboarding_view.dart';
 import 'page_transitions.dart';
 import 'route_names.dart';
 
@@ -18,7 +18,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) => buildPageWithFadeTransition(
           context: context,
           state: state,
-          child: const OnboardingScreen(),
+          child: const OnboardingView(),
         ),
       ),
       GoRoute(
@@ -26,7 +26,7 @@ abstract class AppRouter {
         pageBuilder: (context, state) => buildPageWithSlideTransition(
           context: context,
           state: state,
-          child: const ClientLoginScreen(),
+          child: const ClientLoginView(),
         ),
       ),
       GoRoute(
