@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
@@ -19,6 +21,8 @@ dependencies:
   equatable: ^2.0.7
   dartz: ^0.10.1
   flutter_svg: ^2.0.17
+  get_it: ^8.0.3
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
