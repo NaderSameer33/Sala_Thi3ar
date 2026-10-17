@@ -2,7 +2,8 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'core/theme/app_colors.dart';
+import 'core/theme/app_styles.dart';
+import 'core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,24 +31,16 @@ class SalaThimarApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           locale: DevicePreview.locale(context) ?? const Locale('ar'),
           builder: DevicePreview.appBuilder,
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.scaffoldBackground,
-            primaryColor: AppColors.primary,
-            fontFamily: 'Tajawal',
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: AppColors.primary,
-              primary: AppColors.primary,
-              surface: AppColors.white,
-            ),
-          ),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
           home: child,
         );
       },
-      child: const Scaffold(
+      child: Scaffold(
         body: Center(
           child: Text(
             'سلة ثمار',
-            style: TextStyle(fontFamily: 'Tajawal', fontSize: 24),
+            style: AppStyles.font24BoldPrimary,
           ),
         ),
       ),
