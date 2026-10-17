@@ -47,25 +47,20 @@ lib/
 
 ## 3. Clean Architecture Layer Rules for Features
 
-Every feature within `features/` (whether in `auth`, `client`, or `driver`) must adhere to 3 distinct layers:
+Every feature within `features/` must adhere to these layers:
 
-1. **Presentation Layer (`presentation/`)**:
-   - `screens/`: Page widgets (scaffolds) that listen to or trigger cubits/blocs.
-   - `widgets/`: Feature-specific sub-widgets (extracted to avoid rebuilds and keep files small).
-   - `cubit/` or `bloc/`: State management handling UI states (Loading, Success, Failure).
-   - **Rule**: NO direct API calls or business logic inside UI widgets.
-
-2. **Domain Layer (`domain/`)**:
-   - `entities/`: Pure Dart models with essential fields (no JSON parsing logic).
-   - `repositories/`: Abstract repository contracts (interfaces).
-   - `usecases/`: Single-responsibility business actions (e.g., `GetProductsUseCase`, `AcceptOrderUseCase`).
-   - **Rule**: Pure Dart only — ZERO Flutter UI or third-party framework dependencies.
-
-3. **Data Layer (`data/`)**:
-   - `models/`: Data transfer objects (DTOs) with `fromJson` and `toJson` methods extending domain entities.
-   - `datasources/`: Remote (API calls) and Local (cache/storage) data sources.
-   - `repositories/`: Concrete implementations of domain repository interfaces.
-   - **Rule**: Handles raw network responses, maps errors to domain failures.
+```
+[feature_name]/
+├── presentation/
+│   ├── views/                   # Feature screens / pages
+│   └── components/              # Sub-widgets specific to this feature
+├── data/
+│   ├── models/                  # Data classes and JSON serialization
+│   └── repos/                   # Repositories returning Either<Failure, T>
+└── logic/
+    ├── [feature]_cubit.dart     # Cubit managing UI state
+    └── [feature]_state.dart     # States handling initial, loading, success, failure
+```
 
 ---
 

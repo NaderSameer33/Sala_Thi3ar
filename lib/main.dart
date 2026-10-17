@@ -2,12 +2,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'core/theme/app_styles.dart';
+import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
@@ -26,24 +26,16 @@ class SalaThimarApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'سلة ثمار',
           debugShowCheckedModeBanner: false,
           locale: DevicePreview.locale(context) ?? const Locale('ar'),
           builder: DevicePreview.appBuilder,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          home: child,
+          routerConfig: AppRouter.router,
         );
       },
-      child: Scaffold(
-        body: Center(
-          child: Text(
-            'سلة ثمار',
-            style: AppStyles.font24BoldPrimary,
-          ),
-        ),
-      ),
     );
   }
 }
