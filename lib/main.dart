@@ -14,12 +14,7 @@ void main() async {
   await SharedPrefService.init();
   setupGetIt();
 
-  runApp(
-    DevicePreview(
-      enabled: false,
-      builder: (context) => const MyApp(),
-    ),
-  );
+  runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,10 +34,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             routerConfig: AppRoutes.routeConfig,
             locale: const Locale('ar'),
-            supportedLocales: const [
-              Locale('ar'),
-              Locale('en'),
-            ],
+            supportedLocales: const [Locale('ar'), Locale('en')],
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
