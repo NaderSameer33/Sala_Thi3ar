@@ -1,213 +1,183 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'app_colors.dart';
-import 'app_font_weights.dart';
+import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_font_weight.dart';
 
 abstract class AppStyles {
-  static TextStyle get font24BoldPrimary => TextStyle(
+  static const String fontFamily = 'Tajawal';
+
+  static TextStyle font24BoldDark = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 24.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.primary,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.textDark,
   );
 
-  static TextStyle get font24BoldBlack => TextStyle(
-    fontSize: 24.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font20BoldPrimary => TextStyle(
+  static TextStyle font20BoldDark = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 20.sp,
-    fontWeight: AppFontWeights.bold,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font18BoldDark = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 18.sp,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font18BoldPrimary = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 18.sp,
+    fontWeight: AppFontWeight.bold,
     color: AppColors.primary,
   );
 
-  static TextStyle get font20BoldBlack => TextStyle(
-    fontSize: 20.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font18BoldPrimary => TextStyle(
-    fontSize: 18.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.primary,
-  );
-
-  static TextStyle get font18BoldBlack => TextStyle(
-    fontSize: 18.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font18MediumBlack => TextStyle(
-    fontSize: 18.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font16BoldWhite => TextStyle(
+  static TextStyle font16BoldDark = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 16.sp,
-    fontWeight: AppFontWeights.bold,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font16BoldPrimary = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16.sp,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.primary,
+  );
+
+  static TextStyle font16MediumDark = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16.sp,
+    fontWeight: AppFontWeight.medium,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font16RegularGray = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16.sp,
+    fontWeight: AppFontWeight.regular,
+    color: AppColors.textGray,
+  );
+
+  static TextStyle font15BoldWhite = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 15.sp,
+    fontWeight: AppFontWeight.bold,
     color: AppColors.white,
   );
 
-  static TextStyle get font16BoldPrimary => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.primary,
-  );
-
-  static TextStyle get font16BoldBlack => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font16SemiBoldBlack => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: AppFontWeights.semiBold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font16MediumGray => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.textGray,
-  );
-
-  static TextStyle get font16RegularGray => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.textGray,
-  );
-
-  static TextStyle get font15BoldPrimary => TextStyle(
+  static TextStyle font15MediumDark = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 15.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.primary,
+    fontWeight: AppFontWeight.medium,
+    color: AppColors.textDark,
   );
 
-  static TextStyle get font15MediumSubtitle => TextStyle(
+  static TextStyle font15RegularGray = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 15.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.subtitleGray,
-  );
-
-  static TextStyle get font15RegularSubtitle => TextStyle(
-    fontSize: 15.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.subtitleGray,
-  );
-
-  static TextStyle get font14BoldPrimary => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.primary,
-  );
-
-  static TextStyle get font14BoldBlack => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: AppFontWeights.bold,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font14MediumPrimary => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.primary,
-  );
-
-  static TextStyle get font14MediumBlack => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.black,
-  );
-
-  static TextStyle get font14MediumGray => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: AppFontWeights.medium,
+    fontWeight: AppFontWeight.regular,
     color: AppColors.textGray,
   );
 
-  static TextStyle get font14RegularGray => TextStyle(
+  static TextStyle font14BoldDark = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 14.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.textGray,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.textDark,
   );
 
-  static TextStyle get font14RegularSubtitle => TextStyle(
+  static TextStyle font14BoldPrimary = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 14.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.subtitleGray,
-  );
-
-  static TextStyle get font13BoldPrimary => TextStyle(
-    fontSize: 13.sp,
-    fontWeight: AppFontWeights.bold,
+    fontWeight: AppFontWeight.bold,
     color: AppColors.primary,
   );
 
-  static TextStyle get font13MediumPrimary => TextStyle(
-    fontSize: 13.sp,
-    fontWeight: AppFontWeights.medium,
+  static TextStyle font14MediumDark = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.medium,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font14MediumPrimary = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.medium,
     color: AppColors.primary,
   );
 
-  static TextStyle get font13MediumGray => TextStyle(
-    fontSize: 13.sp,
-    fontWeight: AppFontWeights.medium,
+  static TextStyle font14MediumGray = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.medium,
     color: AppColors.textGray,
   );
 
-  static TextStyle get font13RegularSubtitle => TextStyle(
-    fontSize: 13.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.subtitleGray,
+  static TextStyle font14RegularGray = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.regular,
+    color: AppColors.textGray,
   );
 
-  static TextStyle get font12BoldPrimary => TextStyle(
+  static TextStyle font14RegularDark = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.regular,
+    color: AppColors.textDark,
+  );
+
+  static TextStyle font13RegularGray = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 13.sp,
+    fontWeight: AppFontWeight.regular,
+    color: AppColors.textGray,
+  );
+
+  static TextStyle font13BoldPrimary = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 13.sp,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.primary,
+  );
+
+  static TextStyle font12RegularGray = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 12.sp,
-    fontWeight: AppFontWeights.bold,
+    fontWeight: AppFontWeight.regular,
+    color: AppColors.textGray,
+  );
+
+  static TextStyle font12MediumPrimary = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 12.sp,
+    fontWeight: AppFontWeight.medium,
     color: AppColors.primary,
   );
 
-  static TextStyle get font12BoldWhite => TextStyle(
+  static TextStyle font12BoldWhite = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 12.sp,
-    fontWeight: AppFontWeights.bold,
+    fontWeight: AppFontWeight.bold,
     color: AppColors.white,
   );
 
-  static TextStyle get font12MediumPrimary => TextStyle(
-    fontSize: 12.sp,
-    fontWeight: AppFontWeights.medium,
-    color: AppColors.primary,
-  );
-
-  static TextStyle get font12RegularGray => TextStyle(
-    fontSize: 12.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.textGray,
-  );
-
-  static TextStyle get font12RegularSubtitleStrikethrough => TextStyle(
-    fontSize: 12.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.subtitleGray,
-    decoration: TextDecoration.lineThrough,
-  );
-
-  static TextStyle get font11RegularGray => TextStyle(
+  static TextStyle font11RegularGray = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 11.sp,
-    fontWeight: AppFontWeights.regular,
+    fontWeight: AppFontWeight.regular,
     color: AppColors.textGray,
   );
 
-  static TextStyle get font10RegularGray => TextStyle(
+  static TextStyle font10BoldWhite = TextStyle(
+    fontFamily: fontFamily,
     fontSize: 10.sp,
-    fontWeight: AppFontWeights.regular,
-    color: AppColors.textGray,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.white,
   );
 }
-
-typedef AppTextStyles = AppStyles;

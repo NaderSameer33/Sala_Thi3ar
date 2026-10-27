@@ -23,6 +23,10 @@ dependencies:
   flutter_svg: ^2.0.17
   get_it: ^8.0.3
   shared_preferences: ^2.5.3
+  dio: ^5.11.1
+  flutter_secure_storage: ^11.2.0
+  skeletonizer: ^3.0.0
+  toastification: ^3.2.2
 
 dev_dependencies:
   flutter_test:
