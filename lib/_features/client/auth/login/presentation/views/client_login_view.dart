@@ -11,6 +11,8 @@ import 'package:sala_thimar/core/extension/spacing_extension.dart';
 import 'package:sala_thimar/core/services/get_it_service.dart';
 import 'package:sala_thimar/core/theme/app_colors.dart';
 import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sala_thimar/core/routers/app_router_name.dart';
 import 'package:sala_thimar/core/widgets/app_button.dart';
 import 'package:sala_thimar/core/widgets/app_input.dart';
 import 'package:toastification/toastification.dart';
@@ -122,7 +124,11 @@ class _ClientLoginViewBody extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 20.h, top: 8.h),
-                      child: DontHaveAccountRow(onTap: () {}),
+                      child: DontHaveAccountRow(
+                        onTap: () {
+                          context.go(AppRouterName.clientRegister);
+                        },
+                      ),
                     ),
                   ],
                 ),

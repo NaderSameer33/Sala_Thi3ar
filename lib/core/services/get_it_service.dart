@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_repo.dart';
 import 'package:sala_thimar/_features/client/auth/login/logic/client_login_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/register/data/repos/client_register_repo.dart';
+import 'package:sala_thimar/_features/client/auth/register/logic/client_register_cubit.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
 
@@ -24,5 +26,13 @@ void setupGetIt() {
   );
   getIt.registerFactory<ClientLoginCubit>(
     () => ClientLoginCubit(getIt<ClientLoginRepo>()),
+  );
+  getIt.registerLazySingleton<ClientRegisterRepo>(
+    () => ClientRegisterRepo(
+      apiService: getIt<ApiService>(),
+    ),
+  );
+  getIt.registerFactory<ClientRegisterCubit>(
+    () => ClientRegisterCubit(getIt<ClientRegisterRepo>()),
   );
 }
