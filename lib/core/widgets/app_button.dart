@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sala_thimar/core/theme/app_colors.dart';
 import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'package:sala_thimar/core/widgets/app_loading.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -44,13 +45,9 @@ class AppButton extends StatelessWidget {
           ),
         ),
         child: isLoading
-            ? SizedBox(
-                height: 24.h,
-                width: 24.w,
-                child: const CircularProgressIndicator(
-                  strokeWidth: 2.5,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
-                ),
+            ? AppLoading(
+                size: 24.r,
+                color: AppColors.white,
               )
             : Text(
                 text,

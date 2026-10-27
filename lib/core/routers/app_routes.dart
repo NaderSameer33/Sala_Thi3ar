@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sala_thimar/_features/_onborading/presentation/views/on_borading_view.dart';
-import 'package:sala_thimar/_features/client/presentation/views/client_login_view.dart';
+import 'package:sala_thimar/_features/client/auth/login/presentation/views/client_login_view.dart';
 import 'package:sala_thimar/_features/driver/presentation/views/driver_login_view.dart';
 import 'package:sala_thimar/core/routers/app_router_name.dart';
 
