@@ -1,8 +1,25 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sala_thimar/core/caching/shared_pref_service.dart';
 import 'package:sala_thimar/core/routers/app_routes.dart';
+import 'package:sala_thimar/core/services/get_it_service.dart';
+import 'package:sala_thimar/core/theme/app_theme.dart';
+import 'package:toastification/toastification.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedPrefService.init();
+  setupGetIt();
+
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +27,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: AppRoutes.routeConfig,
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return ToastificationWrapper(
+          child: MaterialApp.router(
+            title: 'سلة ثمار',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            routerConfig: AppRoutes.routeConfig,
+            locale: const Locale('ar'),
+            supportedLocales: const [
+              Locale('ar'),
+              Locale('en'),
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+          ),
+        );
+      },
     );
   }
 }

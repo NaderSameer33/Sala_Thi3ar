@@ -43,3 +43,4 @@ Whenever initiating a new project, adding dependencies, or scaffolding code, ens
 - Tokens and sensitive data must strictly use `flutter_secure_storage`.
 - Standard UI inputs, buttons, colors, and validators must be reused from `core/shared/`.
 - Responsive designs must utilize `flutter_screenutil` (e.g., `.w`, `.h`, `.sp`).
+- dont wriete any comment please 
