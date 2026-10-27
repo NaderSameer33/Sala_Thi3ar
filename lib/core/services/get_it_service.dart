@@ -4,6 +4,8 @@ import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_
 import 'package:sala_thimar/_features/client/auth/login/logic/client_login_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/register/data/repos/client_register_repo.dart';
 import 'package:sala_thimar/_features/client/auth/register/logic/client_register_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
+import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
 
@@ -34,5 +36,17 @@ void setupGetIt() {
   );
   getIt.registerFactory<ClientRegisterCubit>(
     () => ClientRegisterCubit(getIt<ClientRegisterRepo>()),
+  );
+  getIt.registerLazySingleton<ClientVerifyOtpRepo>(
+    () => ClientVerifyOtpRepo(
+      apiService: getIt<ApiService>(),
+      secureStorageService: getIt<SecureStorageService>(),
+    ),
+  );
+  getIt.registerFactoryParam<ClientVerifyOtpCubit, String, void>(
+    (phone, _) => ClientVerifyOtpCubit(
+      verifyOtpRepo: getIt<ClientVerifyOtpRepo>(),
+      phone: phone,
+    ),
   );
 }

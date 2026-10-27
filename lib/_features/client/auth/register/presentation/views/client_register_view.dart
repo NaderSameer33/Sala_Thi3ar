@@ -48,7 +48,14 @@ class _ClientRegisterViewBody extends StatelessWidget {
                 ),
                 autoCloseDuration: const Duration(seconds: 4),
               );
-              context.go(AppRouterName.clientLogin);
+              context.go(
+                AppRouterName.clientVerifyOtp,
+                extra: context
+                    .read<ClientRegisterCubit>()
+                    .phoneController
+                    .text
+                    .trim(),
+              );
             } else if (state is ClientRegisterError) {
               toastification.show(
                 context: context,
