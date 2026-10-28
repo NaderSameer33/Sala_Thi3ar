@@ -46,6 +46,7 @@ class _ClientLoginViewBody extends StatelessWidget {
 
                 autoCloseDuration: const Duration(seconds: 3),
               );
+              context.go(AppRouterName.home);
             } else if (state is ClientLoginError) {
               toastification.show(
                 context: context,

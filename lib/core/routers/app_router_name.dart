@@ -6,4 +6,5 @@ abstract class AppRouterName {
   static const clientForgetPassword = '/clientForgetPassword';
   static const clientResetPassword = '/clientResetPassword';
   static const driverLogin = '/driverLogin';
+  static const home = '/home';
 }

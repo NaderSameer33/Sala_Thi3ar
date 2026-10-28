@@ -14,6 +14,9 @@ void main() async {
   await SharedPrefService.init();
   setupGetIt();
 
+  final initialRoute = await AppRoutes.getInitialRoute();
+  AppRoutes.init(initialRoute);
+
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
