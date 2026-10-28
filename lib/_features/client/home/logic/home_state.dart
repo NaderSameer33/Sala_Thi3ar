@@ -22,6 +22,12 @@ class HomeState extends Equatable {
   final List<ProductModel> products;
   final String productsMessage;
 
+  // Search
+  final RequestState searchState;
+  final List<ProductModel> searchResults;
+  final String searchMessage;
+  final String searchKeyword;
+
   const HomeState({
     this.slidersState = RequestState.initial,
     this.sliders = const [],
@@ -33,7 +39,14 @@ class HomeState extends Equatable {
     this.productsState = RequestState.initial,
     this.products = const [],
     this.productsMessage = '',
+    this.searchState = RequestState.initial,
+    this.searchResults = const [],
+    this.searchMessage = '',
+    this.searchKeyword = '',
   });
+
+  /// Whether the user is actively searching (keyword is non-empty)
+  bool get isSearching => searchKeyword.isNotEmpty;
 
   bool get isInitialLoading =>
       slidersState == RequestState.loading &&
@@ -51,6 +64,10 @@ class HomeState extends Equatable {
     RequestState? productsState,
     List<ProductModel>? products,
     String? productsMessage,
+    RequestState? searchState,
+    List<ProductModel>? searchResults,
+    String? searchMessage,
+    String? searchKeyword,
   }) {
     return HomeState(
       slidersState: slidersState ?? this.slidersState,
@@ -65,6 +82,10 @@ class HomeState extends Equatable {
       productsState: productsState ?? this.productsState,
       products: products ?? this.products,
       productsMessage: productsMessage ?? this.productsMessage,
+      searchState: searchState ?? this.searchState,
+      searchResults: searchResults ?? this.searchResults,
+      searchMessage: searchMessage ?? this.searchMessage,
+      searchKeyword: searchKeyword ?? this.searchKeyword,
     );
   }
 
@@ -80,5 +101,9 @@ class HomeState extends Equatable {
         productsState,
         products,
         productsMessage,
+        searchState,
+        searchResults,
+        searchMessage,
+        searchKeyword,
       ];
 }
