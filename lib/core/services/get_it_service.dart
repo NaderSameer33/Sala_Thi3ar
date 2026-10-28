@@ -10,6 +10,8 @@ import 'package:sala_thimar/_features/client/auth/reset_password/data/repos/clie
 import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
+import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
+import 'package:sala_thimar/_features/client/home/logic/home_cubit.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
 
@@ -69,5 +71,11 @@ void setupGetIt() {
       phone: phone,
       code: code,
     ),
+  );
+  getIt.registerLazySingleton<HomeRepo>(
+    () => HomeRepo(getIt<ApiService>()),
+  );
+  getIt.registerFactory<HomeCubit>(
+    () => HomeCubit(getIt<HomeRepo>()),
   );
 }

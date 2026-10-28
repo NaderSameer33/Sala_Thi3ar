@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 
 class ApiService {
@@ -19,6 +21,7 @@ class ApiService {
       },
     );
 
+    // Auth token interceptor
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -30,6 +33,21 @@ class ApiService {
         },
       ),
     );
+
+    // Pretty logger — only in debug builds
+    if (kDebugMode) {
+      dio.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
+      );
+    }
   }
 
   Future<Response> get({

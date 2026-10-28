@@ -1,11 +1,16 @@
 import 'package:go_router/go_router.dart';
 import 'package:sala_thimar/_features/_onborading/presentation/views/on_borading_view.dart';
+import 'package:sala_thimar/_features/client/account/presentation/views/my_account_view.dart';
 import 'package:sala_thimar/_features/client/auth/forget_password/presentation/views/client_forget_password_view.dart';
 import 'package:sala_thimar/_features/client/auth/login/presentation/views/client_login_view.dart';
 import 'package:sala_thimar/_features/client/auth/register/presentation/views/client_register_view.dart';
 import 'package:sala_thimar/_features/client/auth/reset_password/presentation/views/client_reset_password_view.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/presentation/views/client_verify_otp_view.dart';
+import 'package:sala_thimar/_features/client/favorites/presentation/views/favorites_view.dart';
 import 'package:sala_thimar/_features/client/home/presentation/views/home_view.dart';
+import 'package:sala_thimar/_features/client/main_shell/presentation/views/main_bottom_nav_shell.dart';
+import 'package:sala_thimar/_features/client/notifications/presentation/views/notifications_view.dart';
+import 'package:sala_thimar/_features/client/orders/presentation/views/my_orders_view.dart';
 import 'package:sala_thimar/_features/driver/presentation/views/driver_login_view.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/caching/shared_pref_service.dart';
@@ -48,9 +53,52 @@ abstract class AppRoutes {
           path: AppRouterName.onborading,
           builder: (context, state) => const OnBoradingView(),
         ),
-        GoRoute(
-          path: AppRouterName.home,
-          builder: (context, state) => const HomeView(),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            return MainBottomNavShell(navigationShell: navigationShell);
+          },
+          branches: [
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRouterName.home,
+                  builder: (context, state) => const HomeView(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRouterName.myOrders,
+                  builder: (context, state) => const MyOrdersView(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRouterName.notifications,
+                  builder: (context, state) => const NotificationsView(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRouterName.favorites,
+                  builder: (context, state) => const FavoritesView(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRouterName.myAccount,
+                  builder: (context, state) => const MyAccountView(),
+                ),
+              ],
+            ),
+          ],
         ),
         GoRoute(
           path: AppRouterName.clientLogin,
