@@ -18,17 +18,22 @@ import 'package:toastification/toastification.dart';
 class ClientVerifyOtpView extends StatelessWidget {
   final String phone;
   final String title;
+  final bool isForgetPassword;
 
   const ClientVerifyOtpView({
     super.key,
     required this.phone,
     this.title = 'نسيت كلمة المرور',
+    this.isForgetPassword = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<ClientVerifyOtpCubit>(param1: phone),
+      create: (_) => getIt<ClientVerifyOtpCubit>(
+        param1: phone,
+        param2: isForgetPassword,
+      ),
       child: _ClientVerifyOtpViewBody(title: title),
     );
   }
@@ -59,6 +64,15 @@ class _ClientVerifyOtpViewBody extends StatelessWidget {
                 autoCloseDuration: const Duration(seconds: 4),
               );
               context.go(AppRouterName.clientLogin);
+            } else if (state is ClientCheckCodeSuccess) {
+              final cubit = context.read<ClientVerifyOtpCubit>();
+              context.push(
+                AppRouterName.clientResetPassword,
+                extra: {
+                  'phone': cubit.phone,
+                  'code': state.code,
+                },
+              );
             } else if (state is ClientVerifyOtpError) {
               toastification.show(
                 context: context,

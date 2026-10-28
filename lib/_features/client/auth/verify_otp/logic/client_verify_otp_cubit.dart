@@ -8,6 +8,7 @@ import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify
 class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> {
   final ClientVerifyOtpRepo verifyOtpRepo;
   final String phone;
+  final bool isForgetPassword;
 
   final PinInputController pinController = PinInputController();
   final CountDownController countDownController = CountDownController();
@@ -16,6 +17,7 @@ class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> {
   ClientVerifyOtpCubit({
     required this.verifyOtpRepo,
     required this.phone,
+    this.isForgetPassword = false,
   }) : super(ClientVerifyOtpInitial());
 
   void onTimerComplete() {
@@ -31,6 +33,15 @@ class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> {
     }
 
     emit(ClientVerifyOtpLoading());
+
+    if (isForgetPassword) {
+      final result = await verifyOtpRepo.checkCode(phone: phone, code: code);
+      result.fold(
+        (failure) => emit(ClientVerifyOtpError(failure.message)),
+        (_) => emit(ClientCheckCodeSuccess(code)),
+      );
+      return;
+    }
 
     final requestBody = VerifyOtpRequestBody(
       code: code,
