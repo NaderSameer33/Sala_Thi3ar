@@ -21,6 +21,15 @@ class ClientVerifyOtpSuccess extends ClientVerifyOtpState {
   List<Object?> get props => [response];
 }
 
+class ClientCheckCodeSuccess extends ClientVerifyOtpState {
+  final String code;
+
+  const ClientCheckCodeSuccess(this.code);
+
+  @override
+  List<Object?> get props => [code];
+}
+
 class ClientVerifyOtpError extends ClientVerifyOtpState {
   final String message;
 

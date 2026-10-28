@@ -46,6 +46,36 @@ class ClientVerifyOtpRepo {
     }
   }
 
+  Future<Either<Failure, String>> checkCode({
+    required String phone,
+    required String code,
+  }) async {
+    try {
+      final response = await apiService.post(
+        endPoint: 'check_code',
+        data: FormData.fromMap({
+          'phone': phone,
+          'code': code,
+        }),
+      );
+
+      if (response.data['status'] == 'fail') {
+        return Left(
+          ServerFailure(
+            response.data['message']?.toString() ?? 'الكود غير صحيح',
+          ),
+        );
+      }
+
+      final message = response.data['message']?.toString() ?? 'تم التأكيد بنجاح';
+      return Right(message);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, String>> resendOtp(String phone) async {
     try {
       final response = await apiService.post(

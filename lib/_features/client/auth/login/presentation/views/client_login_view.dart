@@ -104,7 +104,9 @@ class _ClientLoginViewBody extends StatelessWidget {
                             Align(
                               alignment: AlignmentDirectional.centerEnd,
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  context.push(AppRouterName.clientForgetPassword);
+                                },
                                 child: Text(
                                   'نسيت كلمة المرور؟',
                                   style: AppStyles.font14RegularGray,
