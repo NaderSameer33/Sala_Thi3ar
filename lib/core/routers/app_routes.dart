@@ -7,10 +7,12 @@ import '../../_features/client/auth/register/presentation/views/client_register_
 import '../../_features/client/auth/reset_password/presentation/views/client_reset_password_view.dart';
 import '../../_features/client/auth/verify_otp/presentation/views/client_verify_otp_view.dart';
 import '../../_features/client/favorites/presentation/views/favorites_view.dart';
+import '../../_features/client/home/data/models/product_model.dart';
 import '../../_features/client/home/presentation/views/home_view.dart';
 import '../../_features/client/main_shell/presentation/views/main_bottom_nav_shell.dart';
 import '../../_features/client/notifications/presentation/views/notifications_view.dart';
 import '../../_features/client/orders/presentation/views/my_orders_view.dart';
+import '../../_features/client/product_details/presentation/views/product_details_view.dart';
 import '../../_features/driver/presentation/views/driver_login_view.dart';
 import '../caching/secure_storage_service.dart';
 import '../caching/shared_pref_service.dart';
@@ -145,6 +147,22 @@ abstract class AppRoutes {
         GoRoute(
           path: AppRouterName.driverLogin,
           builder: (context, state) => const DriverLoginView(),
+        ),
+        GoRoute(
+          path: AppRouterName.productDetails,
+          builder: (context, state) {
+            if (state.extra is Map<String, dynamic>) {
+              final map = state.extra as Map<String, dynamic>;
+              final product = map['product'] as ProductModel;
+              final heroTag = map['heroTag']?.toString() ?? '';
+              return ProductDetailsView(
+                product: product,
+                heroTag: heroTag,
+              );
+            }
+            final product = state.extra as ProductModel;
+            return ProductDetailsView(product: product);
+          },
         ),
       ],
     );

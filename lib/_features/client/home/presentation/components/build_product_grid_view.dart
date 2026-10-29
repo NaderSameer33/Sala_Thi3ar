@@ -10,31 +10,33 @@ class Buildproductgridview extends StatelessWidget {
     super.key,
     required this.products,
     required this.isLoading,
+    this.title = 'الأصناف',
   });
   final List<ProductModel> products;
   final bool isLoading;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Text(
-            'الأصناف',
-            style: AppStyles.font16BoldDark,
-            textAlign: TextAlign.right,
+        if (title != null && title!.isNotEmpty) ...[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              title!,
+              style: AppStyles.font16BoldDark,
+              textAlign: TextAlign.right,
+            ),
           ),
-        ),
-        14.verticalSpacing,
+          14.verticalSpacing,
+        ],
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: GridView.builder(
             shrinkWrap: true,
-            physics: isLoading
-                ? const NeverScrollableScrollPhysics()
-                : const NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: products.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

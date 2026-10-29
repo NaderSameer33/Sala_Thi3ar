@@ -1,19 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import '../../_features/client/auth/forget_password/data/repos/client_forget_password_repo.dart';
-import '../../_features/client/auth/forget_password/logic/client_forget_password_cubit.dart';
-import '../../_features/client/auth/login/data/repos/client_login_repo.dart';
-import '../../_features/client/auth/login/logic/client_login_cubit.dart';
-import '../../_features/client/auth/register/data/repos/client_register_repo.dart';
-import '../../_features/client/auth/register/logic/client_register_cubit.dart';
-import '../../_features/client/auth/reset_password/data/repos/client_reset_password_repo.dart';
-import '../../_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
-import '../../_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
-import '../../_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
-import '../../_features/client/home/data/repos/home_repo.dart';
-import '../../_features/client/home/logic/home_cubit.dart';
-import '../caching/secure_storage_service.dart';
-import 'api_service.dart';
+import 'package:sala_thimar/_features/client/auth/forget_password/data/repos/client_forget_password_repo.dart';
+import 'package:sala_thimar/_features/client/auth/forget_password/logic/client_forget_password_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_repo.dart';
+import 'package:sala_thimar/_features/client/auth/login/logic/client_login_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/register/data/repos/client_register_repo.dart';
+import 'package:sala_thimar/_features/client/auth/register/logic/client_register_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/reset_password/data/repos/client_reset_password_repo.dart';
+import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
+import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
+import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
+import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
+import 'package:sala_thimar/_features/client/home/logic/home_cubit.dart';
+import 'package:sala_thimar/_features/client/product_details/data/repos/product_details_repo.dart';
+import 'package:sala_thimar/_features/client/product_details/logic/product_details_cubit.dart';
+import 'package:sala_thimar/core/caching/secure_storage_service.dart';
+import 'package:sala_thimar/core/services/api_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -77,5 +79,11 @@ void setupGetIt() {
   );
   getIt.registerFactory<HomeCubit>(
     () => HomeCubit(getIt<HomeRepo>()),
+  );
+  getIt.registerLazySingleton<ProductDetailsRepo>(
+    () => ProductDetailsRepo(getIt<ApiService>()),
+  );
+  getIt.registerFactory<ProductDetailsCubit>(
+    () => ProductDetailsCubit(getIt<ProductDetailsRepo>()),
   );
 }
