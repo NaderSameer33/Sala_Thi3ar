@@ -12,4 +12,5 @@ abstract class AppRouterName {
   static const favorites = '/favorites';
   static const myAccount = '/myAccount';
   static const productDetails = '/productDetails';
+  static const categoryProducts = '/categoryProducts';
 }

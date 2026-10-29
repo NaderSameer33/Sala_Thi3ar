@@ -31,18 +31,21 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return ToastificationWrapper(
-          child: MaterialApp.router(
-            title: 'سلة ثمار',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
-            routerConfig: AppRoutes.routeConfig,
-            locale: const Locale('ar'),
-            supportedLocales: const [Locale('ar'), Locale('en')],
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+          child: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+            child: MaterialApp.router(
+              title: 'سلة ثمار',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.lightTheme,
+              routerConfig: AppRoutes.routeConfig,
+              locale: const Locale('ar'),
+              supportedLocales: const [Locale('ar'), Locale('en')],
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+            ),
           ),
         );
       },
