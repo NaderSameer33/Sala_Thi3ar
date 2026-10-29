@@ -11,4 +11,5 @@ abstract class AppRouterName {
   static const notifications = '/notifications';
   static const favorites = '/favorites';
   static const myAccount = '/myAccount';
+  static const productDetails = '/productDetails';
 }
