@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'app_colors.dart';
+import 'app_styles.dart';
 
 abstract class AppTheme {
   static ThemeData get lightTheme => ThemeData(

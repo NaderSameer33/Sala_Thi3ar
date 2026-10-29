@@ -1,40 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:sala_thimar/_features/client/home/data/models/category_model.dart';
-import 'package:sala_thimar/_features/client/home/data/models/product_model.dart';
-import 'package:sala_thimar/_features/client/home/data/models/slider_model.dart';
-import 'package:sala_thimar/core/errors/failure.dart';
-import 'package:sala_thimar/core/services/api_service.dart';
-
-/// Response model for the search endpoint
-/// API: GET /search/?keyword=...
-/// Response shape: { "status": "success", "data": { "search_result": [...] } }
-class SearchResponseModel {
-  final String status;
-  final String message;
-  final List<ProductModel> results;
-
-  const SearchResponseModel({
-    required this.status,
-    required this.message,
-    required this.results,
-  });
-
-  factory SearchResponseModel.fromJson(Map<String, dynamic> json) {
-    final data = json['data'] as Map<String, dynamic>? ?? {};
-    final list = data['search_result'] as List<dynamic>? ?? [];
-    return SearchResponseModel(
-      status: json['status']?.toString() ?? '',
-      message: json['message']?.toString() ?? '',
-      results: list
-          .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-  }
-}
-
+import '../models/category_model.dart';
+import '../models/product_model.dart';
+import '../models/search_model.dart';
+import '../models/slider_model.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/services/api_service.dart';
 class HomeRepo {
-  // ── Search ──────────────────────────────────────────────────────────────────
 
   Future<Either<Failure, List<ProductModel>>> search(String keyword) async {
     try {
@@ -67,7 +39,6 @@ class HomeRepo {
     }
   }
 
-  // ── END Search ──────────────────────────────────────────────────────────────
   final ApiService apiService;
 
   HomeRepo(this.apiService);

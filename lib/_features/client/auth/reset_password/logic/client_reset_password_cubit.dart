@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/data/models/reset_password_request_body.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/data/repos/client_reset_password_repo.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_state.dart';
+import '../data/models/reset_password_request_body.dart';
+import '../data/repos/client_reset_password_repo.dart';
+import 'client_reset_password_state.dart';
 
 class ClientResetPasswordCubit extends Cubit<ClientResetPasswordState> {
   final ClientResetPasswordRepo resetPasswordRepo;

@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/_features/client/home/data/models/slider_model.dart';
-import 'package:sala_thimar/_features/client/home/presentation/components/slider_indecator.dart';
-import 'package:sala_thimar/_features/client/home/presentation/components/slider_item.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
+import '../../data/models/slider_model.dart';
+import 'slider_indecator.dart';
+import 'slider_item.dart';
+import '../../../../../core/extension/spacing_extension.dart';
 
 class SliderContent extends StatefulWidget {
   const SliderContent({

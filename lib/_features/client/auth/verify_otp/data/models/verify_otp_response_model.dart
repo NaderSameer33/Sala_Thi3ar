@@ -1,4 +1,4 @@
-import 'package:sala_thimar/_features/client/auth/login/data/models/login_response_model.dart';
+import '../../../login/data/models/login_response_model.dart';
 
 class VerifyOtpResponseModel {
   final String? status;

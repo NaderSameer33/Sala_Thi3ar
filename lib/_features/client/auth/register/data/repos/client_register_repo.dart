@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:sala_thimar/_features/client/auth/register/data/models/register_request_body.dart';
-import 'package:sala_thimar/_features/client/auth/register/data/models/register_response_model.dart';
-import 'package:sala_thimar/core/errors/failure.dart';
-import 'package:sala_thimar/core/services/api_service.dart';
+import '../models/register_request_body.dart';
+import '../models/register_response_model.dart';
+import '../../../../../../core/errors/failure.dart';
+import '../../../../../../core/services/api_service.dart';
 
 class ClientRegisterRepo {
   final ApiService apiService;

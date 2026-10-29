@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import '../../../../../../core/extension/spacing_extension.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_styles.dart';
 
 class OtpHeader extends StatelessWidget {
   final String title;

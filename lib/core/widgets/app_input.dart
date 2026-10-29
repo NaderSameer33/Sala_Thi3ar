@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
 export 'package:sala_thimar/core/utils/app_validator.dart';
 
 class AppInput extends StatelessWidget {

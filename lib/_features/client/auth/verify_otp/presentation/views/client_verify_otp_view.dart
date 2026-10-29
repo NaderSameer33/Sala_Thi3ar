@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sala_thimar/_features/client/auth/register/presentation/components/already_have_account_row.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_state.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/presentation/components/otp_header.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/presentation/components/otp_timer_and_resend.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/presentation/components/pin_code_fields.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/routers/app_router_name.dart';
-import 'package:sala_thimar/core/services/get_it_service.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/widgets/app_button.dart';
+import '../../../register/presentation/components/already_have_account_row.dart';
+import '../../logic/client_verify_otp_cubit.dart';
+import '../../logic/client_verify_otp_state.dart';
+import '../components/otp_header.dart';
+import '../components/otp_timer_and_resend.dart';
+import '../components/pin_code_fields.dart';
+import '../../../../../../core/extension/spacing_extension.dart';
+import '../../../../../../core/routers/app_router_name.dart';
+import '../../../../../../core/services/get_it_service.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/widgets/app_button.dart';
 import 'package:toastification/toastification.dart';
 
 class ClientVerifyOtpView extends StatelessWidget {

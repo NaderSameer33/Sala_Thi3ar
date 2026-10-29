@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
-import 'package:sala_thimar/core/widgets/app_loading.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
+import 'app_loading.dart';
 
 class AppButton extends StatelessWidget {
   final String text;

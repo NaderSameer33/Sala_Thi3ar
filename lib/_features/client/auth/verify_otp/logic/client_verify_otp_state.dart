@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/data/models/verify_otp_response_model.dart';
+import '../data/models/verify_otp_response_model.dart';
 
 abstract class ClientVerifyOtpState extends Equatable {
   const ClientVerifyOtpState();

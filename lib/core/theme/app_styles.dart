@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_font_weight.dart';
+import 'app_colors.dart';
+import 'app_font_weight.dart';
 
 abstract class AppStyles {
   static const String fontFamily = 'Tajawal';

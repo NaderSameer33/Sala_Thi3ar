@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sala_thimar/_features/client/auth/register/presentation/components/already_have_account_row.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_state.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/routers/app_router_name.dart';
-import 'package:sala_thimar/core/services/get_it_service.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
-import 'package:sala_thimar/core/widgets/app_button.dart';
-import 'package:sala_thimar/core/widgets/app_input.dart';
+import '../../../register/presentation/components/already_have_account_row.dart';
+import '../../logic/client_reset_password_cubit.dart';
+import '../../logic/client_reset_password_state.dart';
+import '../../../../../../core/extension/spacing_extension.dart';
+import '../../../../../../core/routers/app_router_name.dart';
+import '../../../../../../core/services/get_it_service.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_styles.dart';
+import '../../../../../../core/widgets/app_button.dart';
+import '../../../../../../core/widgets/app_input.dart';
 import 'package:toastification/toastification.dart';
 
 class ClientResetPasswordView extends StatelessWidget {
