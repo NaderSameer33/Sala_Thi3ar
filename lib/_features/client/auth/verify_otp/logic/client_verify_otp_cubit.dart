@@ -1,9 +1,9 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/data/models/verify_otp_request_body.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
-import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_state.dart';
+import '../data/models/verify_otp_request_body.dart';
+import '../data/repos/client_verify_otp_repo.dart';
+import 'client_verify_otp_state.dart';
 
 class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> {
   final ClientVerifyOtpRepo verifyOtpRepo;

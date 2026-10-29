@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import '../extension/spacing_extension.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
 
 class AppLoading extends StatelessWidget {
   final double? size;

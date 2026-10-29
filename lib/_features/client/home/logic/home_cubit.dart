@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
-import 'package:sala_thimar/_features/client/home/logic/home_state.dart';
+import '../data/models/category_model.dart';
+import '../data/models/product_model.dart';
+import '../data/models/slider_model.dart';
+import '../data/repos/home_repo.dart';
+import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
 
-  /// Debounce timer for the search input
   Timer? _searchDebounce;
 
   HomeCubit(this.homeRepo) : super(const HomeState());
@@ -19,20 +21,15 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> initHomeData() async {
-    await Future.wait([
-      getSliders(),
-      getCategories(),
-      getProducts(),
-    ]);
+    await Future.wait([getSliders(), getCategories(), getProducts()]);
   }
 
-  /// Pull-to-refresh handler
   Future<void> refreshHomeData() async {
-    await Future.wait([
-      getSliders(),
-      getCategories(),
-      getProducts(categoryId: state.selectedCategoryId),
-    ]);
+    await initHomeData();
+  }
+
+  List<SliderModel> dummySlider() {
+    return [SliderModel(id: 1, media: '')];
   }
 
   Future<void> getSliders() async {
@@ -77,6 +74,11 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  final List<CategoryModel> dummyCategories = List.generate(
+    6,
+    (index) => const CategoryModel(id: -1, name: 'اسم القسم', media: ''),
+  );
+
   Future<void> getProducts({
     int? categoryId,
     Map<String, dynamic>? queryParameters,
@@ -109,21 +111,37 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  final List<ProductModel> dummyProducts = List.generate(
+    4,
+    (index) => const ProductModel(
+      id: -1,
+      categoryId: 1,
+      title: 'اسم المنتج التجريبي',
+      description: '',
+      code: '',
+      priceBeforeDiscount: 100.0,
+      price: 80.0,
+      discount: 0.2,
+      amount: 10,
+      isActive: 1,
+      isFavorite: false,
+      unit: ProductUnitModel(id: 1, name: 'كيلو', type: 'kg'),
+      images: [],
+      mainImage: '',
+      createdAt: '',
+    ),
+  );
+
   void filterByCategory(int? categoryId) {
     if (state.selectedCategoryId == categoryId) {
-      // Deselect category -> show all products
       emit(state.copyWith(selectedCategoryId: () => null));
       getProducts();
     } else {
-      // Select category -> show filtered products
       emit(state.copyWith(selectedCategoryId: () => categoryId));
       getProducts(categoryId: categoryId);
     }
   }
 
-  // ── Search ─────────────────────────────────────────────────────────────────
-
-  /// Called on every keystroke; debounces 400 ms before hitting the API.
   void onSearchChanged(String keyword) {
     _searchDebounce?.cancel();
 
@@ -134,25 +152,25 @@ class HomeCubit extends Cubit<HomeState> {
       return;
     }
 
-    emit(state.copyWith(
-      searchKeyword: trimmed,
-      searchState: RequestState.loading,
-    ));
+    emit(
+      state.copyWith(searchKeyword: trimmed, searchState: RequestState.loading),
+    );
 
     _searchDebounce = Timer(const Duration(milliseconds: 400), () {
       _fetchSearch(trimmed);
     });
   }
 
-  /// Clears the search and restores normal home view.
   void clearSearch() {
     _searchDebounce?.cancel();
-    emit(state.copyWith(
-      searchKeyword: '',
-      searchState: RequestState.initial,
-      searchResults: [],
-      searchMessage: '',
-    ));
+    emit(
+      state.copyWith(
+        searchKeyword: '',
+        searchState: RequestState.initial,
+        searchResults: [],
+        searchMessage: '',
+      ),
+    );
   }
 
   Future<void> _fetchSearch(String keyword) async {
@@ -173,4 +191,24 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+   final List<ProductModel> dummySearchProducts = List.generate(
+    4,
+    (index) => const ProductModel(
+      id: -1,
+      categoryId: 1,
+      title: 'اسم المنتج التجريبي',
+      description: '',
+      code: '',
+      priceBeforeDiscount: 100.0,
+      price: 80.0,
+      discount: 0.2,
+      amount: 10,
+      isActive: 1,
+      isFavorite: false,
+      unit: ProductUnitModel(id: 1, name: 'كيلو', type: 'kg'),
+      images: [],
+      mainImage: '',
+      createdAt: '',
+    ),
+  );
 }

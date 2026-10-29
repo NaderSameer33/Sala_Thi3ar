@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sala_thimar/_features/_onborading/logic/onboarding_state.dart';
-import 'package:sala_thimar/core/caching/shared_pref_service.dart';
-import 'package:sala_thimar/core/constants/constant.dart';
-import 'package:sala_thimar/core/routers/app_router_name.dart';
+import 'onboarding_state.dart';
+import '../../../core/caching/shared_pref_service.dart';
+import '../../../core/constants/constant.dart';
+import '../../../core/routers/app_router_name.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit() : super(const OnboardingState());

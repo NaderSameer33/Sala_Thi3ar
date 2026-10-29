@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class SliderIndecator extends StatelessWidget {
   const SliderIndecator({super.key, required this.currentIndex, required this.count});

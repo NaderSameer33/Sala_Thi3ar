@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sala_thimar/_features/_onborading/logic/onboarding_cubit.dart';
-import 'package:sala_thimar/_features/_onborading/logic/onboarding_state.dart';
-import 'package:sala_thimar/_features/_onborading/presentation/components/onboarding_features_row.dart';
-import 'package:sala_thimar/_features/_onborading/presentation/components/onboarding_header.dart';
-import 'package:sala_thimar/_features/_onborading/presentation/components/role_selection_card.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
-import 'package:sala_thimar/core/widgets/app_button.dart';
+import '../../logic/onboarding_cubit.dart';
+import '../../logic/onboarding_state.dart';
+import '../components/onboarding_features_row.dart';
+import '../components/onboarding_header.dart';
+import '../components/role_selection_card.dart';
+import '../../../../core/extension/spacing_extension.dart';
+import '../../../../core/theme/app_styles.dart';
+import '../../../../core/widgets/app_button.dart';
 
 class OnBoradingView extends StatelessWidget {
   const OnBoradingView({super.key});

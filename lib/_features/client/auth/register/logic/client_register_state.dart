@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:sala_thimar/_features/client/auth/register/data/models/register_response_model.dart';
+import '../data/models/register_response_model.dart';
 
 abstract class ClientRegisterState extends Equatable {
   const ClientRegisterState();

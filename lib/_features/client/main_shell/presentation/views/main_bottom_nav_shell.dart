@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class MainBottomNavShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

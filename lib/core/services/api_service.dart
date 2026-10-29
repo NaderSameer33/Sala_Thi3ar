@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:sala_thimar/core/caching/secure_storage_service.dart';
+import '../caching/secure_storage_service.dart';
 
 class ApiService {
   final Dio dio;

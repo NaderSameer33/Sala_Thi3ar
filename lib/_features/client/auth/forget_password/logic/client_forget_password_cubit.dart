@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sala_thimar/_features/client/auth/forget_password/data/repos/client_forget_password_repo.dart';
-import 'package:sala_thimar/_features/client/auth/forget_password/logic/client_forget_password_state.dart';
+import '../data/repos/client_forget_password_repo.dart';
+import 'client_forget_password_state.dart';
 
 class ClientForgetPasswordCubit extends Cubit<ClientForgetPasswordState> {
   final ClientForgetPasswordRepo forgetPasswordRepo;

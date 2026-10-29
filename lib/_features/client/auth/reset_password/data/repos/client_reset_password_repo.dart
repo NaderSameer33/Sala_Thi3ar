@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:sala_thimar/_features/client/auth/reset_password/data/models/reset_password_request_body.dart';
-import 'package:sala_thimar/core/errors/failure.dart';
-import 'package:sala_thimar/core/services/api_service.dart';
+import '../models/reset_password_request_body.dart';
+import '../../../../../../core/errors/failure.dart';
+import '../../../../../../core/services/api_service.dart';
 
 class ClientResetPasswordRepo {
   final ApiService apiService;

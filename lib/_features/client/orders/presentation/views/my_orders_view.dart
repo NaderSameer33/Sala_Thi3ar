@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 
 class MyOrdersView extends StatelessWidget {
   const MyOrdersView({super.key});

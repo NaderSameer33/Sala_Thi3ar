@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/_features/client/home/logic/home_cubit.dart';
-import 'package:sala_thimar/_features/client/home/logic/home_state.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/widgets/app_input.dart';
+import '../../logic/home_cubit.dart';
+import '../../logic/home_state.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/widgets/app_input.dart';
 
 class HomeSearchBar extends StatefulWidget {
   const HomeSearchBar({super.key});

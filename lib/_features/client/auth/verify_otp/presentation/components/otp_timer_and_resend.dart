@@ -1,9 +1,9 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sala_thimar/core/extension/spacing_extension.dart';
-import 'package:sala_thimar/core/theme/app_colors.dart';
-import 'package:sala_thimar/core/theme/app_styles.dart';
+import '../../../../../../core/extension/spacing_extension.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_styles.dart';
 
 class OtpTimerAndResend extends StatelessWidget {
   final CountDownController controller;

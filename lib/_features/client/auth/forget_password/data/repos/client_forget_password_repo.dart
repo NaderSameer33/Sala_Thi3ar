@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:sala_thimar/core/errors/failure.dart';
-import 'package:sala_thimar/core/services/api_service.dart';
+import '../../../../../../core/errors/failure.dart';
+import '../../../../../../core/services/api_service.dart';
 
 class ClientForgetPasswordRepo {
   final ApiService apiService;

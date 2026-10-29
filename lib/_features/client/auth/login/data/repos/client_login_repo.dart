@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:sala_thimar/_features/client/auth/login/data/models/login_request_body.dart';
-import 'package:sala_thimar/_features/client/auth/login/data/models/login_response_model.dart';
-import 'package:sala_thimar/core/caching/secure_storage_service.dart';
-import 'package:sala_thimar/core/caching/shared_pref_service.dart';
-import 'package:sala_thimar/core/errors/failure.dart';
-import 'package:sala_thimar/core/services/api_service.dart';
+import '../models/login_request_body.dart';
+import '../models/login_response_model.dart';
+import '../../../../../../core/caching/secure_storage_service.dart';
+import '../../../../../../core/caching/shared_pref_service.dart';
+import '../../../../../../core/errors/failure.dart';
+import '../../../../../../core/services/api_service.dart';
 
 class ClientLoginRepo {
   final ApiService apiService;

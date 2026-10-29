@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sala_thimar/_features/client/auth/login/data/models/login_request_body.dart';
-import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_repo.dart';
-import 'package:sala_thimar/_features/client/auth/login/logic/client_login_state.dart';
+import '../data/models/login_request_body.dart';
+import '../data/repos/client_login_repo.dart';
+import 'client_login_state.dart';
 
 class ClientLoginCubit extends Cubit<ClientLoginState> {
   final ClientLoginRepo clientLoginRepo;
