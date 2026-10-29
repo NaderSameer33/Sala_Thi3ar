@@ -6,7 +6,9 @@ import '../../_features/client/auth/login/presentation/views/client_login_view.d
 import '../../_features/client/auth/register/presentation/views/client_register_view.dart';
 import '../../_features/client/auth/reset_password/presentation/views/client_reset_password_view.dart';
 import '../../_features/client/auth/verify_otp/presentation/views/client_verify_otp_view.dart';
+import '../../_features/client/category_products/presentation/views/category_products_view.dart';
 import '../../_features/client/favorites/presentation/views/favorites_view.dart';
+import '../../_features/client/home/data/models/category_model.dart';
 import '../../_features/client/home/data/models/product_model.dart';
 import '../../_features/client/home/presentation/views/home_view.dart';
 import '../../_features/client/main_shell/presentation/views/main_bottom_nav_shell.dart';
@@ -162,6 +164,23 @@ abstract class AppRoutes {
             }
             final product = state.extra as ProductModel;
             return ProductDetailsView(product: product);
+          },
+        ),
+        GoRoute(
+          path: AppRouterName.categoryProducts,
+          builder: (context, state) {
+            if (state.extra is CategoryModel) {
+              final category = state.extra as CategoryModel;
+              return CategoryProductsView(
+                categoryId: category.id,
+                categoryName: category.name,
+              );
+            }
+            final map = state.extra as Map<String, dynamic>? ?? {};
+            return CategoryProductsView(
+              categoryId: map['categoryId'] as int? ?? 0,
+              categoryName: map['categoryName']?.toString() ?? '',
+            );
           },
         ),
       ],

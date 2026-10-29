@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../core/routers/app_router_name.dart';
 import '../../data/models/category_model.dart';
-import '../../logic/home_cubit.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
@@ -23,7 +23,12 @@ class BuildCategoryItem extends StatelessWidget {
     return GestureDetector(
       onTap: isLoading
           ? null
-          : () => context.read<HomeCubit>().filterByCategory(category.id),
+          : () {
+              context.push(
+                AppRouterName.categoryProducts,
+                extra: category,
+              );
+            },
       child: Column(
         children: [
           Container(
