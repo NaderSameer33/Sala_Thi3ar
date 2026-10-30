@@ -13,4 +13,5 @@ abstract class AppRouterName {
   static const myAccount = '/myAccount';
   static const productDetails = '/productDetails';
   static const categoryProducts = '/categoryProducts';
+  static const cart = '/cart';
 }

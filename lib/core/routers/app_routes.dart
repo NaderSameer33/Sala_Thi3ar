@@ -6,6 +6,7 @@ import '../../_features/client/auth/login/presentation/views/client_login_view.d
 import '../../_features/client/auth/register/presentation/views/client_register_view.dart';
 import '../../_features/client/auth/reset_password/presentation/views/client_reset_password_view.dart';
 import '../../_features/client/auth/verify_otp/presentation/views/client_verify_otp_view.dart';
+import '../../_features/client/cart/presentation/views/cart_view.dart';
 import '../../_features/client/category_products/presentation/views/category_products_view.dart';
 import '../../_features/client/favorites/presentation/views/favorites_view.dart';
 import '../../_features/client/home/data/models/category_model.dart';
@@ -165,6 +166,10 @@ abstract class AppRoutes {
             final product = state.extra as ProductModel;
             return ProductDetailsView(product: product);
           },
+        ),
+        GoRoute(
+          path: AppRouterName.cart,
+          builder: (context, state) => const CartView(),
         ),
         GoRoute(
           path: AppRouterName.categoryProducts,

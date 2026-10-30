@@ -53,10 +53,12 @@ class ApiService {
   Future<Response> get({
     required String endPoint,
     Map<String, dynamic>? queryParameters,
+    Options? options,
   }) async {
     return await dio.get(
       endPoint,
       queryParameters: queryParameters,
+      options: options,
     );
   }
 
@@ -64,11 +66,13 @@ class ApiService {
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    Options? options,
   }) async {
     return await dio.post(
       endPoint,
       data: data,
       queryParameters: queryParameters,
+      options: options,
     );
   }
 
@@ -76,11 +80,13 @@ class ApiService {
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    Options? options,
   }) async {
     return await dio.put(
       endPoint,
       data: data,
       queryParameters: queryParameters,
+      options: options,
     );
   }
 
@@ -88,11 +94,13 @@ class ApiService {
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    Options? options,
   }) async {
     return await dio.delete(
       endPoint,
       data: data,
       queryParameters: queryParameters,
+      options: options,
     );
   }
 }

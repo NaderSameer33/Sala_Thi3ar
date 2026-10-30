@@ -10,6 +10,8 @@ import 'package:sala_thimar/_features/client/auth/reset_password/data/repos/clie
 import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/logic/client_verify_otp_cubit.dart';
+import 'package:sala_thimar/_features/client/cart/data/repos/cart_repo.dart';
+import 'package:sala_thimar/_features/client/cart/logic/cart_cubit.dart';
 import 'package:sala_thimar/_features/client/category_products/data/repos/category_products_repo.dart';
 import 'package:sala_thimar/_features/client/category_products/logic/category_products_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
@@ -93,5 +95,11 @@ void setupGetIt() {
   );
   getIt.registerFactory<CategoryProductsCubit>(
     () => CategoryProductsCubit(getIt<CategoryProductsRepo>()),
+  );
+  getIt.registerLazySingleton<CartRepo>(
+    () => CartRepo(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<CartCubit>(
+    () => CartCubit(getIt<CartRepo>()),
   );
 }

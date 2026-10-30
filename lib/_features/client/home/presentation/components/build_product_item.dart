@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../../cart/logic/cart_cubit.dart';
+import '../../../cart/logic/cart_state.dart';
 import '../../../../../core/routers/app_router_name.dart';
 import '../../data/models/product_model.dart';
 import '../../../../../core/extension/spacing_extension.dart';
@@ -162,14 +165,45 @@ class BuildProductItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: const Icon(Icons.add, color: Colors.white, size: 18),
+                BlocBuilder<CartCubit, CartState>(
+                  buildWhen: (previous, current) =>
+                      (previous.mutatingProductId == product.id) !=
+                      (current.mutatingProductId == product.id),
+                  builder: (context, state) {
+                    final isAdding = state.mutatingProductId == product.id;
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        if (shouldHero && !isAdding) {
+                          context.read<CartCubit>().addToCart(
+                                productId: product.id,
+                                amount: 1,
+                              );
+                        }
+                      },
+                      child: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: isAdding
+                            ? Padding(
+                                padding: EdgeInsets.all(7.r),
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
