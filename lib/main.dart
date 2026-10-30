@@ -1,7 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '_features/client/cart/logic/cart_cubit.dart';
+import '_features/client/cart/logic/cart_state.dart';
 import 'core/caching/shared_pref_service.dart';
 import 'core/routers/app_routes.dart';
 import 'core/services/get_it_service.dart';
@@ -25,14 +28,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return ToastificationWrapper(
-          child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+    return BlocProvider(
+      create: (_) => getIt<CartCubit>()..getCart(),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: MaterialApp.router(
               title: 'سلة ثمار',
               debugShowCheckedModeBanner: false,
@@ -45,10 +49,32 @@ class MyApp extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
+              builder: (context, routerChild) {
+                return ToastificationWrapper(
+                  child: BlocListener<CartCubit, CartState>(
+                    listenWhen: (prev, curr) =>
+                        curr.mutationMessage.isNotEmpty &&
+                        prev.mutationMessage != curr.mutationMessage,
+                    listener: (context, state) {
+                      if (state.mutationMessage.isNotEmpty) {
+                        toastification.show(
+                          context: context,
+                          title: Text(
+                            state.mutationMessage,
+                            style: const TextStyle(fontFamily: 'Tajawal'),
+                          ),
+                          autoCloseDuration: const Duration(seconds: 3),
+                        );
+                      }
+                    },
+                    child: routerChild ?? const SizedBox.shrink(),
+                  ),
+                );
+              },
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
