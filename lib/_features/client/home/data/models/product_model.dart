@@ -174,6 +174,42 @@ class ProductModel {
       'created_at': createdAt,
     };
   }
+
+  ProductModel copyWith({
+    int? id,
+    int? categoryId,
+    String? title,
+    String? description,
+    String? code,
+    double? priceBeforeDiscount,
+    double? price,
+    double? discount,
+    int? amount,
+    int? isActive,
+    bool? isFavorite,
+    ProductUnitModel? unit,
+    List<ProductImageModel>? images,
+    String? mainImage,
+    String? createdAt,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      categoryId: categoryId ?? this.categoryId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      code: code ?? this.code,
+      priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
+      price: price ?? this.price,
+      discount: discount ?? this.discount,
+      amount: amount ?? this.amount,
+      isActive: isActive ?? this.isActive,
+      isFavorite: isFavorite ?? this.isFavorite,
+      unit: unit ?? this.unit,
+      images: images ?? this.images,
+      mainImage: mainImage ?? this.mainImage,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
 
 class ProductResponseModel {

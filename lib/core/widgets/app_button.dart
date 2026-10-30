@@ -5,7 +5,7 @@ import '../theme/app_styles.dart';
 import 'app_loading.dart';
 
 class AppButton extends StatelessWidget {
-  final String text;
+  final String text; 
   final VoidCallback? onPressed;
   final bool isLoading;
   final double? width;
@@ -29,7 +29,7 @@ class AppButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return SizedBox(
       width: width ?? double.infinity,
       height: height ?? 55.h,

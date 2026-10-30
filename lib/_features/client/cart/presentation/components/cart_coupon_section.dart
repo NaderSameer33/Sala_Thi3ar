@@ -97,7 +97,7 @@ class _CartCouponSectionState extends State<CartCouponSection> {
                   return AppButton(
                     text: 'تطبيق',
                     isLoading: isLoading,
-                    width: 82.w,
+                    width: 90.w,
                     height: 42.h,
                     borderRadius: 12.r,
                     textStyle: AppStyles.font14BoldWhite,

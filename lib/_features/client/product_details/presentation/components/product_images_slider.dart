@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../favorites/logic/favorites_cubit.dart';
+import '../../../favorites/logic/favorites_state.dart';
 import '../../../home/data/models/product_model.dart';
 import '../../../home/presentation/components/slider_indecator.dart';
 
@@ -49,7 +52,20 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
         Container(
           width: double.infinity,
           height: 320.h,
-          color: Colors.white,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24.r),
+              bottomRight: Radius.circular(24.r),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: images.length == 1
               ? _buildSingleImage(images.first)
               : CarouselSlider.builder(
@@ -57,7 +73,8 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
                   options: CarouselOptions(
                     height: 320.h,
                     viewportFraction: 1.0,
-                    enableInfiniteScroll: images.length > 1,
+                    autoPlay: images.length > 1,
+                    autoPlayInterval: const Duration(seconds: 4),
                     onPageChanged: (index, reason) {
                       setState(() {
                         _currentIndex = index;
@@ -93,14 +110,27 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
         Positioned(
           top: 12.h,
           left: 16.w,
-          child: _buildCircleButton(
-            icon: widget.product.isFavorite
-                ? Icons.favorite
-                : Icons.favorite_border,
-            iconColor: widget.product.isFavorite
-                ? AppColors.red
-                : AppColors.primary,
-            onTap: () {},
+          child: BlocBuilder<FavoritesCubit, FavoritesState>(
+            buildWhen: (prev, curr) =>
+                (prev.isProductFavorite(widget.product.id)) !=
+                    (curr.isProductFavorite(widget.product.id)) ||
+                (prev.togglingProductId == widget.product.id) !=
+                    (curr.togglingProductId == widget.product.id),
+            builder: (context, state) {
+              final isFav = state.favoriteProductIds.contains(widget.product.id)
+                  ? true
+                  : (state.status == FavoritesStatus.initial
+                      ? widget.product.isFavorite
+                      : false);
+
+              return _buildCircleButton(
+                icon: isFav ? Icons.favorite : Icons.favorite_border,
+                iconColor: isFav ? AppColors.red : AppColors.primary,
+                onTap: () {
+                  context.read<FavoritesCubit>().toggleFavorite(widget.product);
+                },
+              );
+            },
           ),
         ),
       ],

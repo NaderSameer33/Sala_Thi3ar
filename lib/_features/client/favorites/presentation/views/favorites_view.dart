@@ -1,27 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_styles.dart';
+import '../components/favorites_empty_state.dart';
+import '../components/favorites_grid.dart';
+import '../components/favorites_header.dart';
+import '../../logic/favorites_cubit.dart';
+import '../../logic/favorites_state.dart';
 
-class FavoritesView extends StatelessWidget {
+class FavoritesView extends StatefulWidget {
   const FavoritesView({super.key});
+
+  @override
+  State<FavoritesView> createState() => _FavoritesViewState();
+}
+
+class _FavoritesViewState extends State<FavoritesView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<FavoritesCubit>().getFavorites();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'المفضلة',
-          style: AppStyles.font18BoldDark,
-        ),
-      ),
-      body: Center(
-        child: Text(
-          'المفضلة',
-          style: AppStyles.font18BoldPrimary,
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: RefreshIndicator(
+          color: AppColors.primary,
+          onRefresh: () => context.read<FavoritesCubit>().getFavorites(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const FavoritesHeader(),
+                12.verticalSpacing,
+                BlocBuilder<FavoritesCubit, FavoritesState>(
+                  buildWhen: (prev, curr) =>
+                      prev.status != curr.status ||
+                      prev.favorites.length != curr.favorites.length,
+                  builder: (context, state) {
+                    if (state.status == FavoritesStatus.success &&
+                        state.favorites.isEmpty) {
+                      return const FavoritesEmptyState();
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const FavoritesGrid(),
+                        24.verticalSpacing,
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
