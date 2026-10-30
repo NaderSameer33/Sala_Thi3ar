@@ -21,8 +21,8 @@ class MyAccountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AccountCubit>()..getProfile(),
+    return BlocProvider.value(
+      value: getIt<AccountCubit>()..getProfile(),
       child: const _MyAccountViewBody(),
     );
   }
@@ -111,7 +111,12 @@ class _MyAccountViewBody extends StatelessWidget {
                       AccountMenuItem(
                         title: 'البيانات الشخصية',
                         iconPath: 'assets/images/User.png',
-                        onTap: () {},
+                        onTap: () async {
+                          await context.push(AppRouterName.personalDetails);
+                          if (context.mounted) {
+                            await cubit.getProfile();
+                          }
+                        },
                       ),
                       AccountMenuItem(
                         title: 'المحفظة',

@@ -11,7 +11,7 @@ class UserProfileCity {
     return UserProfileCity(
       id: json['id'] is int
           ? json['id'] as int
-          : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+          : int.tryParse(json['id']?.toString() ?? '5') ?? 5,
       name: json['name']?.toString() ?? '',
     );
   }
@@ -74,8 +74,7 @@ class UserProfileModel {
     fullname: 'محمد علي',
     phone: '+96654787856',
     image: '',
-    city: UserProfileCity(id: 1, name: 'الرياض'),
+    city: UserProfileCity(id: 5, name: 'الرياض'),
     isVip: 0,
   );
 }
-
