@@ -1,3 +1,6 @@
+import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart';
+import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
+import '../../_features/client/wallet/presentation/views/wallet_view.dart';
 import 'package:go_router/go_router.dart';
 import '../../_features/_onborading/presentation/views/on_borading_view.dart';
 import '../../_features/client/account/presentation/views/my_account_view.dart';
@@ -177,6 +180,18 @@ abstract class AppRoutes {
           builder: (context, state) => const PersonalDetailsView(),
         ),
         GoRoute(
+          path: AppRouterName.wallet,
+          builder: (context, state) => const WalletView(),
+        ),
+        GoRoute(
+          path: AppRouterName.chargeWallet,
+          builder: (context, state) => const ChargeWalletView(),
+        ),
+        GoRoute(
+          path: AppRouterName.transactionsHistory,
+          builder: (context, state) => const TransactionsHistoryView(),
+        ),
+        GoRoute(
           path: AppRouterName.categoryProducts,
           builder: (context, state) {
             if (state.extra is CategoryModel) {
@@ -197,3 +212,4 @@ abstract class AppRoutes {
     );
   }
 }
+

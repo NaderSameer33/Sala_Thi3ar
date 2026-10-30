@@ -12,6 +12,9 @@ abstract class AppRouterName {
   static const favorites = '/favorites';
   static const myAccount = '/myAccount';
   static const personalDetails = '/personalDetails';
+  static const wallet = '/wallet';
+  static const chargeWallet = '/chargeWallet';
+  static const transactionsHistory = '/transactionsHistory';
   static const productDetails = '/productDetails';
   static const categoryProducts = '/categoryProducts';
   static const cart = '/cart';
