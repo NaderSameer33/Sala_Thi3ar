@@ -1,3 +1,5 @@
+import 'package:sala_thimar/_features/client/wallet/data/repos/wallet_repo.dart';
+import 'package:sala_thimar/_features/client/wallet/logic/wallet_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sala_thimar/_features/client/account/data/repos/account_repo.dart';
@@ -121,5 +123,10 @@ void setupGetIt() {
   getIt.registerLazySingleton<FavoritesCubit>(
     () => FavoritesCubit(getIt<FavoritesRepo>()),
   );
+  getIt.registerLazySingleton<WalletRepo>(
+    () => WalletRepo(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<WalletCubit>(
+    () => WalletCubit(getIt<WalletRepo>()),
+  );
 }
-

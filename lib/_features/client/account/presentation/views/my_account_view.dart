@@ -121,7 +121,9 @@ class _MyAccountViewBody extends StatelessWidget {
                       AccountMenuItem(
                         title: 'المحفظة',
                         iconPath: 'assets/images/Wallet.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.wallet);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'العناوين',
