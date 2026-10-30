@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '_features/client/cart/logic/cart_cubit.dart';
 import '_features/client/cart/logic/cart_state.dart';
+import '_features/client/favorites/logic/favorites_cubit.dart';
 import 'core/caching/shared_pref_service.dart';
 import 'core/routers/app_routes.dart';
 import 'core/services/get_it_service.dart';
@@ -28,8 +29,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<CartCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<CartCubit>()),
+        BlocProvider(create: (_) => getIt<FavoritesCubit>()..getFavorites()),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

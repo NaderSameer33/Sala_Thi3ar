@@ -14,6 +14,8 @@ import 'package:sala_thimar/_features/client/cart/data/repos/cart_repo.dart';
 import 'package:sala_thimar/_features/client/cart/logic/cart_cubit.dart';
 import 'package:sala_thimar/_features/client/category_products/data/repos/category_products_repo.dart';
 import 'package:sala_thimar/_features/client/category_products/logic/category_products_cubit.dart';
+import 'package:sala_thimar/_features/client/favorites/data/repos/favorites_repo.dart';
+import 'package:sala_thimar/_features/client/favorites/logic/favorites_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
 import 'package:sala_thimar/_features/client/home/logic/home_cubit.dart';
 import 'package:sala_thimar/_features/client/product_details/data/repos/product_details_repo.dart';
@@ -101,5 +103,11 @@ void setupGetIt() {
   );
   getIt.registerLazySingleton<CartCubit>(
     () => CartCubit(getIt<CartRepo>()),
+  );
+  getIt.registerLazySingleton<FavoritesRepo>(
+    () => FavoritesRepo(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<FavoritesCubit>(
+    () => FavoritesCubit(getIt<FavoritesRepo>()),
   );
 }
