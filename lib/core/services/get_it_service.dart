@@ -115,10 +115,11 @@ void setupGetIt() {
       secureStorageService: getIt<SecureStorageService>(),
     ),
   );
-  getIt.registerFactory<AccountCubit>(
+  getIt.registerLazySingleton<AccountCubit>(
     () => AccountCubit(getIt<AccountRepo>()),
   );
   getIt.registerLazySingleton<FavoritesCubit>(
     () => FavoritesCubit(getIt<FavoritesRepo>()),
   );
 }
+

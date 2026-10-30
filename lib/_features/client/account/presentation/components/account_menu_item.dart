@@ -41,11 +41,7 @@ class AccountMenuItem extends StatelessWidget {
                 fit: BoxFit.contain,
               )
             else if (iconData != null)
-              Icon(
-                iconData,
-                size: 22.r,
-                color: AppColors.primary,
-              ),
+              Icon(iconData, size: 22.r, color: AppColors.primary),
             12.horizontalSpacing,
             Expanded(
               child: Text(
@@ -64,14 +60,11 @@ class AccountMenuItem extends StatelessWidget {
                 height: 26.r,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.border,
-                    width: 1.2.r,
-                  ),
+                  border: Border.all(color: AppColors.border, width: 1.2.r),
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
+                    Icons.arrow_forward_ios_outlined,
                     size: 11.r,
                     color: AppColors.textLightGray,
                   ),
@@ -83,4 +76,3 @@ class AccountMenuItem extends StatelessWidget {
     );
   }
 }
-

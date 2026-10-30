@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import '../../_features/_onborading/presentation/views/on_borading_view.dart';
 import '../../_features/client/account/presentation/views/my_account_view.dart';
+import '../../_features/client/account/presentation/views/personal_details_view.dart';
 import '../../_features/client/auth/forget_password/presentation/views/client_forget_password_view.dart';
 import '../../_features/client/auth/login/presentation/views/client_login_view.dart';
 import '../../_features/client/auth/register/presentation/views/client_register_view.dart';
@@ -170,6 +171,10 @@ abstract class AppRoutes {
         GoRoute(
           path: AppRouterName.cart,
           builder: (context, state) => const CartView(),
+        ),
+        GoRoute(
+          path: AppRouterName.personalDetails,
+          builder: (context, state) => const PersonalDetailsView(),
         ),
         GoRoute(
           path: AppRouterName.categoryProducts,
