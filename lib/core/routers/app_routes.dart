@@ -1,3 +1,8 @@
+import '../../_features/client/support/presentation/views/about_app_view.dart';
+import '../../_features/client/support/presentation/views/contact_us_view.dart';
+import '../../_features/client/support/presentation/views/faqs_view.dart';
+import '../../_features/client/support/presentation/views/privacy_policy_view.dart';
+import '../../_features/client/support/presentation/views/suggestions_view.dart';
 import '../../_features/client/addresses/data/models/address_model.dart';
 import '../../_features/client/addresses/presentation/views/add_address_view.dart';
 import '../../_features/client/addresses/presentation/views/addresses_view.dart';
@@ -221,6 +226,26 @@ abstract class AppRoutes {
               categoryName: map['categoryName']?.toString() ?? '',
             );
           },
+        ),
+        GoRoute(
+          path: AppRouterName.faqs,
+          builder: (context, state) => const FaqsView(),
+        ),
+        GoRoute(
+          path: AppRouterName.privacyPolicy,
+          builder: (context, state) => const PrivacyPolicyView(),
+        ),
+        GoRoute(
+          path: AppRouterName.aboutApp,
+          builder: (context, state) => const AboutAppView(),
+        ),
+        GoRoute(
+          path: AppRouterName.contactUs,
+          builder: (context, state) => const ContactUsView(),
+        ),
+        GoRoute(
+          path: AppRouterName.suggestions,
+          builder: (context, state) => const SuggestionsView(),
         ),
       ],
     );

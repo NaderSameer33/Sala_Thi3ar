@@ -20,4 +20,9 @@ abstract class AppRouterName {
   static const cart = '/cart';
   static const addresses = '/addresses';
   static const addAddress = '/addAddress';
+  static const faqs = '/faqs';
+  static const privacyPolicy = '/privacyPolicy';
+  static const aboutApp = '/aboutApp';
+  static const contactUs = '/contactUs';
+  static const suggestions = '/suggestions';
 }

@@ -141,22 +141,30 @@ class _MyAccountViewBody extends StatelessWidget {
                       AccountMenuItem(
                         title: 'أسئلة متكررة',
                         iconPath: 'assets/images/Question.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.faqs);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'سياسة الخصوصية',
                         iconPath: 'assets/images/Shield - check.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.privacyPolicy);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'تواصل معنا',
                         iconPath: 'assets/images/Call - Calling.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.contactUs);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'الشكاوي والأقتراحات',
                         iconPath: 'assets/images/Edit - 3.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.suggestions);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'مشاركة التطبيق',
@@ -166,7 +174,9 @@ class _MyAccountViewBody extends StatelessWidget {
                       AccountMenuItem(
                         title: 'عن التطبيق',
                         iconPath: 'assets/images/Info.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.aboutApp);
+                        },
                       ),
                       AccountMenuItem(
                         title: 'تغيير اللغة',
