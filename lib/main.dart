@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<CartCubit>()..getCart(),
+      create: (_) => getIt<CartCubit>(),
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

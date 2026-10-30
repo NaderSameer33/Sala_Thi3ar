@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
+import '../../../../../core/widgets/app_button.dart';
 
 class CartEmptyState extends StatelessWidget {
   const CartEmptyState({super.key});
@@ -31,42 +33,22 @@ class CartEmptyState extends StatelessWidget {
             20.verticalSpacing,
             Text(
               'السلة فارغة حالياً',
-              style: TextStyle(
-                fontFamily: 'Tajawal',
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
+              style: AppStyles.font18BoldPrimary,
             ),
             8.verticalSpacing,
             Text(
               'تصفح المنتجات وأضف ما تحتاجه إلى سلتك',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Tajawal',
-                fontSize: 13.sp,
-                color: AppColors.textLightGray,
-              ),
+              style: AppStyles.font13RegularGray,
             ),
             24.verticalSpacing,
-            ElevatedButton(
+            AppButton(
+              text: 'تصفح المنتجات',
               onPressed: () => context.pop(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 12.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-              ),
-              child: Text(
-                'تصفح المنتجات',
-                style: TextStyle(
-                  fontFamily: 'Tajawal',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              width: 170.w,
+              height: 48.h,
+              borderRadius: 12.r,
+              textStyle: AppStyles.font14BoldWhite,
             ),
           ],
         ),
@@ -74,4 +56,3 @@ class CartEmptyState extends StatelessWidget {
     );
   }
 }
-

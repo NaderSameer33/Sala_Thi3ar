@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 import '../../data/models/cart_item_model.dart';
 import '../../logic/cart_cubit.dart';
 
@@ -11,7 +12,11 @@ class CartItemCard extends StatelessWidget {
   final CartItemModel item;
   final bool isLoading;
 
-  const CartItemCard({super.key, required this.item, this.isLoading = false});
+  const CartItemCard({
+    super.key,
+    required this.item,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +46,7 @@ class CartItemCard extends StatelessWidget {
                   ? CachedNetworkImage(
                       imageUrl: item.image,
                       fit: BoxFit.cover,
-                      placeholder: (_, _) =>
-                          Container(color: AppColors.inputFill),
+                      placeholder: (_, _) => Container(color: AppColors.inputFill),
                       errorWidget: (_, _, _) => const Icon(
                         Icons.image_not_supported_outlined,
                         color: AppColors.textLightGray,
@@ -61,24 +65,14 @@ class CartItemCard extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: TextStyle(
-                    fontFamily: 'Tajawal',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
+                  style: AppStyles.font14BoldPrimary,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 4.verticalSpacing,
                 Text(
                   '${item.formattedPrice} ر.س',
-                  style: TextStyle(
-                    fontFamily: 'Tajawal',
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
+                  style: AppStyles.font14BoldPrimary,
                 ),
                 8.verticalSpacing,
                 Container(
@@ -115,12 +109,7 @@ class CartItemCard extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: Text(
                           '${item.amount}',
-                          style: TextStyle(
-                            fontFamily: 'Tajawal',
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                          ),
+                          style: AppStyles.font14BoldPrimary,
                         ),
                       ),
                       GestureDetector(
@@ -161,7 +150,11 @@ class CartItemCard extends StatelessWidget {
                 color: const Color(0xFFFFEEEE),
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: Image.asset('assets/images/Trash-2.png'),
+              child: const Icon(
+                Icons.delete_outline_rounded,
+                color: Color(0xFFFF4848),
+                size: 20,
+              ),
             ),
           ),
         ],

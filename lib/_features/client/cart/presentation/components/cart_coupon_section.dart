@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toastification/toastification.dart';
-import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
+import '../../../../../core/widgets/app_button.dart';
 import '../../logic/cart_cubit.dart';
 import '../../logic/cart_state.dart';
 
@@ -52,89 +53,62 @@ class _CartCouponSectionState extends State<CartCouponSection> {
               child: TextField(
                 controller: _controller,
                 textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontFamily: 'Tajawal',
-                  fontSize: 13.sp,
-                  color: AppColors.textDark,
-                ),
+                style: AppStyles.font14RegularDark,
                 decoration: InputDecoration(
                   hintText: 'عندك كوبون ؟ ادخل رقم الكوبون',
-                  hintStyle: TextStyle(
-                    fontFamily: 'Tajawal',
-                    fontSize: 12.sp,
-                    color: AppColors.textLightGray,
-                  ),
+                  hintStyle: AppStyles.font12RegularGray,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.w),
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                final coupon = _controller.text.trim();
-                if (coupon.isNotEmpty) {
-                  context.read<CartCubit>().applyCoupon(coupon);
-                }
-              },
-              child: Container(
-                width: 82.w,
-                height: 42.h,
-                margin: EdgeInsets.all(5.r),
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                alignment: Alignment.center,
-                child: BlocConsumer<CartCubit, CartState>(
-                  listenWhen: (prev, curr) =>
-                      curr.couponMessage.isNotEmpty &&
-                      (prev.cuponStatus != curr.cuponStatus ||
-                          prev.couponMessage != curr.couponMessage),
-                  listener: (context, state) {
-                    if (state.cuponStatus == CuponStatus.success) {
-                      toastification.show(
-                        context: context,
-                        type: ToastificationType.success,
-                        title: Text(
-                          state.couponMessage,
-                          style: const TextStyle(fontFamily: 'Tajawal'),
-                        ),
-                        autoCloseDuration: const Duration(seconds: 3),
-                      );
-                    } else if (state.cuponStatus == CuponStatus.error) {
-                      toastification.show(
-                        context: context,
-                        type: ToastificationType.error,
-                        title: Text(
-                          state.couponMessage,
-                          style: const TextStyle(fontFamily: 'Tajawal'),
-                        ),
-                        autoCloseDuration: const Duration(seconds: 3),
-                      );
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state.cuponStatus == CuponStatus.loading) {
-                      return SizedBox(
-                        width: 18.w,
-                        height: 18.h,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      );
-                    }
-                    return Text(
-                      'تطبيق',
-                      style: TextStyle(
-                        fontFamily: 'Tajawal',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            Padding(
+              padding: EdgeInsets.all(5.r),
+              child: BlocConsumer<CartCubit, CartState>(
+                listenWhen: (prev, curr) =>
+                    curr.couponMessage.isNotEmpty &&
+                    (prev.cuponStatus != curr.cuponStatus ||
+                        prev.couponMessage != curr.couponMessage),
+                listener: (context, state) {
+                  if (state.cuponStatus == CuponStatus.success) {
+                    toastification.show(
+                      context: context,
+                      type: ToastificationType.success,
+                      title: Text(
+                        state.couponMessage,
+                        style: AppStyles.font14BoldDark,
                       ),
+                      autoCloseDuration: const Duration(seconds: 3),
                     );
-                  },
-                ),
+                  } else if (state.cuponStatus == CuponStatus.error) {
+                    toastification.show(
+                      context: context,
+                      type: ToastificationType.error,
+                      title: Text(
+                        state.couponMessage,
+                        style: AppStyles.font14BoldDark,
+                      ),
+                      autoCloseDuration: const Duration(seconds: 3),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  final isLoading = state.cuponStatus == CuponStatus.loading;
+                  return AppButton(
+                    text: 'تطبيق',
+                    isLoading: isLoading,
+                    width: 82.w,
+                    height: 42.h,
+                    borderRadius: 12.r,
+                    textStyle: AppStyles.font14BoldWhite,
+                    onPressed: () {
+                      final coupon = _controller.text.trim();
+                      if (coupon.isNotEmpty) {
+                        context.read<CartCubit>().applyCoupon(coupon);
+                      }
+                    },
+                  );
+                },
               ),
             ),
           ],

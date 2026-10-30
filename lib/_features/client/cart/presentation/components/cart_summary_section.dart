@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../core/extension/spacing_extension.dart';
-import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 import '../../logic/cart_cubit.dart';
 import '../../logic/cart_state.dart';
 
@@ -28,12 +28,7 @@ class CartSummarySection extends StatelessWidget {
               Text(
                 'جميع الأسعار تشمل قيمة الضريبة المضافة ${((cartData.vat) * 100).toInt()} %',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Tajawal',
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primary,
-                ),
+                style: AppStyles.font14BoldPrimary,
               ),
               12.verticalSpacing,
               Skeletonizer(
@@ -84,24 +79,13 @@ class CartSummarySection extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontFamily: 'Tajawal',
-            fontSize: isTotal ? 15.sp : 13.sp,
-            fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
-            color: isTotal ? AppColors.primary : AppColors.textDark,
-          ),
+          style: isTotal ? AppStyles.font16BoldPrimary : AppStyles.font14RegularDark,
         ),
         Text(
           value,
-          style: TextStyle(
-            fontFamily: 'Tajawal',
-            fontSize: isTotal ? 15.sp : 13.sp,
-            fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
-            color: isTotal ? AppColors.primary : AppColors.textDark,
-          ),
+          style: isTotal ? AppStyles.font16BoldPrimary : AppStyles.font14RegularDark,
         ),
       ],
     );
   }
 }
-

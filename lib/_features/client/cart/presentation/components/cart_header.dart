@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 
 class CartHeader extends StatelessWidget {
   const CartHeader({super.key});
@@ -15,12 +16,7 @@ class CartHeader extends StatelessWidget {
         children: [
           Text(
             'السلة',
-            style: TextStyle(
-              fontFamily: 'Tajawal',
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary,
-            ),
+            style: AppStyles.font18BoldPrimary,
           ),
           Align(
             alignment: Alignment.centerRight,

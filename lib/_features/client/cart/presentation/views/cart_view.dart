@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 import '../../logic/cart_cubit.dart';
 import '../../logic/cart_state.dart';
 import '../components/cart_checkout_button.dart';
@@ -73,22 +74,15 @@ class _CartViewBody extends StatelessWidget {
                                 state.errorMessage.isNotEmpty
                                     ? state.errorMessage
                                     : 'فشل تحميل السلة',
-                                style: const TextStyle(
-                                  fontFamily: 'Tajawal',
-                                  color: AppColors.textLightGray,
-                                ),
+                                style: AppStyles.font14RegularGray,
                               ),
                               12.verticalSpacing,
                               InkWell(
                                 onTap: () =>
                                     context.read<CartCubit>().getCart(),
-                                child: const Text(
+                                child: Text(
                                   'إعادة المحاولة',
-                                  style: TextStyle(
-                                    fontFamily: 'Tajawal',
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: AppStyles.font14BoldPrimary,
                                 ),
                               ),
                             ],

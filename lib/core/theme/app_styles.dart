@@ -97,6 +97,13 @@ abstract class AppStyles {
     color: AppColors.primary,
   );
 
+  static TextStyle font14BoldWhite = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14.sp,
+    fontWeight: AppFontWeight.bold,
+    color: AppColors.white,
+  );
+
   static TextStyle font14MediumDark = TextStyle(
     fontFamily: fontFamily,
     fontSize: 14.sp,

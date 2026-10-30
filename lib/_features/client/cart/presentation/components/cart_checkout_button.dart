@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
+import '../../../../../core/widgets/app_button.dart';
 
 class CartCheckoutButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -14,30 +15,13 @@ class CartCheckoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: SizedBox(
+      child: AppButton(
+        text: 'الانتقال لإتمام الطلب',
+        onPressed: onPressed,
         height: 52.h,
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.r),
-            ),
-          ),
-          child: Text(
-            'الانتقال لإتمام الطلب',
-            style: TextStyle(
-              fontFamily: 'Tajawal',
-              fontSize: 15.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        textStyle: AppStyles.font15BoldWhite,
+        borderRadius: 15.r,
       ),
     );
   }
 }
-
