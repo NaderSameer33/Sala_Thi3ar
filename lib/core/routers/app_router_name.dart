@@ -18,4 +18,6 @@ abstract class AppRouterName {
   static const productDetails = '/productDetails';
   static const categoryProducts = '/categoryProducts';
   static const cart = '/cart';
+  static const addresses = '/addresses';
+  static const addAddress = '/addAddress';
 }
