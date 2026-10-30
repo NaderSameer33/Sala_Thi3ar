@@ -128,8 +128,11 @@ class _MyAccountViewBody extends StatelessWidget {
                       AccountMenuItem(
                         title: 'العناوين',
                         iconPath: 'assets/images/Location.png',
-                        onTap: () {},
+                        onTap: () {
+                          context.push(AppRouterName.addresses);
+                        },
                       ),
+                      
                     ],
                   ),
                   16.verticalSpacing,

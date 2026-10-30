@@ -35,6 +35,8 @@ dependencies:
   carousel_slider: ^5.1.2
   pretty_dio_logger: ^1.4.0
   image_picker: ^1.2.4
+  google_maps_flutter: ^2.18.1
+  geolocator: ^14.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

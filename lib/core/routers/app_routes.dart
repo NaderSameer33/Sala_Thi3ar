@@ -1,3 +1,6 @@
+import '../../_features/client/addresses/data/models/address_model.dart';
+import '../../_features/client/addresses/presentation/views/add_address_view.dart';
+import '../../_features/client/addresses/presentation/views/addresses_view.dart';
 import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart';
 import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
 import '../../_features/client/wallet/presentation/views/wallet_view.dart';
@@ -188,6 +191,17 @@ abstract class AppRoutes {
           builder: (context, state) => const ChargeWalletView(),
         ),
         GoRoute(
+          path: AppRouterName.addresses,
+          builder: (context, state) => const AddressesView(),
+        ),
+        GoRoute(
+          path: AppRouterName.addAddress,
+          builder: (context, state) {
+            final address = state.extra is AddressModel ? state.extra as AddressModel : null;
+            return AddAddressView(address: address);
+          },
+        ),
+        GoRoute(
           path: AppRouterName.transactionsHistory,
           builder: (context, state) => const TransactionsHistoryView(),
         ),
@@ -212,4 +226,5 @@ abstract class AppRoutes {
     );
   }
 }
+
 
