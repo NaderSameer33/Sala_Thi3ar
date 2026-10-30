@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sala_thimar/_features/client/account/data/repos/account_repo.dart';
+import 'package:sala_thimar/_features/client/account/logic/account_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/forget_password/data/repos/client_forget_password_repo.dart';
 import 'package:sala_thimar/_features/client/auth/forget_password/logic/client_forget_password_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_repo.dart';
@@ -106,6 +108,15 @@ void setupGetIt() {
   );
   getIt.registerLazySingleton<FavoritesRepo>(
     () => FavoritesRepo(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<AccountRepo>(
+    () => AccountRepo(
+      apiService: getIt<ApiService>(),
+      secureStorageService: getIt<SecureStorageService>(),
+    ),
+  );
+  getIt.registerFactory<AccountCubit>(
+    () => AccountCubit(getIt<AccountRepo>()),
   );
   getIt.registerLazySingleton<FavoritesCubit>(
     () => FavoritesCubit(getIt<FavoritesRepo>()),
