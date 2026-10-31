@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toastification/toastification.dart';
@@ -9,6 +10,7 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/app_input.dart';
+import '../../../account/logic/account_cubit.dart';
 import '../../data/models/add_address_request_body.dart';
 import '../../data/models/address_model.dart';
 import '../../logic/addresses_cubit.dart';
@@ -46,6 +48,7 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
   GoogleMapController? _mapController;
   late LatLng _currentPosition;
   bool _hasPopped = false;
+  bool _isGeocoding = false;
 
   bool get isEdit => widget.address != null;
 
@@ -57,10 +60,17 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
     _phoneController = TextEditingController(text: address?.phone ?? '');
     _descriptionController = TextEditingController(text: address?.description ?? address?.location ?? '');
 
+    if (!isEdit && _phoneController.text.isEmpty) {
+      final profilePhone = getIt<AccountCubit>().state.profile?.phone ?? '';
+      if (profilePhone.isNotEmpty) {
+        _phoneController.text = profilePhone;
+      }
+    }
+
     if (address != null && address.lat != 0 && address.lng != 0) {
       _currentPosition = LatLng(address.lat, address.lng);
     } else {
-      _currentPosition = const LatLng(24.7136, 46.6753);
+      _currentPosition = const LatLng(31.0259453, 31.3650866);
       _determinePosition();
     }
   }
@@ -71,6 +81,49 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
     _descriptionController.dispose();
     _mapController?.dispose();
     super.dispose();
+  }
+
+  Future<void> _getAddressFromLatLng(LatLng position) async {
+    if (_isGeocoding) return;
+    _isGeocoding = true;
+    try {
+      final placemarks = await Geocoding().placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+        locale: const Locale('ar'),
+      );
+      if (placemarks.isNotEmpty && mounted) {
+        final place = placemarks.first;
+        final parts = <String>[];
+        if (place.street != null && place.street!.trim().isNotEmpty) {
+          parts.add(place.street!.trim());
+        }
+        if (place.subLocality != null &&
+            place.subLocality!.trim().isNotEmpty &&
+            !parts.contains(place.subLocality!.trim())) {
+          parts.add(place.subLocality!.trim());
+        }
+        if (place.locality != null &&
+            place.locality!.trim().isNotEmpty &&
+            !parts.contains(place.locality!.trim())) {
+          parts.add(place.locality!.trim());
+        }
+        if (place.administrativeArea != null &&
+            place.administrativeArea!.trim().isNotEmpty &&
+            !parts.contains(place.administrativeArea!.trim())) {
+          parts.add(place.administrativeArea!.trim());
+        }
+        final formatted = parts.join('، ');
+        if (formatted.isNotEmpty && mounted) {
+          setState(() {
+            _descriptionController.text = formatted;
+          });
+        }
+      }
+    } catch (_) {
+    } finally {
+      _isGeocoding = false;
+    }
   }
 
   Future<void> _determinePosition() async {
@@ -92,6 +145,7 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
           _currentPosition = target;
         });
         _mapController?.animateCamera(CameraUpdate.newLatLngZoom(target, 16));
+        _getAddressFromLatLng(target);
       }
     } catch (_) {}
   }
@@ -196,9 +250,22 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
                           target: _currentPosition,
                           zoom: 15,
                         ),
-                        onMapCreated: (controller) => _mapController = controller,
+                        onMapCreated: (controller) {
+                          _mapController = controller;
+                          if (_descriptionController.text.isEmpty) {
+                            _getAddressFromLatLng(_currentPosition);
+                          }
+                        },
                         onCameraMove: (position) {
                           _currentPosition = position.target;
+                        },
+                        onCameraIdle: () {
+                          _getAddressFromLatLng(_currentPosition);
+                        },
+                        onTap: (latLng) {
+                          setState(() => _currentPosition = latLng);
+                          _mapController?.animateCamera(CameraUpdate.newLatLng(latLng));
+                          _getAddressFromLatLng(latLng);
                         },
                         myLocationEnabled: true,
                         myLocationButtonEnabled: false,
