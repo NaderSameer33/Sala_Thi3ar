@@ -1,3 +1,4 @@
+import '../../_features/client/orders/presentation/views/complete_order_view.dart';
 import '../../_features/client/support/presentation/views/about_app_view.dart';
 import '../../_features/client/support/presentation/views/contact_us_view.dart';
 import '../../_features/client/support/presentation/views/faqs_view.dart';
@@ -242,6 +243,10 @@ abstract class AppRoutes {
         GoRoute(
           path: AppRouterName.contactUs,
           builder: (context, state) => const ContactUsView(),
+        ),
+        GoRoute(
+          path: AppRouterName.completeOrder,
+          builder: (context, state) => const CompleteOrderView(),
         ),
         GoRoute(
           path: AppRouterName.suggestions,

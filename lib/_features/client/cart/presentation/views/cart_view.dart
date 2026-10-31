@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+import '../../../../../core/routers/app_router_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/extension/spacing_extension.dart';
@@ -105,7 +107,7 @@ class _CartViewBody extends StatelessWidget {
                         const CartSummarySection(),
                         24.verticalSpacing,
                         CartCheckoutButton(
-                          onPressed: () {},
+                          onPressed: () => context.push(AppRouterName.completeOrder),
                         ),
                         30.verticalSpacing,
                       ],
