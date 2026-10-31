@@ -1,3 +1,5 @@
+import 'package:sala_thimar/_features/client/orders/data/repos/orders_repo.dart';
+import 'package:sala_thimar/_features/client/orders/logic/orders_cubit.dart';
 import 'package:sala_thimar/_features/client/support/data/repos/support_repo.dart';
 import 'package:sala_thimar/_features/client/support/logic/support_cubit.dart';
 import 'package:sala_thimar/_features/client/addresses/data/repos/addresses_repo.dart';
@@ -144,5 +146,11 @@ void setupGetIt() {
   );
   getIt.registerLazySingleton<SupportCubit>(
     () => SupportCubit(getIt<SupportRepo>()),
+  );
+  getIt.registerLazySingleton<OrdersRepo>(
+    () => OrdersRepo(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<OrdersCubit>(
+    () => OrdersCubit(getIt<OrdersRepo>()),
   );
 }
