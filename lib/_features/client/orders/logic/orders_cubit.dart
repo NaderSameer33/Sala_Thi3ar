@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../data/models/create_order_request_body.dart';
 import '../data/repos/orders_repo.dart';
 import 'orders_state.dart';
 
@@ -44,6 +45,36 @@ class OrdersCubit extends Cubit<OrdersState> {
         finishedOrders: orders,
       )),
     );
+  }
+
+  Future<bool> createOrder(CreateOrderRequestBody body) async {
+    emit(state.copyWith(createOrderStatus: CreateOrderStatus.loading));
+    final result = await _ordersRepo.createOrder(body);
+    return result.fold(
+      (failure) {
+        emit(state.copyWith(
+          createOrderStatus: CreateOrderStatus.error,
+          errorMessage: failure.message,
+        ));
+        return false;
+      },
+      (message) {
+        emit(state.copyWith(
+          createOrderStatus: CreateOrderStatus.success,
+          orderSuccessMessage: message,
+        ));
+        getCurrentOrders();
+        return true;
+      },
+    );
+  }
+
+  void resetCreateOrderStatus() {
+    emit(state.copyWith(
+      createOrderStatus: CreateOrderStatus.initial,
+      orderSuccessMessage: '',
+      errorMessage: '',
+    ));
   }
 
   Future<void> refresh() async {

@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/services/api_service.dart';
+import '../models/create_order_request_body.dart';
 import '../models/order_model.dart';
 
 class OrdersRepo {
@@ -58,6 +59,29 @@ class OrdersRepo {
         }
       }
       return const Right([]);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, String>> createOrder(CreateOrderRequestBody body) async {
+    try {
+      final response = await apiService.post(
+        endPoint: 'client/orders',
+        data: body.toFormData(),
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        if (data['status'] == 'fail') {
+          return Left(
+            ServerFailure(data['message']?.toString() ?? 'فشل تنفيذ الطلب'),
+          );
+        }
+        return Right(data['message']?.toString() ?? 'شكرا لك لقد تم تنفيذ طلبك بنجاح');
+      }
+      return const Right('شكرا لك لقد تم تنفيذ طلبك بنجاح');
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
