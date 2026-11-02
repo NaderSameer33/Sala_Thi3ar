@@ -67,22 +67,24 @@ class OrdersRepo {
     }
   }
 
-  Future<Either<Failure, String>> createOrder(CreateOrderRequestBody body) async {
+  Future<Either<Failure, String>> createOrder(
+    CreateOrderRequestBody requestBody,
+  ) async {
     try {
       final response = await apiService.post(
         endPoint: 'client/orders',
-        data: body.toFormData(),
+        data: requestBody.toFormData(),
       );
       final data = response.data;
       if (data is Map<String, dynamic>) {
         if (data['status'] == 'fail') {
           return Left(
-            ServerFailure(data['message']?.toString() ?? 'فشل تنفيذ الطلب'),
+            ServerFailure(data['message']?.toString() ?? 'فشل إنشاء الطلب'),
           );
         }
-        return Right(data['message']?.toString() ?? 'شكرا لك لقد تم تنفيذ طلبك بنجاح');
+        return Right(data['message']?.toString() ?? 'تم إنشاء الطلب بنجاح');
       }
-      return const Right('شكرا لك لقد تم تنفيذ طلبك بنجاح');
+      return const Right('تم إنشاء الطلب بنجاح');
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -107,7 +109,7 @@ class OrdersRepo {
           return Right(OrderDetailsModel.fromJson(rawData));
         }
       }
-      return Left(const ServerFailure('تعذر تحميل تفاصيل الطلب'));
+      return Left(ServerFailure('بيانات الطلب غير صالحة'));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -130,6 +132,37 @@ class OrdersRepo {
         return Right(data['message']?.toString() ?? 'تم إلغاء الطلب بنجاح');
       }
       return const Right('تم إلغاء الطلب بنجاح');
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, String>> rateProduct({
+    required int productId,
+    required int value,
+    required String comment,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        'value': value,
+        'comment': comment,
+      });
+      final response = await apiService.post(
+        endPoint: 'client/products/$productId/rate',
+        data: formData,
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        if (data['status'] == 'fail') {
+          return Left(
+            ServerFailure(data['message']?.toString() ?? 'فشل إرسال التقييم'),
+          );
+        }
+        return Right(data['message']?.toString() ?? 'تم إضافة التقييم بنجاح');
+      }
+      return const Right('تم إضافة التقييم بنجاح');
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

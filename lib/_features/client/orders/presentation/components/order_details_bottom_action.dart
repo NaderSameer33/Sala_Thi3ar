@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../core/routers/app_router_name.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
 import '../../../../../core/widgets/app_button.dart';
@@ -67,73 +69,6 @@ class OrderDetailsBottomAction extends StatelessWidget {
     );
   }
 
-  void _showRateDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        int rating = 5;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.r),
-              ),
-              title: Text(
-                'تقييم المنتجات',
-                style: AppStyles.font16BoldDark,
-                textAlign: TextAlign.center,
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'كيف كانت تجربتك مع هذا الطلب؟',
-                    style: AppStyles.font14RegularDark,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 16.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(5, (index) {
-                      return IconButton(
-                        icon: Icon(
-                          index < rating ? Icons.star : Icons.star_border,
-                          color: AppColors.orange,
-                          size: 32.r,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            rating = index + 1;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                ],
-              ),
-              actionsAlignment: MainAxisAlignment.center,
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Navigator.of(dialogContext).pop(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                  ),
-                  child: Text(
-                    'إرسال التقييم',
-                    style: AppStyles.font14BoldWhite,
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (order.isCanceled) {
@@ -145,7 +80,10 @@ class OrderDetailsBottomAction extends StatelessWidget {
         text: 'تقييم المنتجات',
         isLoading: isLoading,
         backgroundColor: AppColors.primary,
-        onPressed: () => _showRateDialog(context),
+        onPressed: () => context.push(
+          AppRouterName.rateProducts,
+          extra: order.products,
+        ),
       );
     }
 
@@ -196,4 +134,3 @@ class OrderDetailsBottomAction extends StatelessWidget {
     );
   }
 }
-

@@ -1,3 +1,4 @@
+import 'package:sala_thimar/_features/client/orders/logic/rate_products_cubit.dart';
 import 'package:sala_thimar/_features/client/notifications/data/repos/notifications_repo.dart';
 import 'package:sala_thimar/_features/client/notifications/logic/notifications_cubit.dart';
 import 'package:sala_thimar/_features/client/orders/data/repos/orders_repo.dart';
@@ -167,6 +168,9 @@ void setupGetIt() {
   );
   getIt.registerFactory<OrderDetailsCubit>(
     () => OrderDetailsCubit(getIt<OrdersRepo>()),
+  );
+  getIt.registerFactory<RateProductsCubit>(
+    () => RateProductsCubit(getIt<OrdersRepo>()),
   );
   getIt.registerLazySingleton<NotificationsRepo>(
     () => NotificationsRepo(getIt<ApiService>()),

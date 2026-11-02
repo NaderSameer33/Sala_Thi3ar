@@ -5,10 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../cart/logic/cart_cubit.dart';
 import '../../../cart/logic/cart_state.dart';
+import '../../../cart/presentation/components/add_to_cart_bottom_sheet.dart';
 import '../../../../../core/routers/app_router_name.dart';
 import '../../data/models/product_model.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_styles.dart';
 
 class BuildProductItem extends StatelessWidget {
   final ProductModel product;
@@ -90,12 +92,7 @@ class BuildProductItem extends StatelessWidget {
                         ),
                         child: Text(
                           '${product.discountPercent}%',
-                          style: TextStyle(
-                            fontFamily: 'Tajawal',
-                            color: Colors.white,
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppStyles.font10BoldWhite,
                         ),
                       ),
                     ),
@@ -105,12 +102,7 @@ class BuildProductItem extends StatelessWidget {
             8.verticalSpacing,
             Text(
               product.title,
-              style: TextStyle(
-                fontFamily: 'Tajawal',
-                color: AppColors.primary,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppStyles.font14BoldPrimary,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.right,
@@ -118,11 +110,8 @@ class BuildProductItem extends StatelessWidget {
             2.verticalSpacing,
             Text(
               'السعر / 1 ${product.unitName.isNotEmpty ? product.unitName : 'كجم'}',
-              style: TextStyle(
-                fontFamily: 'Tajawal',
+              style: AppStyles.font11RegularGray.copyWith(
                 color: AppColors.textLightGray,
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w400,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -139,23 +128,17 @@ class BuildProductItem extends StatelessWidget {
                     children: [
                       Text(
                         '${product.formattedPrice} ر.س',
-                        style: TextStyle(
-                          fontFamily: 'Tajawal',
-                          color: AppColors.primary,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppStyles.font13BoldPrimary,
                       ),
                       if (product.hasDiscount) ...[
                         4.horizontalSpacing,
                         Flexible(
                           child: Text(
                             '${product.formattedPriceBeforeDiscount} ر.س',
-                            style: TextStyle(
-                              fontFamily: 'Tajawal',
+                            style: AppStyles.font11RegularGray.copyWith(
                               color: AppColors.textLightGray,
-                              fontSize: 10.sp,
                               decoration: TextDecoration.lineThrough,
+                              fontSize: 10.sp,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -173,12 +156,21 @@ class BuildProductItem extends StatelessWidget {
                     final isAdding = state.mutatingProductId == product.id;
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () {
+                      onTap: () async {
                         if (shouldHero && !isAdding) {
-                          context.read<CartCubit>().addToCart(
+                          final isSuccess = await context.read<CartCubit>().addToCart(
                                 productId: product.id,
                                 amount: 1,
                               );
+                          if (isSuccess && context.mounted) {
+                            AddToCartBottomSheet.show(
+                              context,
+                              title: product.title,
+                              imageUrl: product.mainImage,
+                              price: product.price,
+                              amount: 1,
+                            );
+                          }
                         }
                       },
                       child: Container(
@@ -218,7 +210,7 @@ class BuildProductItem extends StatelessWidget {
       imageUrl: product.mainImage,
       fit: BoxFit.cover,
       placeholder: (_, _) => Container(color: AppColors.inputFill),
-      errorWidget: (_, _, _) => const Center(
+      errorWidget: (context, url, error) => const Center(
         child: Icon(
           Icons.image_not_supported_outlined,
           color: AppColors.textLightGray,

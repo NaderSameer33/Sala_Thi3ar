@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sala_thimar/_features/client/cart/logic/cart_cubit.dart';
 import 'package:sala_thimar/_features/client/cart/logic/cart_state.dart';
+import 'package:sala_thimar/_features/client/cart/presentation/components/add_to_cart_bottom_sheet.dart';
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_cubit.dart';
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_state.dart';
 import 'package:sala_thimar/core/extension/spacing_extension.dart';
 import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_styles.dart';
 
 class ProductBottomCartBar extends StatelessWidget {
   const ProductBottomCartBar({super.key});
@@ -53,13 +55,24 @@ class ProductBottomCartBar extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.r),
                       onTap: isAdding
                           ? null
-                          : () {
+                          : () async {
                               final product = detailsState.product;
                               if (product != null && product.id > 0) {
-                                context.read<CartCubit>().addToCart(
+                                final isSuccess = await context
+                                    .read<CartCubit>()
+                                    .addToCart(
                                       productId: product.id,
                                       amount: detailsState.quantity,
                                     );
+                                if (isSuccess && context.mounted) {
+                                  AddToCartBottomSheet.show(
+                                    context,
+                                    title: product.title,
+                                    imageUrl: product.mainImage,
+                                    price: detailsState.totalPrice,
+                                    amount: detailsState.quantity,
+                                  );
+                                }
                               }
                             },
                       child: Padding(
@@ -93,7 +106,7 @@ class ProductBottomCartBar extends StatelessWidget {
                                           width: 20.w,
                                           height: 20.h,
                                           color: Colors.white,
-                                          errorBuilder: (_, _, _) =>
+                                          errorBuilder: (context, error, stackTrace) =>
                                               const Icon(
                                             Icons.shopping_bag_outlined,
                                             color: Colors.white,
@@ -104,23 +117,13 @@ class ProductBottomCartBar extends StatelessWidget {
                                 8.horizontalSpacing,
                                 Text(
                                   'إضافة إلى السلة',
-                                  style: TextStyle(
-                                    fontFamily: 'Tajawal',
-                                    color: Colors.white,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: AppStyles.font15BoldWhite,
                                 ),
                               ],
                             ),
                             Text(
                               '$totalFormatted ر.س',
-                              style: TextStyle(
-                                fontFamily: 'Tajawal',
-                                color: Colors.white,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppStyles.font15BoldWhite,
                             ),
                           ],
                         ),

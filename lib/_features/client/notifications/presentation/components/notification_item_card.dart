@@ -85,10 +85,8 @@ class NotificationItemCard extends StatelessWidget {
                     6.verticalSpacing,
                     Text(
                       notification.createdAt,
-                      style: TextStyle(
-                        fontFamily: AppStyles.fontFamily,
+                      style: AppStyles.font11RegularGray.copyWith(
                         color: AppColors.textLightGray,
-                        fontSize: 11.sp,
                       ),
                     ),
                   ],
@@ -138,12 +136,7 @@ class NotificationItemCard extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           '%',
-          style: TextStyle(
-            fontFamily: AppStyles.fontFamily,
-            color: AppColors.primary,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppStyles.font16BoldPrimary,
         ),
       );
     }
@@ -163,4 +156,3 @@ class NotificationItemCard extends StatelessWidget {
     );
   }
 }
-
