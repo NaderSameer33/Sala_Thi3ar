@@ -1,3 +1,5 @@
+import 'package:sala_thimar/_features/client/notifications/data/repos/notifications_repo.dart';
+import 'package:sala_thimar/_features/client/notifications/logic/notifications_cubit.dart';
 import 'package:sala_thimar/_features/client/orders/data/repos/orders_repo.dart';
 import 'package:sala_thimar/_features/client/orders/logic/orders_cubit.dart';
 import 'package:sala_thimar/_features/client/orders/logic/order_details_cubit.dart';
@@ -33,11 +35,17 @@ import 'package:sala_thimar/_features/client/product_details/data/repos/product_
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_cubit.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
+import 'package:sala_thimar/core/services/fcm_service.dart';
+import 'package:sala_thimar/core/services/local_notification_service.dart';
 
 final getIt = GetIt.instance;
 
 void setupGetIt() {
   getIt.registerLazySingleton<SecureStorageService>(() => SecureStorageService());
+  getIt.registerLazySingleton<LocalNotificationService>(() => LocalNotificationService());
+  getIt.registerLazySingleton<FcmService>(
+    () => FcmService(getIt<SecureStorageService>()),
+  );
   getIt.registerLazySingleton<Dio>(() => Dio());
   getIt.registerLazySingleton<ApiService>(
     () => ApiService(
@@ -52,7 +60,10 @@ void setupGetIt() {
     ),
   );
   getIt.registerFactory<ClientLoginCubit>(
-    () => ClientLoginCubit(getIt<ClientLoginRepo>()),
+    () => ClientLoginCubit(
+      getIt<ClientLoginRepo>(),
+      getIt<FcmService>(),
+    ),
   );
   getIt.registerLazySingleton<ClientRegisterRepo>(
     () => ClientRegisterRepo(
@@ -156,5 +167,11 @@ void setupGetIt() {
   );
   getIt.registerFactory<OrderDetailsCubit>(
     () => OrderDetailsCubit(getIt<OrdersRepo>()),
+  );
+  getIt.registerLazySingleton<NotificationsRepo>(
+    () => NotificationsRepo(getIt<ApiService>()),
+  );
+  getIt.registerFactory<NotificationsCubit>(
+    () => NotificationsCubit(getIt<NotificationsRepo>()),
   );
 }
