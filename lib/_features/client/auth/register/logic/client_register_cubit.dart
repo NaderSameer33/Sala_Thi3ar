@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/register_request_body.dart';
 import '../data/repos/client_register_repo.dart';
 import 'client_register_state.dart';
 
-class ClientRegisterCubit extends Cubit<ClientRegisterState> {
+class ClientRegisterCubit extends Cubit<ClientRegisterState> with SafeEmitMixin {
   final ClientRegisterRepo clientRegisterRepo;
 
   final TextEditingController fullNameController = TextEditingController();

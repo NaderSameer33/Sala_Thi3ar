@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/edit_profile_request_body.dart';
 import '../data/repos/account_repo.dart';
 import 'account_state.dart';
 
-class AccountCubit extends Cubit<AccountState> {
+class AccountCubit extends Cubit<AccountState> with SafeEmitMixin {
   final AccountRepo accountRepo;
 
   AccountCubit(this.accountRepo) : super(const AccountState());

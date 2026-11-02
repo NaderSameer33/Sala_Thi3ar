@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sala_thimar/_features/client/orders/data/models/order_details_model.dart';
 import 'package:sala_thimar/_features/client/rating/data/repos/rating_repo.dart';
 import 'package:sala_thimar/_features/client/rating/logic/rating_state.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import 'package:sala_thimar/core/errors/failure.dart';
 
-class RatingCubit extends Cubit<RatingState> {
+class RatingCubit extends Cubit<RatingState> with SafeEmitMixin {
   final RatingRepo repo;
 
   RatingCubit(this.repo) : super(const RatingState());

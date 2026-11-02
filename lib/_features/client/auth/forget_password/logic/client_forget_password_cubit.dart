@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/repos/client_forget_password_repo.dart';
 import 'client_forget_password_state.dart';
 
-class ClientForgetPasswordCubit extends Cubit<ClientForgetPasswordState> {
+class ClientForgetPasswordCubit extends Cubit<ClientForgetPasswordState> with SafeEmitMixin {
   final ClientForgetPasswordRepo forgetPasswordRepo;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

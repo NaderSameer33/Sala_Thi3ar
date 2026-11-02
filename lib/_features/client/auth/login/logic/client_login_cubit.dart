@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../../../../../../core/services/fcm_service.dart';
 import '../data/models/login_request_body.dart';
 import '../data/repos/client_login_repo.dart';
 import 'client_login_state.dart';
 
-class ClientLoginCubit extends Cubit<ClientLoginState> {
+class ClientLoginCubit extends Cubit<ClientLoginState> with SafeEmitMixin {
   final ClientLoginRepo clientLoginRepo;
   final FcmService fcmService;
 

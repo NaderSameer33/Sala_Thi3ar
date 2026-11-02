@@ -4,9 +4,10 @@ import 'package:sala_thimar/_features/client/home/data/models/product_model.dart
 import 'package:sala_thimar/_features/client/product_details/data/models/product_rate_model.dart';
 import 'package:sala_thimar/_features/client/product_details/data/repos/product_details_repo.dart';
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_state.dart';
+import '../../../../../core/base/safe_cubit.dart';
 import '../../../../../core/errors/failure.dart';
 
-class ProductDetailsCubit extends Cubit<ProductDetailsState> {
+class ProductDetailsCubit extends Cubit<ProductDetailsState> with SafeEmitMixin {
   final ProductDetailsRepo repo;
 
   ProductDetailsCubit(this.repo) : super(const ProductDetailsState());

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/models/product_model.dart';
 import '../data/repos/category_products_repo.dart';
 import 'category_products_state.dart';
 
-class CategoryProductsCubit extends Cubit<CategoryProductsState> {
+class CategoryProductsCubit extends Cubit<CategoryProductsState> with SafeEmitMixin {
   final CategoryProductsRepo repo;
   Timer? _debounce;
 

@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/cart_data_model.dart';
 import '../data/models/cart_item_model.dart';
 import '../data/repos/cart_repo.dart';
 import 'cart_state.dart';
 
-class CartCubit extends Cubit<CartState> {
+class CartCubit extends Cubit<CartState> with SafeEmitMixin {
   final CartRepo repo;
 
   CartCubit(this.repo) : super(const CartState());
