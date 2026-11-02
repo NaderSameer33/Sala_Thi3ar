@@ -36,11 +36,13 @@ import 'package:sala_thimar/_features/client/product_details/logic/product_detai
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
 import 'package:sala_thimar/core/services/fcm_service.dart';
+import 'package:sala_thimar/core/services/local_notification_service.dart';
 
 final getIt = GetIt.instance;
 
 void setupGetIt() {
   getIt.registerLazySingleton<SecureStorageService>(() => SecureStorageService());
+  getIt.registerLazySingleton<LocalNotificationService>(() => LocalNotificationService());
   getIt.registerLazySingleton<FcmService>(
     () => FcmService(getIt<SecureStorageService>()),
   );
