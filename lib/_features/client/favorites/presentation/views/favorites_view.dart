@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cart/logic/cart_cubit.dart';
 import '../../../../../core/extension/spacing_extension.dart';
+import '../../../../../core/services/get_it_service.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../components/favorites_empty_state.dart';
 import '../components/favorites_grid.dart';
@@ -8,14 +10,29 @@ import '../components/favorites_header.dart';
 import '../../logic/favorites_cubit.dart';
 import '../../logic/favorites_state.dart';
 
-class FavoritesView extends StatefulWidget {
+class FavoritesView extends StatelessWidget {
   const FavoritesView({super.key});
 
   @override
-  State<FavoritesView> createState() => _FavoritesViewState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<FavoritesCubit>()..getFavorites()),
+        BlocProvider.value(value: getIt<CartCubit>()),
+      ],
+      child: const _FavoritesViewContent(),
+    );
+  }
 }
 
-class _FavoritesViewState extends State<FavoritesView> {
+class _FavoritesViewContent extends StatefulWidget {
+  const _FavoritesViewContent();
+
+  @override
+  State<_FavoritesViewContent> createState() => _FavoritesViewContentState();
+}
+
+class _FavoritesViewContentState extends State<_FavoritesViewContent> {
   @override
   void initState() {
     super.initState();

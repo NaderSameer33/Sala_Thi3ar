@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cart/logic/cart_cubit.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/services/get_it_service.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -20,12 +21,17 @@ class CategoryProductsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<CategoryProductsCubit>()
-        ..init(
-          categoryId: categoryId,
-          categoryName: categoryName,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<CategoryProductsCubit>()
+            ..init(
+              categoryId: categoryId,
+              categoryName: categoryName,
+            ),
         ),
+        BlocProvider.value(value: getIt<CartCubit>()),
+      ],
       child: const _CategoryProductsViewBody(),
     );
   }

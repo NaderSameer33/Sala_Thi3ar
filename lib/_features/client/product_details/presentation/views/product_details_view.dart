@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sala_thimar/_features/client/cart/logic/cart_cubit.dart';
+import 'package:sala_thimar/_features/client/favorites/logic/favorites_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/models/product_model.dart';
 import 'package:sala_thimar/_features/client/product_details/presentation/components/product_bottom_cart_bar.dart';
 import 'package:sala_thimar/_features/client/product_details/presentation/components/product_description_section.dart';
@@ -26,8 +28,14 @@ class ProductDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<ProductDetailsCubit>()..init(product),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<ProductDetailsCubit>()..init(product),
+        ),
+        BlocProvider.value(value: getIt<CartCubit>()),
+        BlocProvider.value(value: getIt<FavoritesCubit>()),
+      ],
       child: _ProductDetailsViewBody(
         heroTag: heroTag.isNotEmpty
             ? heroTag

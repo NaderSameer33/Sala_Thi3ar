@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../cart/logic/cart_cubit.dart';
 import '../../../cart/logic/cart_state.dart';
+import '../../logic/home_cubit.dart';
+import '../../logic/home_state.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/routers/app_router_name.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -27,32 +29,53 @@ class HomeHeader extends StatelessWidget {
           2.horizontalSpace,
           Text('سلة ثمار', style: AppStyles.font14BoldPrimary),
           Expanded(
-            child: Column(
-              children: [
-                Text(
-                  'التوصيل إلى',
-                  style: AppStyles.font12RegularGray.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                2.verticalSpacing,
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'شارع الملك فهد - جدة',
-                      style: AppStyles.font14RegularDark,
-                    ),
-                    4.horizontalSpacing,
-                    const Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 18,
+            child: GestureDetector(
+              onTap: () {
+                context.read<HomeCubit>().determineUserLocation();
+              },
+              child: Column(
+                children: [
+                  Text(
+                    'التوصيل إلى',
+                    style: AppStyles.font12RegularGray.copyWith(
                       color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  2.verticalSpacing,
+                  BlocBuilder<HomeCubit, HomeState>(
+                    buildWhen: (prev, curr) =>
+                        prev.userCity != curr.userCity ||
+                        prev.locationState != curr.locationState,
+                    builder: (context, state) {
+                      final cityText = state.userCity.isNotEmpty
+                          ? state.userCity
+                          : (state.locationState == RequestState.loading
+                              ? 'جاري التحديد...'
+                              : 'اختر موقعك');
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              cityText,
+                              style: AppStyles.font14RegularDark,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          4.horizontalSpacing,
+                          const Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 18,
+                            color: AppColors.primary,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           GestureDetector(
