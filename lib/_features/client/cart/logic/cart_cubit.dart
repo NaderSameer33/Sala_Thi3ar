@@ -52,7 +52,7 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  Future<void> addToCart({required int productId, int amount = 1}) async {
+  Future<bool> addToCart({required int productId, int amount = 1}) async {
     emit(state.copyWith(
       isMutating: true,
       mutatingProductId: () => productId,
@@ -61,14 +61,17 @@ class CartCubit extends Cubit<CartState> {
 
     final result = await repo.addToCart(productId: productId, amount: amount);
 
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-          isMutating: false,
-          mutatingProductId: () => null,
-          mutationMessage: failure.message,
-        ),
-      ),
+    return result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            isMutating: false,
+            mutatingProductId: () => null,
+            mutationMessage: failure.message,
+          ),
+        );
+        return false;
+      },
       (message) {
         emit(
           state.copyWith(
@@ -78,6 +81,7 @@ class CartCubit extends Cubit<CartState> {
           ),
         );
         getCart();
+        return true;
       },
     );
   }
