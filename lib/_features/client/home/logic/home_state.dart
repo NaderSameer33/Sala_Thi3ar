@@ -79,7 +79,7 @@ class HomeState extends Equatable {
       productsFailureMessage: productsMessage ?? productsFailureMessage,
       searchState: searchState ?? this.searchState,
       searchResults: searchResults ?? this.searchResults,
-      searchFailureMessage: searchMessage ?? this.searchFailureMessage,
+      searchFailureMessage: searchMessage ?? searchFailureMessage,
       searchKeyword: searchKeyword ?? this.searchKeyword,
     );
   }

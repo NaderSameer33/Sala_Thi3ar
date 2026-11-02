@@ -1,15 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../data/models/product_model.dart';
 import '../../logic/home_cubit.dart';
 import '../../logic/home_state.dart';
 import 'build_home_error_state.dart';
 import 'build_product_grid_view.dart';
-import '../../../../../core/extension/spacing_extension.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_styles.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeProductsSection extends StatelessWidget {
@@ -46,6 +40,4 @@ class HomeProductsSection extends StatelessWidget {
       },
     );
   }
-
- 
 }

@@ -1,8 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sala_thimar/_features/client/home/data/models/product_model.dart';
 import 'package:sala_thimar/_features/client/product_details/data/models/product_rate_model.dart';
 import 'package:sala_thimar/_features/client/product_details/data/repos/product_details_repo.dart';
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_state.dart';
+import '../../../../../core/errors/failure.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final ProductDetailsRepo repo;
@@ -58,7 +60,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       },
     );
   }
-     final List<ProductRateModel> dummyRates = List.generate(
+
+  final List<ProductRateModel> dummyRates = List.generate(
     3,
     (index) => const ProductRateModel(
       value: 5,
@@ -86,6 +89,23 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         ),
       ),
     );
+  }
+
+  Future<Either<Failure, String>> rateProduct({
+    required int productId,
+    required int value,
+    required String comment,
+  }) async {
+    final result = await repo.rateProduct(
+      productId: productId,
+      value: value,
+      comment: comment,
+    );
+    result.fold(
+      (_) => null,
+      (_) => getProductRates(productId),
+    );
+    return result;
   }
 
   Future<void> getSimilarProducts(int? categoryId) async {

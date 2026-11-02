@@ -4,25 +4,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
+import '../../../product_details/presentation/components/rate_product_bottom_sheet.dart';
 import '../../data/models/order_details_model.dart';
 
 class OrderProductsBottomSheet extends StatelessWidget {
   final List<OrderProductItemModel> products;
+  final bool canRate;
 
   const OrderProductsBottomSheet({
     super.key,
     required this.products,
+    this.canRate = true,
   });
 
   static Future<void> show(
     BuildContext context,
-    List<OrderProductItemModel> products,
-  ) {
+    List<OrderProductItemModel> products, {
+    bool canRate = true,
+  }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => OrderProductsBottomSheet(products: products),
+      builder: (ctx) => OrderProductsBottomSheet(
+        products: products,
+        canRate: canRate,
+      ),
     );
   }
 
@@ -122,11 +129,69 @@ class OrderProductsBottomSheet extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (p.price > 0)
-                        Text(
-                          '${p.price} ر.س',
-                          style: AppStyles.font14BoldPrimary,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          if (p.price > 0)
+                            Text(
+                              '${p.price} ر.س',
+                              style: AppStyles.font14BoldPrimary,
+                            ),
+                          if (canRate) ...[
+                            4.verticalSpacing,
+                            InkWell(
+                              onTap: () {
+                                RateProductBottomSheet.show(
+                                  context,
+                                  productId: p.id,
+                                  productTitle: p.title.isNotEmpty
+                                      ? p.title
+                                      : 'منتج رقم ${p.id}',
+                                  productImage: p.imageUrl,
+                                  productPrice: p.price > 0
+                                      ? p.price.toString()
+                                      : null,
+                                );
+                              },
+                              borderRadius: BorderRadius.circular(8.r),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w,
+                                  vertical: 3.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryTint,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: AppColors.primary,
+                                    width: 0.8.r,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star_rounded,
+                                      color: AppColors.primary,
+                                      size: 14.r,
+                                    ),
+                                    4.horizontalSpace,
+                                    Text(
+                                      'تقييم',
+                                      style: TextStyle(
+                                        fontFamily: AppStyles.fontFamily,
+                                        color: AppColors.primary,
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
                     ],
                   );
                 },
@@ -138,4 +203,3 @@ class OrderProductsBottomSheet extends StatelessWidget {
     );
   }
 }
-

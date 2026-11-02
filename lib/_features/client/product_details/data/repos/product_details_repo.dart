@@ -84,5 +84,35 @@ class ProductDetailsRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
-}
 
+  Future<Either<Failure, String>> rateProduct({
+    required int productId,
+    required int value,
+    required String comment,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        'value': value,
+        'comment': comment,
+      });
+      final response = await apiService.post(
+        endPoint: 'client/products/$productId/rate',
+        data: formData,
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        if (data['status'] == 'fail') {
+          return Left(
+            ServerFailure(data['message']?.toString() ?? 'فشل إرسال التقييم'),
+          );
+        }
+        return Right(data['message']?.toString() ?? 'تم إضافة التقييم بنجاح');
+      }
+      return const Right('تم إضافة التقييم بنجاح');
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+}
