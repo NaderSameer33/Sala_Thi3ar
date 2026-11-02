@@ -1,5 +1,6 @@
 abstract class AppRouterName {
-  static const onborading = '/';
+  static const splash = '/';
+  static const onborading = '/onboarding';
   static const clientLogin = '/clientLogin';
   static const clientRegister = '/clientRegister';
   static const clientVerifyOtp = '/clientVerifyOtp';
