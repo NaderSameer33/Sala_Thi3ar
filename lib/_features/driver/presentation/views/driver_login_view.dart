@@ -86,8 +86,23 @@ class DriverLoginView extends StatelessWidget {
               ),
               const Spacer(),
               AppButton(
-                text: 'العودة إلى حساب العميل',
+                text: 'تسجيل حساب مندوب جديد',
+                onPressed: () => context.push(AppRouterName.driverRegister),
+              ),
+              12.verticalSpacing,
+              OutlinedButton(
                 onPressed: () => _switchToClient(context),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 55.h),
+                  side: const BorderSide(color: AppColors.primary),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                ),
+                child: Text(
+                  'العودة إلى حساب العميل',
+                  style: AppStyles.font14BoldPrimary,
+                ),
               ),
               24.verticalSpacing,
             ],

@@ -34,6 +34,7 @@ import '../../_features/client/support/presentation/views/suggestions_view.dart'
 import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart';
 import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
 import '../../_features/client/wallet/presentation/views/wallet_view.dart';
+import '../../_features/driver/auth/register/presentation/views/driver_register_view.dart';
 import '../../_features/driver/presentation/views/driver_login_view.dart';
 import '../../_features/splash/presentation/views/splash_view.dart';
 import '../caching/secure_storage_service.dart';
@@ -207,6 +208,14 @@ abstract class AppRoutes {
             context: context,
             state: state,
             child: const DriverLoginView(),
+          ),
+        ),
+        GoRoute(
+          path: AppRouterName.driverRegister,
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const DriverRegisterView(),
           ),
         ),
         GoRoute(
