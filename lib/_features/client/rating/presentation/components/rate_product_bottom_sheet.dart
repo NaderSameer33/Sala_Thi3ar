@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/extension/spacing_extension.dart';
-import '../../../../../core/helper/helper_method.dart';
-import '../../../../../core/services/get_it_service.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_styles.dart';
-import '../../../../../core/widgets/app_button.dart';
-import '../../data/repos/product_details_repo.dart';
-import 'rate_success_dialog.dart';
+import 'package:sala_thimar/_features/client/rating/data/repos/rating_repo.dart';
+import 'package:sala_thimar/_features/client/rating/presentation/components/rate_success_dialog.dart';
+import 'package:sala_thimar/core/extension/spacing_extension.dart';
+import 'package:sala_thimar/core/helper/helper_method.dart';
+import 'package:sala_thimar/core/services/get_it_service.dart';
+import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'package:sala_thimar/core/widgets/app_button.dart';
 
 class RateProductBottomSheet extends StatefulWidget {
   final int productId;
@@ -88,7 +88,7 @@ class _RateProductBottomSheetState extends State<RateProductBottomSheet> {
   Future<void> _submitRating() async {
     setState(() => _isLoading = true);
 
-    final repo = getIt<ProductDetailsRepo>();
+    final repo = getIt<RatingRepo>();
     final result = await repo.rateProduct(
       productId: widget.productId,
       value: _rating,
@@ -305,4 +305,3 @@ class _RateProductBottomSheetState extends State<RateProductBottomSheet> {
     );
   }
 }
-

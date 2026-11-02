@@ -1,19 +1,9 @@
-import 'package:sala_thimar/_features/client/orders/logic/rate_products_cubit.dart';
-import 'package:sala_thimar/_features/client/notifications/data/repos/notifications_repo.dart';
-import 'package:sala_thimar/_features/client/notifications/logic/notifications_cubit.dart';
-import 'package:sala_thimar/_features/client/orders/data/repos/orders_repo.dart';
-import 'package:sala_thimar/_features/client/orders/logic/orders_cubit.dart';
-import 'package:sala_thimar/_features/client/orders/logic/order_details_cubit.dart';
-import 'package:sala_thimar/_features/client/support/data/repos/support_repo.dart';
-import 'package:sala_thimar/_features/client/support/logic/support_cubit.dart';
-import 'package:sala_thimar/_features/client/addresses/data/repos/addresses_repo.dart';
-import 'package:sala_thimar/_features/client/addresses/logic/addresses_cubit.dart';
-import 'package:sala_thimar/_features/client/wallet/data/repos/wallet_repo.dart';
-import 'package:sala_thimar/_features/client/wallet/logic/wallet_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sala_thimar/_features/client/account/data/repos/account_repo.dart';
 import 'package:sala_thimar/_features/client/account/logic/account_cubit.dart';
+import 'package:sala_thimar/_features/client/addresses/data/repos/addresses_repo.dart';
+import 'package:sala_thimar/_features/client/addresses/logic/addresses_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/forget_password/data/repos/client_forget_password_repo.dart';
 import 'package:sala_thimar/_features/client/auth/forget_password/logic/client_forget_password_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/login/data/repos/client_login_repo.dart';
@@ -32,8 +22,19 @@ import 'package:sala_thimar/_features/client/favorites/data/repos/favorites_repo
 import 'package:sala_thimar/_features/client/favorites/logic/favorites_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/repos/home_repo.dart';
 import 'package:sala_thimar/_features/client/home/logic/home_cubit.dart';
+import 'package:sala_thimar/_features/client/notifications/data/repos/notifications_repo.dart';
+import 'package:sala_thimar/_features/client/notifications/logic/notifications_cubit.dart';
+import 'package:sala_thimar/_features/client/orders/data/repos/orders_repo.dart';
+import 'package:sala_thimar/_features/client/orders/logic/order_details_cubit.dart';
+import 'package:sala_thimar/_features/client/orders/logic/orders_cubit.dart';
 import 'package:sala_thimar/_features/client/product_details/data/repos/product_details_repo.dart';
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_cubit.dart';
+import 'package:sala_thimar/_features/client/rating/data/repos/rating_repo.dart';
+import 'package:sala_thimar/_features/client/rating/logic/rating_cubit.dart';
+import 'package:sala_thimar/_features/client/support/data/repos/support_repo.dart';
+import 'package:sala_thimar/_features/client/support/logic/support_cubit.dart';
+import 'package:sala_thimar/_features/client/wallet/data/repos/wallet_repo.dart';
+import 'package:sala_thimar/_features/client/wallet/logic/wallet_cubit.dart';
 import 'package:sala_thimar/core/caching/secure_storage_service.dart';
 import 'package:sala_thimar/core/services/api_service.dart';
 import 'package:sala_thimar/core/services/fcm_service.dart';
@@ -169,8 +170,11 @@ void setupGetIt() {
   getIt.registerFactory<OrderDetailsCubit>(
     () => OrderDetailsCubit(getIt<OrdersRepo>()),
   );
-  getIt.registerFactory<RateProductsCubit>(
-    () => RateProductsCubit(getIt<OrdersRepo>()),
+  getIt.registerLazySingleton<RatingRepo>(
+    () => RatingRepo(getIt<ApiService>()),
+  );
+  getIt.registerFactory<RatingCubit>(
+    () => RatingCubit(getIt<RatingRepo>()),
   );
   getIt.registerLazySingleton<NotificationsRepo>(
     () => NotificationsRepo(getIt<ApiService>()),

@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/extension/spacing_extension.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_styles.dart';
-import '../../../../../core/widgets/app_button.dart';
+import 'package:sala_thimar/core/extension/spacing_extension.dart';
+import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'package:sala_thimar/core/widgets/app_button.dart';
 
 class RateSuccessDialog extends StatelessWidget {
   final VoidCallback? onDismiss;
+  final String title;
+  final String message;
+  final String buttonText;
 
   const RateSuccessDialog({
     super.key,
     this.onDismiss,
+    this.title = 'شكراً لتقييمك! 🎉',
+    this.message = 'تمت إضافة تقييمك للمنتج بنجاح، رأيك يساعدنا ويساعد باقي العملاء',
+    this.buttonText = 'حسناً',
   });
 
-  static Future<void> show(BuildContext context, {VoidCallback? onDismiss}) {
+  static Future<void> show(
+    BuildContext context, {
+    VoidCallback? onDismiss,
+    String title = 'شكراً لتقييمك! 🎉',
+    String message = 'تمت إضافة تقييمك للمنتج بنجاح، رأيك يساعدنا ويساعد باقي العملاء',
+    String buttonText = 'حسناً',
+  }) {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (ctx) => RateSuccessDialog(onDismiss: onDismiss),
+      builder: (ctx) => RateSuccessDialog(
+        onDismiss: onDismiss,
+        title: title,
+        message: message,
+        buttonText: buttonText,
+      ),
     );
   }
 
@@ -48,13 +65,13 @@ class RateSuccessDialog extends StatelessWidget {
           ),
           18.verticalSpacing,
           Text(
-            'شكراً لتقييمك!',
+            title,
             style: AppStyles.font18BoldPrimary,
             textAlign: TextAlign.center,
           ),
           8.verticalSpacing,
           Text(
-            'تمت إضافة تقييمك للمنتج بنجاح، رأيك يساعدنا ويساعد باقي العملاء',
+            message,
             style: AppStyles.font14RegularDark,
             textAlign: TextAlign.center,
           ),
@@ -62,7 +79,7 @@ class RateSuccessDialog extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: AppButton(
-              text: 'حسناً',
+              text: buttonText,
               backgroundColor: AppColors.primary,
               onPressed: () {
                 Navigator.of(context).pop();

@@ -8,8 +8,8 @@ import 'package:sala_thimar/_features/client/product_details/logic/product_detai
 import 'package:sala_thimar/core/extension/spacing_extension.dart';
 import 'package:sala_thimar/core/theme/app_colors.dart';
 import 'package:sala_thimar/core/theme/app_styles.dart';
+import 'package:sala_thimar/_features/client/rating/presentation/components/rate_product_bottom_sheet.dart';
 import 'rate_list_view.dart';
-import 'rate_product_bottom_sheet.dart';
 
 class ProductRatesSection extends StatelessWidget {
   const ProductRatesSection({super.key});

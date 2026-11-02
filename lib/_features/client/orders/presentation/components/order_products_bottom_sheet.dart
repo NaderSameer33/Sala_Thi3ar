@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
-import '../../../product_details/presentation/components/rate_product_bottom_sheet.dart';
+import 'package:sala_thimar/_features/client/rating/presentation/components/rate_product_bottom_sheet.dart';
 import '../../data/models/order_details_model.dart';
 
 class OrderProductsBottomSheet extends StatelessWidget {
