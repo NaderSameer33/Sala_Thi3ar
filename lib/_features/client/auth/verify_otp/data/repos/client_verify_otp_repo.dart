@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import '../models/verify_otp_request_body.dart';
 import '../models/verify_otp_response_model.dart';
 import '../../../../../../core/caching/secure_storage_service.dart';
+import '../../../../../../core/caching/shared_pref_service.dart';
+import '../../../../../../core/constants/constant.dart';
 import '../../../../../../core/errors/failure.dart';
 import '../../../../../../core/services/api_service.dart';
 
@@ -38,6 +41,20 @@ class ClientVerifyOtpRepo {
         await secureStorageService.write(SecureStorageService.keyUserToken, token);
       }
 
+      if (verifyResponse.data?.userType != null) {
+        await SharedPrefService.setString(
+          AppConstant.userRole,
+          verifyResponse.data!.userType!,
+        );
+      }
+
+      if (verifyResponse.data != null) {
+        await SharedPrefService.setString(
+          'user_data',
+          jsonEncode(verifyResponse.data!.toJson()),
+        );
+      }
+
       return Right(verifyResponse);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -59,16 +76,16 @@ class ClientVerifyOtpRepo {
         }),
       );
 
-      if (response.data['status'] == 'fail') {
-        return Left(
-          ServerFailure(
-            response.data['message']?.toString() ?? 'الكود غير صحيح',
-          ),
-        );
+      final status = response.data['status']?.toString();
+      final message = response.data['message']?.toString();
+
+      if (status == 'fail' ||
+          (response.statusCode != null &&
+              (response.statusCode! < 200 || response.statusCode! >= 300))) {
+        return Left(ServerFailure(message ?? 'الكود غير صحيح'));
       }
 
-      final message = response.data['message']?.toString() ?? 'تم التأكيد بنجاح';
-      return Right(message);
+      return Right(code);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -80,14 +97,21 @@ class ClientVerifyOtpRepo {
     try {
       final response = await apiService.post(
         endPoint: 'resend_code',
-        data: FormData.fromMap({'phone': phone}),
+        data: FormData.fromMap({
+          'phone': phone,
+        }),
       );
 
-      final message = response.data['message']?.toString() ??
-          response.data['msg']?.toString() ??
-          'تمت إعادة إرسال الكود بنجاح';
+      final status = response.data['status']?.toString();
+      final message = response.data['message']?.toString();
 
-      return Right(message);
+      if (status == 'fail' ||
+          (response.statusCode != null &&
+              (response.statusCode! < 200 || response.statusCode! >= 300))) {
+        return Left(ServerFailure(message ?? 'فشل إعادة إرسال الكود'));
+      }
+
+      return Right(message ?? 'تم إعادة إرسال الكود بنجاح');
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

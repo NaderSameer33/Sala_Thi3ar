@@ -47,7 +47,14 @@ class _DriverRegisterViewBody extends StatelessWidget {
                 ),
                 autoCloseDuration: const Duration(seconds: 4),
               );
-              context.go(AppRouterName.driverLogin);
+              context.go(
+                AppRouterName.clientVerifyOtp,
+                extra: context
+                    .read<DriverRegisterCubit>()
+                    .phoneController
+                    .text
+                    .trim(),
+              );
             } else if (state.status == DriverRegisterStatus.error &&
                 state.errorMessage.isNotEmpty) {
               toastification.show(

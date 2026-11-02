@@ -12,6 +12,7 @@ import 'package:sala_thimar/_features/client/auth/register/data/repos/client_reg
 import 'package:sala_thimar/_features/client/auth/register/logic/client_register_cubit.dart';
 import 'package:sala_thimar/_features/driver/auth/register/data/repos/driver_register_repo.dart';
 import 'package:sala_thimar/_features/driver/auth/register/logic/driver_register_cubit.dart';
+import 'package:sala_thimar/_features/driver/auth/login/logic/driver_login_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/reset_password/data/repos/client_reset_password_repo.dart';
 import 'package:sala_thimar/_features/client/auth/reset_password/logic/client_reset_password_cubit.dart';
 import 'package:sala_thimar/_features/client/auth/verify_otp/data/repos/client_verify_otp_repo.dart';
@@ -65,6 +66,12 @@ void setupGetIt() {
   );
   getIt.registerFactory<ClientLoginCubit>(
     () => ClientLoginCubit(
+      getIt<ClientLoginRepo>(),
+      getIt<FcmService>(),
+    ),
+  );
+  getIt.registerFactory<DriverLoginCubit>(
+    () => DriverLoginCubit(
       getIt<ClientLoginRepo>(),
       getIt<FcmService>(),
     ),
