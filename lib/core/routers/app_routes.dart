@@ -35,6 +35,7 @@ import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart
 import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
 import '../../_features/client/wallet/presentation/views/wallet_view.dart';
 import '../../_features/driver/presentation/views/driver_login_view.dart';
+import '../../_features/splash/presentation/views/splash_view.dart';
 import '../caching/secure_storage_service.dart';
 import '../caching/shared_pref_service.dart';
 import '../constants/constant.dart';
@@ -43,7 +44,7 @@ import 'app_page_transition.dart';
 import 'app_router_name.dart';
 
 abstract class AppRoutes {
-  static GoRouter routeConfig = createRouter(AppRouterName.onborading);
+  static GoRouter routeConfig = createRouter(AppRouterName.splash);
 
   static Future<String> getInitialRoute() async {
     final secureStorage = getIt<SecureStorageService>();
@@ -73,6 +74,14 @@ abstract class AppRoutes {
     return GoRouter(
       initialLocation: initialLocation,
       routes: [
+        GoRoute(
+          path: AppRouterName.splash,
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const SplashView(),
+          ),
+        ),
         GoRoute(
           path: AppRouterName.onborading,
           pageBuilder: (context, state) => buildSmoothTransitionPage(
