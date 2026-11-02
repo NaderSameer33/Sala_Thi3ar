@@ -1,14 +1,17 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../data/models/order_details_model.dart';
-import '../data/repos/orders_repo.dart';
-import 'rate_products_state.dart';
+import 'package:sala_thimar/_features/client/orders/data/models/order_details_model.dart';
+import 'package:sala_thimar/_features/client/rating/data/repos/rating_repo.dart';
+import 'package:sala_thimar/_features/client/rating/logic/rating_state.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
+import 'package:sala_thimar/core/errors/failure.dart';
 
-class RateProductsCubit extends Cubit<RateProductsState> {
-  final OrdersRepo repo;
+class RatingCubit extends Cubit<RatingState> with SafeEmitMixin {
+  final RatingRepo repo;
 
-  RateProductsCubit(this.repo) : super(const RateProductsState());
+  RatingCubit(this.repo) : super(const RatingState());
 
-  void init(List<OrderProductItemModel> products) {
+  void initOrderProducts(List<OrderProductItemModel> products) {
     final initialRatings = <int, int>{};
     for (final p in products) {
       initialRatings[p.id] = 4;
@@ -28,8 +31,8 @@ class RateProductsCubit extends Cubit<RateProductsState> {
     emit(state.copyWith(comments: updated));
   }
 
-  Future<void> submitRatings(List<OrderProductItemModel> products) async {
-    emit(state.copyWith(status: RateProductsStatus.loading));
+  Future<void> submitOrderRatings(List<OrderProductItemModel> products) async {
+    emit(state.copyWith(status: RatingStatus.loading));
 
     for (final product in products) {
       final rating = state.ratings[product.id] ?? 4;
@@ -45,7 +48,7 @@ class RateProductsCubit extends Cubit<RateProductsState> {
         (failure) {
           emit(
             state.copyWith(
-              status: RateProductsStatus.error,
+              status: RatingStatus.error,
               errorMessage: failure.message,
             ),
           );
@@ -59,10 +62,24 @@ class RateProductsCubit extends Cubit<RateProductsState> {
 
     emit(
       state.copyWith(
-        status: RateProductsStatus.success,
+        status: RatingStatus.success,
         successMessage: 'تم إرسال التقييم بنجاح',
       ),
     );
   }
-}
 
+  Future<Either<Failure, String>> rateSingleProduct({
+    required int productId,
+    required int value,
+    required String comment,
+  }) async {
+    emit(state.copyWith(isSubmittingSingle: true));
+    final result = await repo.rateProduct(
+      productId: productId,
+      value: value,
+      comment: comment,
+    );
+    emit(state.copyWith(isSubmittingSingle: false));
+    return result;
+  }
+}

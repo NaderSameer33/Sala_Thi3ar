@@ -1,23 +1,11 @@
-import '../../_features/client/orders/data/models/order_details_model.dart';
-import '../../_features/client/orders/presentation/views/complete_order_view.dart';
-import '../../_features/client/orders/presentation/views/order_details_view.dart';
-import '../../_features/client/orders/presentation/views/rate_products_view.dart';
-import '../../_features/client/orders/data/models/order_model.dart';
-import '../../_features/client/support/presentation/views/about_app_view.dart';
-import '../../_features/client/support/presentation/views/contact_us_view.dart';
-import '../../_features/client/support/presentation/views/faqs_view.dart';
-import '../../_features/client/support/presentation/views/privacy_policy_view.dart';
-import '../../_features/client/support/presentation/views/suggestions_view.dart';
-import '../../_features/client/addresses/data/models/address_model.dart';
-import '../../_features/client/addresses/presentation/views/add_address_view.dart';
-import '../../_features/client/addresses/presentation/views/addresses_view.dart';
-import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart';
-import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
-import '../../_features/client/wallet/presentation/views/wallet_view.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../_features/_onborading/presentation/views/on_borading_view.dart';
 import '../../_features/client/account/presentation/views/my_account_view.dart';
 import '../../_features/client/account/presentation/views/personal_details_view.dart';
+import '../../_features/client/addresses/data/models/address_model.dart';
+import '../../_features/client/addresses/presentation/views/add_address_view.dart';
+import '../../_features/client/addresses/presentation/views/addresses_view.dart';
 import '../../_features/client/auth/forget_password/presentation/views/client_forget_password_view.dart';
 import '../../_features/client/auth/login/presentation/views/client_login_view.dart';
 import '../../_features/client/auth/register/presentation/views/client_register_view.dart';
@@ -31,14 +19,28 @@ import '../../_features/client/home/data/models/product_model.dart';
 import '../../_features/client/home/presentation/views/home_view.dart';
 import '../../_features/client/main_shell/presentation/views/main_bottom_nav_shell.dart';
 import '../../_features/client/notifications/presentation/views/notifications_view.dart';
+import '../../_features/client/orders/data/models/order_details_model.dart';
+import '../../_features/client/orders/data/models/order_model.dart';
+import '../../_features/client/orders/presentation/views/complete_order_view.dart';
 import '../../_features/client/orders/presentation/views/my_orders_view.dart';
+import '../../_features/client/orders/presentation/views/order_details_view.dart';
 import '../../_features/client/product_details/presentation/views/product_details_view.dart';
+import '../../_features/client/rating/presentation/views/rate_products_view.dart';
+import '../../_features/client/support/presentation/views/about_app_view.dart';
+import '../../_features/client/support/presentation/views/contact_us_view.dart';
+import '../../_features/client/support/presentation/views/faqs_view.dart';
+import '../../_features/client/support/presentation/views/privacy_policy_view.dart';
+import '../../_features/client/support/presentation/views/suggestions_view.dart';
+import '../../_features/client/wallet/presentation/views/charge_wallet_view.dart';
+import '../../_features/client/wallet/presentation/views/transactions_history_view.dart';
+import '../../_features/client/wallet/presentation/views/wallet_view.dart';
 import '../../_features/driver/presentation/views/driver_login_view.dart';
 import '../caching/secure_storage_service.dart';
 import '../caching/shared_pref_service.dart';
 import '../constants/constant.dart';
-import 'app_router_name.dart';
 import '../services/get_it_service.dart';
+import 'app_page_transition.dart';
+import 'app_router_name.dart';
 
 abstract class AppRoutes {
   static GoRouter routeConfig = createRouter(AppRouterName.onborading);
@@ -73,7 +75,11 @@ abstract class AppRoutes {
       routes: [
         GoRoute(
           path: AppRouterName.onborading,
-          builder: (context, state) => const OnBoradingView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const OnBoradingView(),
+          ),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
@@ -124,174 +130,281 @@ abstract class AppRoutes {
         ),
         GoRoute(
           path: AppRouterName.clientLogin,
-          builder: (context, state) => const ClientLoginView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const ClientLoginView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.clientRegister,
-          builder: (context, state) => const ClientRegisterView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const ClientRegisterView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.clientVerifyOtp,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
+            Widget child;
             if (state.extra is Map<String, dynamic>) {
               final map = state.extra as Map<String, dynamic>;
               final phone = map['phone']?.toString() ?? '';
               final isForgetPassword = map['isForgetPassword'] == true;
-              return ClientVerifyOtpView(
+              child = ClientVerifyOtpView(
                 phone: phone,
                 isForgetPassword: isForgetPassword,
               );
+            } else {
+              child = const ClientVerifyOtpView(phone: '');
             }
-            return const ClientVerifyOtpView(phone: '');
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: child,
+            );
           },
         ),
         GoRoute(
           path: AppRouterName.clientForgetPassword,
-          builder: (context, state) => const ClientForgetPasswordView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const ClientForgetPasswordView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.clientResetPassword,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final map = state.extra is Map<String, dynamic>
                 ? state.extra as Map<String, dynamic>
                 : <String, dynamic>{};
             final phone = map['phone']?.toString() ?? '';
             final code = map['code']?.toString() ?? '';
-            return ClientResetPasswordView(
-              phone: phone,
-              code: code,
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: ClientResetPasswordView(
+                phone: phone,
+                code: code,
+              ),
             );
           },
         ),
         GoRoute(
           path: AppRouterName.driverLogin,
-          builder: (context, state) => const DriverLoginView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const DriverLoginView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.productDetails,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
+            Widget child;
             if (state.extra is Map<String, dynamic>) {
               final map = state.extra as Map<String, dynamic>;
               final product = map['product'] as ProductModel;
               final heroTag = map['heroTag']?.toString() ?? '';
-              return ProductDetailsView(
+              child = ProductDetailsView(
                 product: product,
                 heroTag: heroTag,
               );
+            } else {
+              final product = state.extra as ProductModel;
+              child = ProductDetailsView(product: product);
             }
-            final product = state.extra as ProductModel;
-            return ProductDetailsView(product: product);
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: child,
+            );
           },
         ),
         GoRoute(
           path: AppRouterName.cart,
-          builder: (context, state) => const CartView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const CartView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.personalDetails,
-          builder: (context, state) => const PersonalDetailsView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const PersonalDetailsView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.wallet,
-          builder: (context, state) => const WalletView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const WalletView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.chargeWallet,
-          builder: (context, state) => const ChargeWalletView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const ChargeWalletView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.addresses,
-          builder: (context, state) => const AddressesView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const AddressesView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.addAddress,
-          builder: (context, state) {
-            final address = state.extra is AddressModel ? state.extra as AddressModel : null;
-            return AddAddressView(address: address);
+          pageBuilder: (context, state) {
+            final address = state.extra is AddressModel
+                ? state.extra as AddressModel
+                : null;
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: AddAddressView(address: address),
+            );
           },
         ),
         GoRoute(
           path: AppRouterName.transactionsHistory,
-          builder: (context, state) => const TransactionsHistoryView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const TransactionsHistoryView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.categoryProducts,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
+            Widget child;
             if (state.extra is CategoryModel) {
               final category = state.extra as CategoryModel;
-              return CategoryProductsView(
+              child = CategoryProductsView(
                 categoryId: category.id,
                 categoryName: category.name,
               );
+            } else {
+              final map = state.extra as Map<String, dynamic>? ?? {};
+              child = CategoryProductsView(
+                categoryId: map['categoryId'] as int? ?? 0,
+                categoryName: map['categoryName']?.toString() ?? '',
+              );
             }
-            final map = state.extra as Map<String, dynamic>? ?? {};
-            return CategoryProductsView(
-              categoryId: map['categoryId'] as int? ?? 0,
-              categoryName: map['categoryName']?.toString() ?? '',
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: child,
             );
           },
         ),
         GoRoute(
           path: AppRouterName.faqs,
-          builder: (context, state) => const FaqsView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const FaqsView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.privacyPolicy,
-          builder: (context, state) => const PrivacyPolicyView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const PrivacyPolicyView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.aboutApp,
-          builder: (context, state) => const AboutAppView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const AboutAppView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.contactUs,
-          builder: (context, state) => const ContactUsView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const ContactUsView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.completeOrder,
-          builder: (context, state) => const CompleteOrderView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const CompleteOrderView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.suggestions,
-          builder: (context, state) => const SuggestionsView(),
+          pageBuilder: (context, state) => buildSmoothTransitionPage(
+            context: context,
+            state: state,
+            child: const SuggestionsView(),
+          ),
         ),
         GoRoute(
           path: AppRouterName.orderDetails,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
+            Widget child;
             if (state.extra is OrderModel) {
               final order = state.extra as OrderModel;
-              return OrderDetailsView(
+              child = OrderDetailsView(
                 orderId: order.id,
                 initialOrder: order,
               );
-            }
-            if (state.extra is Map<String, dynamic>) {
+            } else if (state.extra is Map<String, dynamic>) {
               final map = state.extra as Map<String, dynamic>;
               final orderId = map['orderId'] as int? ?? 0;
               final order = map['order'] as OrderModel?;
-              return OrderDetailsView(
+              child = OrderDetailsView(
                 orderId: orderId,
                 initialOrder: order,
               );
+            } else {
+              final orderId = int.tryParse(state.extra?.toString() ?? '0') ?? 0;
+              child = OrderDetailsView(orderId: orderId);
             }
-            final orderId = int.tryParse(state.extra?.toString() ?? '0') ?? 0;
-            return OrderDetailsView(orderId: orderId);
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: child,
+            );
           },
         ),
         GoRoute(
           path: AppRouterName.rateProducts,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
+            Widget child;
             if (state.extra is List<OrderProductItemModel>) {
-              return RateProductsView(
+              child = RateProductsView(
                 products: state.extra as List<OrderProductItemModel>,
               );
-            }
-            if (state.extra is OrderDetailsModel) {
-              return RateProductsView(
+            } else if (state.extra is OrderDetailsModel) {
+              child = RateProductsView(
                 products: (state.extra as OrderDetailsModel).products,
               );
+            } else {
+              child = const RateProductsView(products: []);
             }
-            return const RateProductsView(products: []);
+            return buildSmoothTransitionPage(
+              context: context,
+              state: state,
+              child: child,
+            );
           },
         ),
       ],

@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/category_model.dart';
 import '../data/models/product_model.dart';
 import '../data/models/slider_model.dart';
 import '../data/repos/home_repo.dart';
 import 'home_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
+class HomeCubit extends Cubit<HomeState> with SafeEmitMixin {
   final HomeRepo homeRepo;
 
   Timer? _searchDebounce;

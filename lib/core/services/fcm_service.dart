@@ -28,31 +28,50 @@ class FcmService {
       await Firebase.initializeApp();
       final messaging = FirebaseMessaging.instance;
 
-      await LocalNotificationService.init(
-        onNotificationTap: _onNotificationClicked,
-      );
+      try {
+        await LocalNotificationService.init(
+          onNotificationTap: _onNotificationClicked,
+        );
+      } catch (e) {
+        log('LocalNotificationService init warning: $e');
+      }
 
-      await messaging.requestPermission(
-        alert: true,
-        badge: true,
-        sound: true,
-        provisional: false,
-      );
+      try {
+        await messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+          provisional: false,
+        );
+      } catch (e) {
+        log('Notification permission request warning: $e');
+      }
 
-      await messaging.setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+      try {
+        await messaging.setForegroundNotificationPresentationOptions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+      } catch (e) {
+        log('Foreground presentation warning: $e');
+      }
 
-      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+      try {
+        FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+      } catch (e) {
+        log('Background message handler warning: $e');
+      }
 
-      messaging.onRegistered.listen((newToken) async {
-        _fcmToken = newToken;
-        await _secureStorage.write(SecureStorageService.keyDeviceToken, newToken);
-      });
-
-      await messaging.register();
+      try {
+        messaging.onRegistered.listen((newToken) async {
+          _fcmToken = newToken;
+          await _secureStorage.write(SecureStorageService.keyDeviceToken, newToken);
+        });
+        await messaging.register();
+      } catch (e) {
+        log('FCM register warning: $e');
+      }
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         displayRemoteMessage(message);

@@ -1,11 +1,12 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../data/models/verify_otp_request_body.dart';
 import '../data/repos/client_verify_otp_repo.dart';
 import 'client_verify_otp_state.dart';
 
-class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> {
+class ClientVerifyOtpCubit extends Cubit<ClientVerifyOtpState> with SafeEmitMixin {
   final ClientVerifyOtpRepo verifyOtpRepo;
   final String phone;
   final bool isForgetPassword;

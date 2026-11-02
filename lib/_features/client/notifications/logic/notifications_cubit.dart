@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/notification_model.dart';
 import '../data/repos/notifications_repo.dart';
 import 'notifications_state.dart';
 
-class NotificationsCubit extends Cubit<NotificationsState> {
+class NotificationsCubit extends Cubit<NotificationsState> with SafeEmitMixin {
   final NotificationsRepo repo;
 
   NotificationsCubit(this.repo) : super(const NotificationsState());

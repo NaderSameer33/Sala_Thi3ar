@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import 'package:sala_thimar/_features/client/home/data/models/product_model.dart';
 import '../data/repos/favorites_repo.dart';
 import 'favorites_state.dart';
 
-class FavoritesCubit extends Cubit<FavoritesState> {
+class FavoritesCubit extends Cubit<FavoritesState> with SafeEmitMixin {
   final FavoritesRepo repo;
 
   FavoritesCubit(this.repo) : super(const FavoritesState());

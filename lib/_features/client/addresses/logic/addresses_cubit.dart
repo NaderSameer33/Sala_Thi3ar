@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/add_address_request_body.dart';
 import '../data/repos/addresses_repo.dart';
 import 'addresses_state.dart';
 
-class AddressesCubit extends Cubit<AddressesState> {
+class AddressesCubit extends Cubit<AddressesState> with SafeEmitMixin {
   final AddressesRepo _addressesRepo;
 
   AddressesCubit(this._addressesRepo) : super(const AddressesState());

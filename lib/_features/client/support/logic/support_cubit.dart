@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/send_contact_request_body.dart';
 import '../data/repos/support_repo.dart';
 import 'support_state.dart';
 
-class SupportCubit extends Cubit<SupportState> {
+class SupportCubit extends Cubit<SupportState> with SafeEmitMixin {
   final SupportRepo _supportRepo;
 
   SupportCubit(this._supportRepo) : super(const SupportState());

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/extension/spacing_extension.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_styles.dart';
-import '../../data/models/order_details_model.dart';
+import 'package:sala_thimar/_features/client/orders/data/models/order_details_model.dart';
+import 'package:sala_thimar/core/extension/spacing_extension.dart';
+import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_styles.dart';
 
-class RateProductCard extends StatelessWidget {
+class RateProductCard extends StatefulWidget {
   final OrderProductItemModel product;
   final int rating;
   final String comment;
@@ -21,6 +21,34 @@ class RateProductCard extends StatelessWidget {
     required this.onRatingChanged,
     required this.onCommentChanged,
   });
+
+  @override
+  State<RateProductCard> createState() => _RateProductCardState();
+}
+
+class _RateProductCardState extends State<RateProductCard> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.comment);
+  }
+
+  @override
+  void didUpdateWidget(covariant RateProductCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.comment != widget.comment &&
+        _controller.text != widget.comment) {
+      _controller.text = widget.comment;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +80,9 @@ class RateProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title.isNotEmpty ? product.title : 'طماطم',
+                      widget.product.title.isNotEmpty
+                          ? widget.product.title
+                          : 'طماطم',
                       style: AppStyles.font16BoldPrimary,
                     ),
                     2.verticalSpacing,
@@ -64,12 +94,12 @@ class RateProductCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${product.price} ر.س',
+                          '${widget.product.price} ر.س',
                           style: AppStyles.font16BoldPrimary,
                         ),
                         8.horizontalSpace,
                         Text(
-                          '${(product.price * 1.25).toInt()} ر.س',
+                          '${(widget.product.price * 1.25).toInt()} ر.س',
                           style: AppStyles.font12RegularGray.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: AppColors.textLightGray,
@@ -87,15 +117,15 @@ class RateProductCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(5, (index) {
               final starIndex = index + 1;
-              final isSelected = starIndex <= rating;
+              final isSelected = starIndex <= widget.rating;
               return GestureDetector(
-                onTap: () => onRatingChanged(starIndex),
+                onTap: () => widget.onRatingChanged(starIndex),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: Icon(
-                    isSelected ? Icons.star : Icons.star_border,
+                    isSelected ? Icons.star_rounded : Icons.star_border_rounded,
                     color: isSelected ? AppColors.orange : AppColors.border,
-                    size: 26.r,
+                    size: 30.r,
                   ),
                 ),
               );
@@ -104,16 +134,13 @@ class RateProductCard extends StatelessWidget {
           14.verticalSpacing,
           Container(
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: AppColors.inputFill,
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: AppColors.inputBorder),
             ),
             child: TextField(
-              controller: TextEditingController(text: comment)
-                ..selection = TextSelection.fromPosition(
-                  TextPosition(offset: comment.length),
-                ),
-              onChanged: onCommentChanged,
+              controller: _controller,
+              onChanged: widget.onCommentChanged,
               maxLines: 3,
               style: AppStyles.font14RegularDark,
               decoration: InputDecoration(
@@ -142,9 +169,9 @@ class RateProductCard extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       alignment: Alignment.center,
-      child: product.imageUrl.isNotEmpty
+      child: widget.product.imageUrl.isNotEmpty
           ? CachedNetworkImage(
-              imageUrl: product.imageUrl,
+              imageUrl: widget.product.imageUrl,
               fit: BoxFit.contain,
               errorWidget: (context, url, error) => Image.asset(
                 'assets/images/tomato.png',
@@ -158,4 +185,3 @@ class RateProductCard extends StatelessWidget {
     );
   }
 }
-

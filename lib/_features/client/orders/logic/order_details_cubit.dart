@@ -1,10 +1,11 @@
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/models/order_details_model.dart';
 import '../data/models/order_model.dart';
 import '../data/repos/orders_repo.dart';
 import 'order_details_state.dart';
 
-class OrderDetailsCubit extends Cubit<OrderDetailsState> {
+class OrderDetailsCubit extends Cubit<OrderDetailsState> with SafeEmitMixin {
   final OrdersRepo _ordersRepo;
 
   OrderDetailsCubit(this._ordersRepo) : super(const OrderDetailsState());

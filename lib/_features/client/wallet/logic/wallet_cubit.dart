@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/charge_wallet_request_body.dart';
 import '../data/repos/wallet_repo.dart';
 import 'wallet_state.dart';
 
-class WalletCubit extends Cubit<WalletState> {
+class WalletCubit extends Cubit<WalletState> with SafeEmitMixin {
   final WalletRepo walletRepo;
 
   WalletCubit(this.walletRepo) : super(const WalletState());
