@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../core/routers/app_router_name.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -126,7 +128,15 @@ class _MyOrdersViewBody extends StatelessWidget {
                               padding: EdgeInsets.only(bottom: 24.h),
                               itemCount: orders.length,
                               itemBuilder: (context, index) {
-                                return OrderItemCard(order: orders[index]);
+                                return OrderItemCard(
+                                  order: orders[index],
+                                  onTap: () {
+                                    context.push(
+                                      AppRouterName.orderDetails,
+                                      extra: orders[index],
+                                    );
+                                  },
+                                );
                               },
                             ),
                     ),
