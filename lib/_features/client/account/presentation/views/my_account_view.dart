@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:toastification/toastification.dart';
+import '../../../../../core/caching/shared_pref_service.dart';
+import '../../../../../core/constants/constant.dart';
 import '../../../../../core/extension/spacing_extension.dart';
 import '../../../../../core/routers/app_router_name.dart';
 import '../../../../../core/services/get_it_service.dart';
@@ -15,6 +17,7 @@ import '../components/account_header.dart';
 import '../components/account_menu_card.dart';
 import '../components/account_menu_item.dart';
 import '../components/logout_confirm_dialog.dart';
+import '../components/switch_to_driver_dialog.dart';
 
 class MyAccountView extends StatelessWidget {
   const MyAccountView({super.key});
@@ -52,6 +55,23 @@ class _MyAccountViewBody extends StatelessWidget {
     );
   }
 
+  void _showSwitchToDriverDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return SwitchToDriverDialog(
+          onConfirm: () async {
+            Navigator.of(dialogContext).pop();
+            await SharedPrefService.setString(AppConstant.userRole, 'driver');
+            if (context.mounted) {
+              context.go(AppRouterName.driverLogin);
+            }
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AccountCubit>();
@@ -59,30 +79,20 @@ class _MyAccountViewBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: BlocConsumer<AccountCubit, AccountState>(
+        listenWhen: (prev, curr) => prev.logoutStatus != curr.logoutStatus,
         listener: (context, state) {
           if (state.logoutStatus == AccountLogoutStatus.success) {
             Navigator.of(context, rootNavigator: true).pop();
-            toastification.show(
-              context: context,
-              type: ToastificationType.success,
-              title: Text(
-                state.logoutMessage.isNotEmpty
-                    ? state.logoutMessage
-                    : 'تم تسجيل الخروج بنجاح',
-              ),
-              autoCloseDuration: const Duration(seconds: 3),
-            );
             cubit.resetLogoutStatus();
             context.go(AppRouterName.clientLogin);
-          } else if (state.logoutStatus == AccountLogoutStatus.error) {
+          } else if (state.logoutStatus == AccountLogoutStatus.error &&
+              state.logoutMessage.isNotEmpty) {
             Navigator.of(context, rootNavigator: true).pop();
             toastification.show(
               context: context,
-              type: ToastificationType.error,
               title: Text(
-                state.errorMessage.isNotEmpty
-                    ? state.errorMessage
-                    : 'فشل تسجيل الخروج',
+                state.logoutMessage,
+                style: const TextStyle(fontFamily: 'Tajawal'),
               ),
               autoCloseDuration: const Duration(seconds: 3),
             );
@@ -132,7 +142,6 @@ class _MyAccountViewBody extends StatelessWidget {
                           context.push(AppRouterName.addresses);
                         },
                       ),
-                      
                     ],
                   ),
                   16.verticalSpacing,
@@ -198,6 +207,11 @@ class _MyAccountViewBody extends StatelessWidget {
                   16.verticalSpacing,
                   AccountMenuCard(
                     children: [
+                      AccountMenuItem(
+                        title: 'التحويل إلى وضع المندوب',
+                        iconData: Icons.local_shipping_outlined,
+                        onTap: () => _showSwitchToDriverDialog(context),
+                      ),
                       AccountMenuItem(
                         title: 'تسجيل الخروج',
                         showTrailingArrow: false,
