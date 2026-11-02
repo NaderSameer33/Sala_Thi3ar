@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:sala_thimar/core/base/safe_cubit.dart';
 import '../data/models/category_model.dart';
 import '../data/models/product_model.dart';
@@ -22,11 +25,117 @@ class HomeCubit extends Cubit<HomeState> with SafeEmitMixin {
   }
 
   Future<void> initHomeData() async {
+    determineUserLocation();
     await Future.wait([getSliders(), getCategories(), getProducts()]);
   }
 
   Future<void> refreshHomeData() async {
-    await initHomeData();
+    await Future.wait([
+      determineUserLocation(),
+      getSliders(),
+      getCategories(),
+      getProducts(),
+    ]);
+  }
+
+  Future<void> determineUserLocation() async {
+    emit(state.copyWith(locationState: RequestState.loading));
+    try {
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        emit(
+          state.copyWith(
+            locationState: RequestState.error,
+            userCity: 'الموقع غير مفعل',
+          ),
+        );
+        return;
+      }
+
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          emit(
+            state.copyWith(
+              locationState: RequestState.error,
+              userCity: 'حدد موقعك',
+            ),
+          );
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        emit(
+          state.copyWith(
+            locationState: RequestState.error,
+            userCity: 'حدد موقعك',
+          ),
+        );
+        return;
+      }
+
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.medium,
+          timeLimit: Duration(seconds: 10),
+        ),
+      );
+
+      final placemarks = await Geocoding().placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+        locale: const Locale('ar'),
+      );
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks.first;
+        final city =
+            (place.locality != null && place.locality!.trim().isNotEmpty)
+                ? place.locality!.trim()
+                : (place.subAdministrativeArea != null &&
+                   place.subAdministrativeArea!.trim().isNotEmpty)
+                ? place.subAdministrativeArea!.trim()
+                : (place.administrativeArea != null &&
+                   place.administrativeArea!.trim().isNotEmpty)
+                ? place.administrativeArea!.trim()
+                : '';
+
+        final sub =
+            (place.subLocality != null && place.subLocality!.trim().isNotEmpty)
+                ? place.subLocality!.trim()
+                : '';
+
+        String displayLocation = city;
+        if (sub.isNotEmpty && city.isNotEmpty && sub != city) {
+          displayLocation = '$sub - $city';
+        } else if (displayLocation.isEmpty) {
+          displayLocation = sub.isNotEmpty ? sub : 'موقعي الحالي';
+        }
+
+        emit(
+          state.copyWith(
+            locationState: RequestState.success,
+            userCity: displayLocation,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            locationState: RequestState.success,
+            userCity: 'موقعي الحالي',
+          ),
+        );
+      }
+    } catch (_) {
+      emit(
+        state.copyWith(
+          locationState: RequestState.error,
+          userCity: state.userCity.isNotEmpty ? state.userCity : 'حدد موقعك',
+        ),
+      );
+    }
   }
 
   List<SliderModel> dummySlider() {
@@ -192,7 +301,8 @@ class HomeCubit extends Cubit<HomeState> with SafeEmitMixin {
       ),
     );
   }
-   final List<ProductModel> dummySearchProducts = List.generate(
+
+  final List<ProductModel> dummySearchProducts = List.generate(
     4,
     (index) => const ProductModel(
       id: -1,

@@ -24,6 +24,9 @@ class HomeState extends Equatable {
   final String searchFailureMessage;
   final String searchKeyword;
 
+  final RequestState locationState;
+  final String userCity;
+
   const HomeState({
     this.slidersState = RequestState.initial,
     this.sliders = const [],
@@ -39,6 +42,8 @@ class HomeState extends Equatable {
     this.searchResults = const [],
     this.searchFailureMessage = '',
     this.searchKeyword = '',
+    this.locationState = RequestState.initial,
+    this.userCity = '',
   });
 
   bool get isSearching => searchKeyword.isNotEmpty;
@@ -63,6 +68,8 @@ class HomeState extends Equatable {
     List<ProductModel>? searchResults,
     String? searchMessage,
     String? searchKeyword,
+    RequestState? locationState,
+    String? userCity,
   }) {
     return HomeState(
       slidersState: slidersState ?? this.slidersState,
@@ -81,6 +88,8 @@ class HomeState extends Equatable {
       searchResults: searchResults ?? this.searchResults,
       searchFailureMessage: searchMessage ?? searchFailureMessage,
       searchKeyword: searchKeyword ?? this.searchKeyword,
+      locationState: locationState ?? this.locationState,
+      userCity: userCity ?? this.userCity,
     );
   }
 
@@ -100,5 +109,7 @@ class HomeState extends Equatable {
     searchResults,
     searchFailureMessage,
     searchKeyword,
+    locationState,
+    userCity,
   ];
 }

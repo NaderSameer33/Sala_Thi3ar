@@ -33,6 +33,7 @@ class CompleteOrderView extends StatelessWidget {
         BlocProvider.value(value: getIt<OrdersCubit>()),
         BlocProvider.value(value: getIt<AccountCubit>()..getProfile()),
         BlocProvider.value(value: getIt<AddressesCubit>()..getAddresses()),
+        BlocProvider.value(value: getIt<CartCubit>()),
       ],
       child: const _CompleteOrderViewBody(),
     );

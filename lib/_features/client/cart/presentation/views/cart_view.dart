@@ -1,8 +1,10 @@
-import 'package:go_router/go_router.dart';
-import '../../../../../core/routers/app_router_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 import '../../../../../core/extension/spacing_extension.dart';
+import '../../../../../core/routers/app_router_name.dart';
+import '../../../../../core/services/get_it_service.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_styles.dart';
 import '../../logic/cart_cubit.dart';
@@ -14,14 +16,26 @@ import '../components/cart_header.dart';
 import '../components/cart_items_list_section.dart';
 import '../components/cart_summary_section.dart';
 
-class CartView extends StatefulWidget {
+class CartView extends StatelessWidget {
   const CartView({super.key});
 
   @override
-  State<CartView> createState() => _CartViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: getIt<CartCubit>(),
+      child: const _CartViewContent(),
+    );
+  }
 }
 
-class _CartViewState extends State<CartView> {
+class _CartViewContent extends StatefulWidget {
+  const _CartViewContent();
+
+  @override
+  State<_CartViewContent> createState() => _CartViewContentState();
+}
+
+class _CartViewContentState extends State<_CartViewContent> {
   @override
   void initState() {
     super.initState();
@@ -36,7 +50,24 @@ class _CartViewState extends State<CartView> {
 
   @override
   Widget build(BuildContext context) {
-    return const _CartViewBody();
+    return BlocListener<CartCubit, CartState>(
+      listenWhen: (prev, curr) =>
+          curr.mutationMessage.isNotEmpty &&
+          prev.mutationMessage != curr.mutationMessage,
+      listener: (context, state) {
+        if (state.mutationMessage.isNotEmpty) {
+          toastification.show(
+            context: context,
+            title: Text(
+              state.mutationMessage,
+              style: const TextStyle(fontFamily: 'Tajawal'),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+          );
+        }
+      },
+      child: const _CartViewBody(),
+    );
   }
 }
 
@@ -107,7 +138,8 @@ class _CartViewBody extends StatelessWidget {
                         const CartSummarySection(),
                         24.verticalSpacing,
                         CartCheckoutButton(
-                          onPressed: () => context.push(AppRouterName.completeOrder),
+                          onPressed: () =>
+                              context.push(AppRouterName.completeOrder),
                         ),
                         30.verticalSpacing,
                       ],
