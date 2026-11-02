@@ -8,6 +8,7 @@ import 'package:sala_thimar/_features/client/product_details/logic/product_detai
 import 'package:sala_thimar/_features/client/product_details/logic/product_details_state.dart';
 import 'package:sala_thimar/core/extension/spacing_extension.dart';
 import 'package:sala_thimar/core/theme/app_colors.dart';
+import 'package:sala_thimar/core/theme/app_styles.dart';
 
 class ProductBottomCartBar extends StatelessWidget {
   const ProductBottomCartBar({super.key});
@@ -116,23 +117,13 @@ class ProductBottomCartBar extends StatelessWidget {
                                 8.horizontalSpacing,
                                 Text(
                                   'إضافة إلى السلة',
-                                  style: TextStyle(
-                                    fontFamily: 'Tajawal',
-                                    color: Colors.white,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: AppStyles.font15BoldWhite,
                                 ),
                               ],
                             ),
                             Text(
                               '$totalFormatted ر.س',
-                              style: TextStyle(
-                                fontFamily: 'Tajawal',
-                                color: Colors.white,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppStyles.font15BoldWhite,
                             ),
                           ],
                         ),

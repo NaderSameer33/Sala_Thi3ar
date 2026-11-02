@@ -66,12 +66,7 @@ class AddToCartBottomSheet extends StatelessWidget {
               children: [
                 Text(
                   'تم إضافة المنتج بنجاح',
-                  style: TextStyle(
-                    fontFamily: AppStyles.fontFamily,
-                    color: AppColors.primary,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppStyles.font16BoldPrimary,
                 ),
                 10.horizontalSpace,
                 Container(
@@ -124,31 +119,19 @@ class AddToCartBottomSheet extends StatelessWidget {
                   children: [
                     Text(
                       title.isNotEmpty ? title : 'طماطم',
-                      style: TextStyle(
-                        fontFamily: AppStyles.fontFamily,
-                        color: AppColors.primary,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppStyles.font16BoldPrimary,
                     ),
                     4.verticalSpacing,
                     Text(
                       'الكمية : $amount',
-                      style: TextStyle(
-                        fontFamily: AppStyles.fontFamily,
+                      style: AppStyles.font12RegularGray.copyWith(
                         color: AppColors.textLightGray,
-                        fontSize: 12.sp,
                       ),
                     ),
                     4.verticalSpacing,
                     Text(
                       '${_formatPrice(price)}ر.س',
-                      style: TextStyle(
-                        fontFamily: AppStyles.fontFamily,
-                        color: AppColors.primary,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppStyles.font16BoldPrimary,
                     ),
                   ],
                 ),
@@ -196,12 +179,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                       ),
                       child: Text(
                         'تصفح العروض',
-                        style: TextStyle(
-                          fontFamily: AppStyles.fontFamily,
-                          color: AppColors.primary,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppStyles.font14BoldPrimary,
                       ),
                     ),
                   ),
@@ -214,4 +192,3 @@ class AddToCartBottomSheet extends StatelessWidget {
     );
   }
 }
-

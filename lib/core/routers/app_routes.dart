@@ -1,5 +1,7 @@
+import '../../_features/client/orders/data/models/order_details_model.dart';
 import '../../_features/client/orders/presentation/views/complete_order_view.dart';
 import '../../_features/client/orders/presentation/views/order_details_view.dart';
+import '../../_features/client/orders/presentation/views/rate_products_view.dart';
 import '../../_features/client/orders/data/models/order_model.dart';
 import '../../_features/client/support/presentation/views/about_app_view.dart';
 import '../../_features/client/support/presentation/views/contact_us_view.dart';
@@ -140,8 +142,7 @@ abstract class AppRoutes {
                 isForgetPassword: isForgetPassword,
               );
             }
-            final phone = state.extra is String ? state.extra as String : '';
-            return ClientVerifyOtpView(phone: phone);
+            return const ClientVerifyOtpView(phone: '');
           },
         ),
         GoRoute(
@@ -277,9 +278,23 @@ abstract class AppRoutes {
             return OrderDetailsView(orderId: orderId);
           },
         ),
+        GoRoute(
+          path: AppRouterName.rateProducts,
+          builder: (context, state) {
+            if (state.extra is List<OrderProductItemModel>) {
+              return RateProductsView(
+                products: state.extra as List<OrderProductItemModel>,
+              );
+            }
+            if (state.extra is OrderDetailsModel) {
+              return RateProductsView(
+                products: (state.extra as OrderDetailsModel).products,
+              );
+            }
+            return const RateProductsView(products: []);
+          },
+        ),
       ],
     );
   }
 }
-
-
