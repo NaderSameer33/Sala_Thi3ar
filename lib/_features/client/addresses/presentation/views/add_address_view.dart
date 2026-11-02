@@ -55,18 +55,22 @@ class _AddAddressViewBodyState extends State<_AddAddressViewBody> {
   @override
   void initState() {
     super.initState();
+    _intinzationValue();
+  }
+
+  void _intinzationValue() {
     final address = widget.address;
     _selectedType = (address?.type == 'work' || address?.type == 'العمل') ? 'work' : 'home';
     _phoneController = TextEditingController(text: address?.phone ?? '');
     _descriptionController = TextEditingController(text: address?.description ?? address?.location ?? '');
-
+    
     if (!isEdit && _phoneController.text.isEmpty) {
       final profilePhone = getIt<AccountCubit>().state.profile?.phone ?? '';
       if (profilePhone.isNotEmpty) {
         _phoneController.text = profilePhone;
       }
     }
-
+    
     if (address != null && address.lat != 0 && address.lng != 0) {
       _currentPosition = LatLng(address.lat, address.lng);
     } else {

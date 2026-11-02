@@ -1,4 +1,6 @@
 import '../../_features/client/orders/presentation/views/complete_order_view.dart';
+import '../../_features/client/orders/presentation/views/order_details_view.dart';
+import '../../_features/client/orders/data/models/order_model.dart';
 import '../../_features/client/support/presentation/views/about_app_view.dart';
 import '../../_features/client/support/presentation/views/contact_us_view.dart';
 import '../../_features/client/support/presentation/views/faqs_view.dart';
@@ -251,6 +253,29 @@ abstract class AppRoutes {
         GoRoute(
           path: AppRouterName.suggestions,
           builder: (context, state) => const SuggestionsView(),
+        ),
+        GoRoute(
+          path: AppRouterName.orderDetails,
+          builder: (context, state) {
+            if (state.extra is OrderModel) {
+              final order = state.extra as OrderModel;
+              return OrderDetailsView(
+                orderId: order.id,
+                initialOrder: order,
+              );
+            }
+            if (state.extra is Map<String, dynamic>) {
+              final map = state.extra as Map<String, dynamic>;
+              final orderId = map['orderId'] as int? ?? 0;
+              final order = map['order'] as OrderModel?;
+              return OrderDetailsView(
+                orderId: orderId,
+                initialOrder: order,
+              );
+            }
+            final orderId = int.tryParse(state.extra?.toString() ?? '0') ?? 0;
+            return OrderDetailsView(orderId: orderId);
+          },
         ),
       ],
     );

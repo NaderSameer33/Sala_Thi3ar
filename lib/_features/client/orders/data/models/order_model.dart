@@ -20,32 +20,44 @@ class OrderModel {
 
   bool get isCanceled =>
       status.toLowerCase().contains('cancel') ||
-      statusTranslated.contains('ملغي');
+      status.toLowerCase().contains('reject') ||
+      statusTranslated.contains('ملغي') ||
+      statusTranslated.contains('مرفوض');
 
   bool get isFinished =>
       status.toLowerCase().contains('finish') ||
       status.toLowerCase().contains('complete') ||
-      statusTranslated.contains('منتهي');
+      status.toLowerCase().contains('done') ||
+      statusTranslated.contains('منتهي') ||
+      statusTranslated.contains('مكتمل');
+
+  bool get isInWay =>
+      status.toLowerCase().contains('way') ||
+      status.toLowerCase().contains('deliver') ||
+      statusTranslated.contains('طريق') ||
+      statusTranslated.contains('توصيل');
 
   String get statusTitle {
     if (statusTranslated.isNotEmpty) return statusTranslated;
     final s = status.toLowerCase();
-    if (s.contains('cancel')) return 'طلب ملغي';
-    if (s.contains('finish') || s.contains('complete')) return 'منتهي';
+    if (isCanceled) return 'طلب ملغي';
+    if (isFinished) return 'منتهي';
+    if (isInWay) return 'في الطريق';
     if (s.contains('prep')) return 'جاري التحضير';
-    if (s.contains('way') || s.contains('deliver')) return 'في الطريق';
-    if (s.contains('pend') || s.contains('wait')) return 'بإنتظار الموافقة';
+    if (s.contains('pend') || s.contains('wait') || s.contains('agree')) return 'بإنتظار الموافقة';
     return status.isNotEmpty ? status : 'بإنتظار الموافقة';
   }
 
   Color get statusTextColor {
     if (isCanceled) return AppColors.red;
+    if (isInWay) return const Color(0xFF2196F3);
     if (isFinished) return AppColors.textSecondary;
     return AppColors.primary;
   }
 
   Color get statusBackgroundColor {
     if (isCanceled) return AppColors.redLight;
+    if (isInWay) return const Color(0xFFE3F2FD);
     if (isFinished) return const Color(0xFFF3F3F3);
     return AppColors.primaryTint;
   }
@@ -87,4 +99,3 @@ class OrderModel {
     );
   }
 }
-

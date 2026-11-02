@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/services/api_service.dart';
 import '../models/create_order_request_body.dart';
+import '../models/order_details_model.dart';
 import '../models/order_model.dart';
 
 class OrdersRepo {
@@ -82,6 +83,53 @@ class OrdersRepo {
         return Right(data['message']?.toString() ?? 'شكرا لك لقد تم تنفيذ طلبك بنجاح');
       }
       return const Right('شكرا لك لقد تم تنفيذ طلبك بنجاح');
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, OrderDetailsModel>> getOrderDetails(int orderId) async {
+    try {
+      final response = await apiService.get(
+        endPoint: 'client/orders/$orderId',
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        if (data['status'] == 'fail') {
+          return Left(
+            ServerFailure(data['message']?.toString() ?? 'فشل تحميل تفاصيل الطلب'),
+          );
+        }
+        final rawData = data['data'];
+        if (rawData is Map<String, dynamic>) {
+          return Right(OrderDetailsModel.fromJson(rawData));
+        }
+      }
+      return Left(const ServerFailure('تعذر تحميل تفاصيل الطلب'));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, String>> cancelOrder(int orderId) async {
+    try {
+      final response = await apiService.post(
+        endPoint: 'client/orders/$orderId/cancel',
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        if (data['status'] == 'fail') {
+          return Left(
+            ServerFailure(data['message']?.toString() ?? 'فشل إلغاء الطلب'),
+          );
+        }
+        return Right(data['message']?.toString() ?? 'تم إلغاء الطلب بنجاح');
+      }
+      return const Right('تم إلغاء الطلب بنجاح');
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

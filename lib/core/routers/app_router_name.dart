@@ -26,4 +26,5 @@ abstract class AppRouterName {
   static const contactUs = '/contactUs';
   static const suggestions = '/suggestions';
   static const completeOrder = '/completeOrder';
+  static const orderDetails = '/orderDetails';
 }
