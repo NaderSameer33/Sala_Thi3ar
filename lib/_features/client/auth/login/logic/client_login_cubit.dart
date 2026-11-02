@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../core/services/fcm_service.dart';
 import '../data/models/login_request_body.dart';
 import '../data/repos/client_login_repo.dart';
 import 'client_login_state.dart';
 
 class ClientLoginCubit extends Cubit<ClientLoginState> {
   final ClientLoginRepo clientLoginRepo;
+  final FcmService fcmService;
 
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -13,7 +15,7 @@ class ClientLoginCubit extends Cubit<ClientLoginState> {
 
   bool isPasswordObscure = true;
 
-  ClientLoginCubit(this.clientLoginRepo) : super(ClientLoginInitial());
+  ClientLoginCubit(this.clientLoginRepo, this.fcmService) : super(ClientLoginInitial());
 
   void togglePasswordVisibility() {
     isPasswordObscure = !isPasswordObscure;
@@ -25,9 +27,12 @@ class ClientLoginCubit extends Cubit<ClientLoginState> {
 
     emit(ClientLoginLoading());
 
+    final token = await fcmService.getOrFetchToken();
+
     final requestBody = LoginRequestBody(
       phone: phoneController.text.trim(),
       password: passwordController.text,
+      deviceToken: token,
       userType: 'client',
     );
 

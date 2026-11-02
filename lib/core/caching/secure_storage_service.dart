@@ -8,6 +8,7 @@ class SecureStorageService {
 
   static const String keyUserToken = 'user_token';
   static const String keyUserData = 'user_data';
+  static const String keyDeviceToken = 'device_token';
 
   Future<void> write(String key, String value) async {
     await _storage.write(key: key, value: value);

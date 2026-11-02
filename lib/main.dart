@@ -8,6 +8,7 @@ import '_features/client/cart/logic/cart_state.dart';
 import '_features/client/favorites/logic/favorites_cubit.dart';
 import 'core/caching/shared_pref_service.dart';
 import 'core/routers/app_routes.dart';
+import 'core/services/fcm_service.dart';
 import 'core/services/get_it_service.dart';
 import 'core/theme/app_theme.dart';
 import 'package:toastification/toastification.dart';
@@ -17,6 +18,7 @@ void main() async {
 
   await SharedPrefService.init();
   setupGetIt();
+  await getIt<FcmService>().init();
 
   final initialRoute = await AppRoutes.getInitialRoute();
   AppRoutes.init(initialRoute);
