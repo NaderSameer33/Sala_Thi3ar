@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../../core/caching/shared_pref_service.dart';
-import '../../../../../../core/constants/constant.dart';
 import '../../../register/presentation/components/already_have_account_row.dart';
 import '../../logic/client_verify_otp_cubit.dart';
 import '../../logic/client_verify_otp_state.dart';
@@ -29,8 +27,6 @@ class ClientVerifyOtpView extends StatelessWidget {
     this.isForgetPassword = false,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -50,17 +46,6 @@ class _ClientVerifyOtpViewBody extends StatelessWidget {
     required this.title,
   });
 
-  void _navigateToLogin(BuildContext context) {
-    final role = SharedPrefService.getString(AppConstant.userRole);
-    if (role == 'driver') {
-      context.go(AppRouterName.driverLogin);
-    } else {
-      context.go(AppRouterName.clientLogin);
-    }
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +63,7 @@ class _ClientVerifyOtpViewBody extends StatelessWidget {
                 ),
                 autoCloseDuration: const Duration(seconds: 4),
               );
-              _navigateToLogin(context);
+              context.go(AppRouterName.clientLogin);
             } else if (state is ClientCheckCodeSuccess) {
               final cubit = context.read<ClientVerifyOtpCubit>();
               context.push(
@@ -160,7 +145,7 @@ class _ClientVerifyOtpViewBody extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 20.h, top: 8.h),
                     child: AlreadyHaveAccountRow(
                       onTap: () {
-                        _navigateToLogin(context);
+                        context.go(AppRouterName.clientLogin);
                       },
                     ),
                   ),
