@@ -20,7 +20,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _driverController;
+  late final AnimationController _animationController;
   late final Animation<double> _scaleAnimation;
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _rotateAnimation;
@@ -36,28 +36,28 @@ class _SplashViewState extends State<SplashView>
   }
 
   void _initAnimations() {
-    _driverController = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2800),
     );
 
     _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.0, 0.55, curve: Curves.elasticOut),
       ),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.0, 0.35, curve: Curves.easeIn),
       ),
     );
 
     _rotateAnimation = Tween<double>(begin: -0.06, end: 0.0).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.0, 0.50, curve: Curves.easeOutBack),
       ),
     );
@@ -67,28 +67,28 @@ class _SplashViewState extends State<SplashView>
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.35, 0.75, curve: Curves.easeOutCubic),
       ),
     );
 
     _fadeTextAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.35, 0.70, curve: Curves.easeIn),
       ),
     );
 
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.06).animate(
       CurvedAnimation(
-        parent: _driverController,
+        parent: _animationController,
         curve: const Interval(0.70, 1.0, curve: Curves.easeInOut),
       ),
     );
   }
 
   void _startAnimationAndNavigate() {
-    _driverController.forward().then((_) => _navigateNext());
+    _animationController.forward().then((_) => _navigateNext());
   }
 
   Future<void> _navigateNext() async {
@@ -111,17 +111,12 @@ class _SplashViewState extends State<SplashView>
       return;
     }
 
-    final role = SharedPrefService.getString(AppConstant.userRole);
-    if (role == 'driver') {
-      context.go(AppRouterName.driverLogin);
-    } else {
-      context.go(AppRouterName.clientLogin);
-    }
+    context.go(AppRouterName.clientLogin);
   }
 
   @override
   void dispose() {
-    _driverController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -179,13 +174,13 @@ class _SplashViewState extends State<SplashView>
                     children: [
                       Lottie.asset(
                         'assets/lottie/splash_animation.json',
-                        controller: _driverController,
+                        controller: _animationController,
                         width: 220.r,
                         height: 220.r,
                         fit: BoxFit.contain,
                       ),
                       AnimatedBuilder(
-                        animation: _driverController,
+                        animation: _animationController,
                         builder: (context, child) {
                           return Transform.rotate(
                             angle: _rotateAnimation.value,
@@ -243,7 +238,7 @@ class _SplashViewState extends State<SplashView>
                 ),
                 const Spacer(flex: 2),
                 AnimatedBuilder(
-                  animation: _driverController,
+                  animation: _animationController,
                   builder: (context, child) {
                     return Opacity(
                       opacity: _fadeTextAnimation.value,
@@ -257,7 +252,7 @@ class _SplashViewState extends State<SplashView>
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            width: 140.w * _driverController.value,
+                            width: 140.w * _animationController.value,
                             height: 4.h,
                             decoration: BoxDecoration(
                               color: AppColors.primary,

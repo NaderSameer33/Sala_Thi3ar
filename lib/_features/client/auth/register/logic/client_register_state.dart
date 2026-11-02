@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sala_thimar/_features/client/account/data/models/user_profile_model.dart';
 import '../data/models/register_response_model.dart';
 
 abstract class ClientRegisterState extends Equatable {
@@ -46,4 +47,22 @@ class ClientRegisterConfirmPasswordVisibilityChanged extends ClientRegisterState
 
   @override
   List<Object?> get props => [isObscure];
+}
+
+class ClientRegisterCitiesLoaded extends ClientRegisterState {
+  final List<UserProfileCity> cities;
+
+  const ClientRegisterCitiesLoaded(this.cities);
+
+  @override
+  List<Object?> get props => [cities];
+}
+
+class ClientRegisterCitySelected extends ClientRegisterState {
+  final UserProfileCity city;
+
+  const ClientRegisterCitySelected(this.city);
+
+  @override
+  List<Object?> get props => [city];
 }

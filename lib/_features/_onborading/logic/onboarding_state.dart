@@ -1,26 +1,26 @@
 import 'package:equatable/equatable.dart';
 
-enum UserRole { client, driver }
-
 class OnboardingState extends Equatable {
-  final UserRole selectedRole;
+  final int currentPage;
   final bool isSubmitting;
 
   const OnboardingState({
-    this.selectedRole = UserRole.client,
+    this.currentPage = 0,
     this.isSubmitting = false,
   });
 
+  bool get isLastPage => currentPage == 2;
+
   OnboardingState copyWith({
-    UserRole? selectedRole,
+    int? currentPage,
     bool? isSubmitting,
   }) {
     return OnboardingState(
-      selectedRole: selectedRole ?? this.selectedRole,
+      currentPage: currentPage ?? this.currentPage,
       isSubmitting: isSubmitting ?? this.isSubmitting,
     );
   }
 
   @override
-  List<Object?> get props => [selectedRole, isSubmitting];
+  List<Object?> get props => [currentPage, isSubmitting];
 }
