@@ -5,6 +5,8 @@ class RegisterRequestBody {
   final String phone;
   final String password;
   final String passwordConfirmation;
+  final String? cityId;
+  final String? countryId;
   final String gender;
   final String lat;
   final String lng;
@@ -14,13 +16,15 @@ class RegisterRequestBody {
     required this.phone,
     required this.password,
     required this.passwordConfirmation,
+    this.cityId,
+    this.countryId,
     this.gender = 'female',
     this.lat = '250.0515',
     this.lng = '290.45',
   });
 
   FormData toFormData() {
-    return FormData.fromMap({
+    final map = <String, dynamic>{
       'fullname': fullname,
       'phone': phone,
       'password': password,
@@ -28,8 +32,11 @@ class RegisterRequestBody {
       'gender': gender,
       'lat': lat,
       'lng': lng,
-    });
+    };
+    if (cityId != null && cityId!.isNotEmpty) {
+      map['city_id'] = cityId;
+      map['country_id'] = countryId ?? '1';
+    }
+    return FormData.fromMap(map);
   }
-
-  
 }

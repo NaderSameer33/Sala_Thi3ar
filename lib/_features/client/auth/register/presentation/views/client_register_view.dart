@@ -3,18 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import '../../../login/presentation/components/phone_input_field.dart';
-import '../../logic/client_register_cubit.dart';
-import '../../logic/client_register_state.dart';
-import '../components/already_have_account_row.dart';
-import '../components/register_header.dart';
+import 'package:toastification/toastification.dart';
 import '../../../../../../core/extension/spacing_extension.dart';
 import '../../../../../../core/routers/app_router_name.dart';
 import '../../../../../../core/services/get_it_service.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widgets/app_button.dart';
 import '../../../../../../core/widgets/app_input.dart';
-import 'package:toastification/toastification.dart';
+import '../../../login/presentation/components/phone_input_field.dart';
+import '../../logic/client_register_cubit.dart';
+import '../../logic/client_register_state.dart';
+import '../components/already_have_account_row.dart';
+import '../components/register_city_sheet.dart';
+import '../components/register_header.dart';
 
 class ClientRegisterView extends StatelessWidget {
   const ClientRegisterView({super.key});
@@ -30,6 +31,22 @@ class ClientRegisterView extends StatelessWidget {
 
 class _ClientRegisterViewBody extends StatelessWidget {
   const _ClientRegisterViewBody();
+
+  void _openCitySheet(BuildContext context, ClientRegisterCubit cubit) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.r)),
+      ),
+      builder: (_) => RegisterCitySheet(
+        cities: cubit.cities,
+        selectedCityId: cubit.selectedCity?.id,
+        onCitySelected: cubit.selectCity,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +118,14 @@ class _ClientRegisterViewBody extends StatelessWidget {
                             AppInput(
                               controller: cubit.cityController,
                               hintText: 'المدينة',
+                              readOnly: true,
+                              onTap: () => _openCitySheet(context, cubit),
                               prefixIcon: const Icon(
-                                Icons.flag_outlined,
+                                Icons.location_city_outlined,
+                                color: AppColors.textLightGray,
+                              ),
+                              suffixIcon: const Icon(
+                                Icons.keyboard_arrow_down_rounded,
                                 color: AppColors.textLightGray,
                               ),
                               validator: (value) =>
@@ -136,7 +159,7 @@ class _ClientRegisterViewBody extends StatelessWidget {
                             14.verticalSpacing,
                             AppInput(
                               controller: cubit.confirmPasswordController,
-                              hintText: 'كلمة المرور',
+                              hintText: 'تأكيد كلمة المرور',
                               isObscureText: cubit.isConfirmPasswordObscure,
                               prefixIcon: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
