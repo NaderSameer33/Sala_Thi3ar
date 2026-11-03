@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../caching/secure_storage_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../constants/constant.dart';
 
 class ApiService {
   final Dio dio;
@@ -12,7 +14,7 @@ class ApiService {
     required this.secureStorageService,
   }) {
     dio.options = BaseOptions(
-      baseUrl: 'https://thimar.amr.aait-d.com/api/',
+      baseUrl: dotenv.env[AppConstant.envBaseUrl] ?? 'https://thimar.amr.aait-d.com/api/',
       receiveDataWhenStatusError: true,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),

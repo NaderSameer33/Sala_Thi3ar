@@ -64,7 +64,7 @@
 
 | شاشة البداية المتحركة (Splash Screen) |
 |:---:|
-| <img src="docs/screenshots/splash.png" width="280" alt="Splash Screen"/> |
+| <img src="assets/screenshots/splash.png" width="280" alt="Splash Screen"/> |
 | انيميشن متكامل مع حركة الدوران والتكبير والانتقال السلس |
 
 ---
@@ -73,12 +73,12 @@
 
 | تسجيل الدخول (Login) | تسجيل حساب جديد (Register) | تفعيل الحساب (Active Account) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/login.png" width="260" alt="Login"/> | <img src="docs/screenshots/client_register.png" width="260" alt="Register"/> | <img src="docs/screenshots/active_account.png" width="260" alt="Active Account"/> |
+| <img src="assets/screenshots/login.png" width="260" alt="Login"/> | <img src="assets/screenshots/client_register.png" width="260" alt="Register"/> | <img src="assets/screenshots/active_account.png" width="260" alt="Active Account"/> |
 | دخول فوري برقم الجوال وكلمة المرور | تسجيل العميل واختيار المدينة بالبحث السريع | واجهة التفعيل المباشر بعد التسجيل |
 
 | تأكيد كود التحقق (Verify OTP) | نسيت كلمة المرور (Forget Password) | تعيين كلمة المرور الجديدة (New Password) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/verify_otp.png" width="260" alt="Verify OTP"/> | <img src="docs/screenshots/forget_password.png" width="260" alt="Forget Password"/> | <img src="docs/screenshots/create_new_password.png" width="260" alt="Create New Password"/> |
+| <img src="assets/screenshots/verify_otp.png" width="260" alt="Verify OTP"/> | <img src="assets/screenshots/forget_password.png" width="260" alt="Forget Password"/> | <img src="assets/screenshots/create_new_password.png" width="260" alt="Create New Password"/> |
 | إدخال 4 خانات PinCode مع مؤقت تنازلي | إدخال رقم الجوال لاستلام رمز الاستعادة | تعيين كلمة المرور الجديدة وتأكيدها بأمان |
 
 ---
@@ -87,12 +87,12 @@
 
 | الشاشة الرئيسية (Home View) | تصنيفات وأقسام المنتجات (Categories) | تفاصيل المنتج والتقييمات (Product Details) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/home.png" width="260" alt="Home"/> | <img src="docs/screenshots/caregory_products.png" width="260" alt="Category Products"/> | <img src="docs/screenshots/product_details.png" width="260" alt="Product Details"/> |
+| <img src="assets/screenshots/home.png" width="260" alt="Home"/> | <img src="assets/screenshots/caregory_products.png" width="260" alt="Category Products"/> | <img src="assets/screenshots/product_details.png" width="260" alt="Product Details"/> |
 | التقاط الموقع الحي، بنرات العروض، والمنتجات | تصفح الأقسام وفلترة المنتجات بدقة | معرض الصور، الخصم، العداد، والتقييمات |
 
 | قائمة المفضلة (Favorites) | فلترة وتصفية المنتجات (Filter Sheet) |
 |:---:|:---:|
-| <img src="docs/screenshots/favorites.png" width="260" alt="Favorites"/> | <img src="docs/screenshots/filter.png" width="260" alt="Filter"/> |
+| <img src="assets/screenshots/favorites.png" width="260" alt="Favorites"/> | <img src="assets/screenshots/filter.png" width="260" alt="Filter"/> |
 | حفظ المنتجات المفضلة بنقرة زر والرجوع إليها | فرز حسب السعر، الأحدث، والأعلى تقييماً |
 
 ---
@@ -101,7 +101,7 @@
 
 | إضافة المنتج للسلة (Added Success) | سلة المشتريات (Cart View) | إتمام الطلب (Complete Order) | تأكيد الطلب بنجاح (Order Done) |
 |:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/added_success.png" width="220" alt="Added Success"/> | <img src="docs/screenshots/cart.png" width="220" alt="Cart"/> | <img src="docs/screenshots/complete_order.png" width="220" alt="Complete Order"/> | <img src="docs/screenshots/order_done.png" width="220" alt="Order Done"/> |
+| <img src="assets/screenshots/added_success.png" width="220" alt="Added Success"/> | <img src="assets/screenshots/cart.png" width="220" alt="Cart"/> | <img src="assets/screenshots/complete_order.png" width="220" alt="Complete Order"/> | <img src="assets/screenshots/order_done.png" width="220" alt="Order Done"/> |
 | تأكيد بصري فوري بإضافة المنتج | الكوبونات، الضريبة، وحساب التوصيل | اختيار العنوان، الموعد، وطريقة الدفع | بطاقة تهنئة بنجاح تقديم الطلب ورقم التتبع |
 
 ---
@@ -110,12 +110,12 @@
 
 | الطلبات الحالية (Current Orders) | الطلبات المنتهية (Finished Orders) | تفاصيل طلب قيد التنفيذ (Pending Order) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/my_current_orders.png" width="260" alt="Current Orders"/> | <img src="docs/screenshots/my_finished_orders.png" width="260" alt="Finished Orders"/> | <img src="docs/screenshots/pending_order_details.png" width="260" alt="Pending Order Details"/> |
+| <img src="assets/screenshots/my_current_orders.png" width="260" alt="Current Orders"/> | <img src="assets/screenshots/my_finished_orders.png" width="260" alt="Finished Orders"/> | <img src="assets/screenshots/pending_order_details.png" width="260" alt="Pending Order Details"/> |
 | تتبع الطلبات الجارية ومراحل تجهيزها | سجل وأرشيف الطلبات المكتملة مسبقاً | مسار الطلب خطوة بخطوة وإلغاء الطلب |
 
 | تفاصيل الطلب المكتمل (Completed Order) | تقييم المنتجات (Rate Products) |
 |:---:|:---:|
-| <img src="docs/screenshots/completed_order_details.png" width="260" alt="Completed Order Details"/> | <img src="docs/screenshots/rate_products.png" width="260" alt="Rate Products"/> |
+| <img src="assets/screenshots/completed_order_details.png" width="260" alt="Completed Order Details"/> | <img src="assets/screenshots/rate_products.png" width="260" alt="Rate Products"/> |
 | فاتورة الطلب كاملة، الأسعار، وعنوان التوصيل | نظام التقييم بالنجوم وكتابة التعليقات والملاحظات |
 
 ---
@@ -124,7 +124,7 @@
 
 | صفحة حسابي (My Account) | تعديل البيانات الشخصية (Profile Edit) | العناوين المحفوظة (Addresses) | إضافة عنوان جديد (Add Address) |
 |:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/my_account.png" width="220" alt="My Account"/> | <img src="docs/screenshots/profile.png" width="220" alt="Profile"/> | <img src="docs/screenshots/addresses.png" width="220" alt="Addresses"/> | <img src="docs/screenshots/add_address.png" width="220" alt="Add Address"/> |
+| <img src="assets/screenshots/my_account.png" width="220" alt="My Account"/> | <img src="assets/screenshots/profile.png" width="220" alt="Profile"/> | <img src="assets/screenshots/addresses.png" width="220" alt="Addresses"/> | <img src="assets/screenshots/add_address.png" width="220" alt="Add Address"/> |
 | القائمة الرئيسية، رصيد المحفظة، وتسجيل الخروج | تعديل الاسم، الجوال، وتحديث الصورة | قائمة العناوين المحفوظة مع نوع العنوان | تحديد الموقع على الخريطة وإدخال التفاصيل |
 
 ---
@@ -133,7 +133,7 @@
 
 | المحفظة الرقمية (Wallet) | شحن الرصيد فوراً (Charge Now) | سجل المعاملات المالية (Transactions) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/wallet.png" width="260" alt="Wallet"/> | <img src="docs/screenshots/charge_now.png" width="260" alt="Charge Now"/> | <img src="docs/screenshots/transactions_history.png" width="260" alt="Transactions History"/> |
+| <img src="assets/screenshots/wallet.png" width="260" alt="Wallet"/> | <img src="assets/screenshots/charge_now.png" width="260" alt="Charge Now"/> | <img src="assets/screenshots/transactions_history.png" width="260" alt="Transactions History"/> |
 | استعراض الرصيد الحالي وإدارة المدفوعات | شحن رصيد المحفظة عبر البطاقات الائتمانية | تفاصيل كافة عمليات الشحن والخصم مع التواريخ |
 
 ---
@@ -142,12 +142,12 @@
 
 | التنبيهات والإشعارات (Notifications) | عن التطبيق (About App) | تواصل معنا (Call Us) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/notifications.png" width="260" alt="Notifications"/> | <img src="docs/screenshots/about_app.png" width="260" alt="About App"/> | <img src="docs/screenshots/call_us.png" width="260" alt="Call Us"/> |
+| <img src="assets/screenshots/notifications.png" width="260" alt="Notifications"/> | <img src="assets/screenshots/about_app.png" width="260" alt="About App"/> | <img src="assets/screenshots/call_us.png" width="260" alt="Call Us"/> |
 | إشعارات لحظية بحالة الطلبات والعروض | نبذة عن رؤية ورسالة سلة ثمار | قنوات التواصل المباشر ورقم خدمة العملاء |
 
 | الأسئلة الشائعة (FAQ) | سياسة الخصوصية (Privacy Policy) | المقترحات والشكاوى (Suggestions) |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/faq.png" width="260" alt="FAQ"/> | <img src="docs/screenshots/privacy.png" width="260" alt="Privacy"/> | <img src="docs/screenshots/suggestions.png" width="260" alt="Suggestions"/> |
+| <img src="assets/screenshots/faq.png" width="260" alt="FAQ"/> | <img src="assets/screenshots/privacy.png" width="260" alt="Privacy"/> | <img src="assets/screenshots/suggestions.png" width="260" alt="Suggestions"/> |
 | إجابات جاهزة على أكثر الاستفسارات تكراراً | الشروط والأحكام وسياسات حماية البيانات | نموذج إرسال الاقتراحات والملاحظات مباشرة للإدارة |
 
 ---
