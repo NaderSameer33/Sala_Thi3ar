@@ -9,9 +9,14 @@ import 'core/routers/app_routes.dart';
 import 'core/services/fcm_service.dart';
 import 'core/services/get_it_service.dart';
 import 'core/theme/app_theme.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (_) {}
 
   await SharedPrefService.init();
   setupGetIt();
